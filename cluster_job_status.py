@@ -138,7 +138,7 @@ for line in lines:
 
 fp.close()
 
-sys.exit(0)
+#sys.exit(0)
 
 import vtk
 
@@ -196,12 +196,12 @@ for j in range(256):
 
 # get the colours
 rgb = [0.0, 0.0, 0.0]
-for host in host_list:
-    hostname = host.get_hostname()
-    host_num_jobs = host.get_num_jobs()
-    max_host_jobs = host.get_max_jobs()
-    lut.GetColor(float(host_num_jobs)/float(max_host_jobs), rgb)
-    host.set_rgb(rgb)
+for node in node_list:
+    hostname = node.get_hostname()
+    node_num_jobs = node.get_num_jobs()
+    node_max_jobs = node.get_max_jobs()
+    lut.GetColor(float(node_num_jobs)/float(node_max_jobs), rgb)
+    node.set_rgb(rgb)
 
 # set up the scalar bar
 scalar_bar = vtk.vtkScalarBarActor()
@@ -225,10 +225,10 @@ scalar_bar_label_prop.ItalicOff()
 
 renderer.AddActor(scalar_bar)
 
-### generate the host matrix
-for host in host_list:
-    host.add_box(renderer)
-    host.add_label(renderer)
+### generate the node matrix
+for node in node_list:
+    node.add_box(renderer)
+    node.add_label(renderer)
 
 # set up the camera properly
 renderer.ResetCamera()
@@ -237,7 +237,7 @@ renderer.GetActiveCamera().Azimuth(140)
 renderer.GetActiveCamera().Elevation(30)
 renderer.GetActiveCamera().Zoom(1.3)
 
-interactive = 0
+#interactive = 0
 if interactive:
     # Render the scene and start interaction.
     iren.Initialize()
