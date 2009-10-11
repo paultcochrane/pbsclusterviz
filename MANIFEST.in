@@ -1,0 +1,20 @@
+# base stuff to include
+include AUTHORS
+include README
+include CHANGES
+include COPYING
+include TODO
+include BUGS
+include MANIFEST
+include setup.py
+include bin/cluster_job_status
+include bin/cluster_load_status
+
+# add base package files
+include pbsclusterviz/__init__.py
+include pbsclusterviz/compute_node.py
+
+# add PBS files
+include pbsclusterviz/pbs/__init__.py
+include pbsclusterviz/pbs/pbsnodes.py
+include pbsclusterviz/pbs/xml_handler.py
