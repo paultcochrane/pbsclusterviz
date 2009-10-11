@@ -26,7 +26,7 @@ The main file for the cluster_job_status application
 import pbs
 from pbs.pbsnodes import PBSNodes, Node
 from pbs.xml_handler import PBSNodesXMLHandler
-from compute_host import ComputeNode
+from compute_node import ComputeNode
 import xml.sax
 import getopt
 import sys, re
