@@ -1,9 +1,11 @@
 # format: name x-position y-position
+orac 0 0
 # 'pozzo' partition
 centaurus 3 0 
 estragon 2 0
 pozzo 1 0
 # 'cluh' partition
+cluhadm 0 5
 lcn01 1 5
 lcn02 2 5
 lcn03 3 5
@@ -21,6 +23,7 @@ lcn14 6 6
 lcn15 7 6
 lcn16 8 6
 # 'paris' partition
+paris 0 1
 paris-n001 1 1
 paris-n002 2 1
 paris-n003 3 1
@@ -33,6 +36,7 @@ paris-n009 3 2
 paris-n010 4 2
 paris-n011 5 2
 # 'tc' partition
+tclog 0 3
 tcn01 1 3
 tcn02 2 3
 tcn03 3 3
@@ -45,4 +49,3 @@ tcn09 3 4
 tcn10 4 4
 tcn11 5 4
 tcn12 6 4
-

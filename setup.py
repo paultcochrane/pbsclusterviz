@@ -13,7 +13,7 @@ a=setup(name="pbsclusterviz",
       license="GPL",
       keywords="PBS Torque Maui Cluster HPC Visualisation",
       platforms="OS Independent",
-      packages=['pbs'],
+      packages=['pbsclusterviz', 'pbsclusterviz.pbs'],
       scripts=['bin/cluster_job_status bin/cluster_load_status'],
 )
 

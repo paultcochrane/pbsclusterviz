@@ -1,1 +1,7 @@
  - cluster utilisation needs to be added to cluster_job_status
+ - install epydoc
+ - implement the configuration file format that Holger recently used for the
+   node list
+ - add documentation
+ - add the title text of the output images as a configuration option
+ - 

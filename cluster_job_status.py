@@ -17,16 +17,14 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,
 # USA.
 
-# $Id$
-
 """
 The main file for the cluster_job_status application
 """
 
-import pbs
-from pbs.pbsnodes import PBSNodes, Node
-from pbs.xml_handler import PBSNodesXMLHandler
-from compute_node import ComputeNode
+import pbsclusterviz
+from pbsclusterviz.pbs.pbsnodes import PBSNodes, Node
+from pbsclusterviz.pbs.xml_handler import PBSNodesXMLHandler
+from pbsclusterviz.compute_node import ComputeNode
 import xml.sax
 import getopt
 import sys, re
@@ -62,7 +60,7 @@ except getopt.GetoptError:
 interactive = False
 xml_file = None
 output_file = "cluster_job_status.png"
-pbs.__debug = False
+pbsclusterviz.pbs.__debug = False
 for option, arg in options_list:
     if option in ("-h", "--help"):
         usage()
@@ -81,7 +79,7 @@ for option, arg in options_list:
     elif option in ("-o", "--outfile"):
         output_file = arg
     elif option in ("-d", "--debug"):
-        pbs.__debug = True
+        pbsclusterviz.pbs.__debug = True
 
 if len(args_list) > 2:
     print "Too many arguments"
@@ -104,7 +102,6 @@ else:
 for node in pbsnodes.get_node_list():
     print "%s %i" % (node.get_name(), node.get_num_jobs())
 node_table = pbsnodes.get_node_table()
-print node_table
 
 # read in the node list
 fp = open("nodes", "r")
@@ -121,13 +118,12 @@ for line in lines:
         pass
     else:
         node_info = line.split(' ', 3)
-        print line
         node_name = node_info[0]
         x_pos = node_info[1]
         y_pos = node_info[2]
 
     if node_table.has_key(node_name):
-        node = ComputeNode()
+        node = ComputeNode(display_mode = "jobs", three_d_view = True)
         node.set_hostname(node_name)
         node.set_max_jobs(node_table[node_name].get_num_processors())
         node.set_num_jobs(node_table[node_name].get_num_jobs())
