@@ -18,7 +18,7 @@
 # $Id$
 
 """
-File containing the PBSNodes class
+File containing the PBSNodes and Node classes
 """
 
 import re
