@@ -8,11 +8,15 @@ class ComputeHost(object):
     def __init__(self,
             hostname = "",
             max_load = 0.0,
+            max_jobs = 0,
+            num_jobs = 0,
             xy_pos = (0, 0),
             three_d_view = None,
             ):
         self.hostname = hostname
         self.max_load = max_load
+        self.max_jobs = max_jobs
+        self.num_jobs = num_jobs
         self.load_avg = 0.0
         self.up_state = True  # assume the host is up
         self.grid_x_pos = float(xy_pos[0])
@@ -33,6 +37,18 @@ class ComputeHost(object):
 
     def set_max_load(self, max_load):
         self.max_load = max_load
+
+    def get_max_jobs(self):
+        return self.max_jobs
+
+    def set_max_jobs(self, max_jobs):
+        self.max_jobs = max_jobs
+
+    def get_num_jobs(self):
+        return self.num_jobs
+
+    def set_num_jobs(self, num_jobs):
+        self.num_jobs = num_jobs
 
     def get_load_avg(self):
         return self.load_avg
