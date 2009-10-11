@@ -1,9 +1,18 @@
 #!/usr/bin/env python
 
+"""
+File containing the ComputeNode class
+"""
+
 import vtk
 
 class ComputeNode(object):
     """
+    The ComputeNode class
+
+    ComputeNodes contain information about a node's load, maximum possible
+    number of jobs, current number of jobs and where it is to be displayed
+    on the node load and job spread matrices.
     """
     def __init__(self,
             hostname = "",
@@ -28,71 +37,106 @@ class ComputeNode(object):
 
     def get_hostname(self):
         """
+        Return the node's hostname
         """
         return self.hostname
 
     def set_hostname(self, hostname):
         """
+        Set the node's hostname
+
+        @param hostname: the hostname to set
+        @type hostname: string
         """
         self.hostname = hostname
 
     def get_max_load(self):
         """
+        Return the node's maximum load
         """
         return self.max_load
 
     def set_max_load(self, max_load):
         """
+        Set the node's maximum load
+
+        @param max_load: the load to set
+        @type max_load: float
         """
         self.max_load = max_load
 
     def get_max_jobs(self):
         """
+        Return the maximum number of jobs the node can run
         """
         return self.max_jobs
 
     def set_max_jobs(self, max_jobs):
         """
+        Set the node's maximum number of jobs
+
+        @param max_jobs: the maximum number of jobs
+        @type max_jobs: integer
         """
         self.max_jobs = max_jobs
 
     def get_num_jobs(self):
         """
+        Return the current number of jobs running on the node
         """
         return self.num_jobs
 
     def set_num_jobs(self, num_jobs):
         """
+        Set the number of jobs currently running on the nodes
+
+        @param num_jobs: the currently running number of jobs
+        @type num_jobs: integer
         """
         self.num_jobs = num_jobs
 
     def get_load_avg(self):
         """
+        Return the node's current load average
         """
         return self.load_avg
 
     def set_load_avg(self, load_avg):
         """
+        Set the node's current load average
+
+        @param load_avg: the current load average
+        @type load_avg: float
         """
         self.load_avg = load_avg
 
     def is_down(self):
         """
+        Returns true if the node is down
         """
         return not self.up_state
 
     def set_node_down(self):
         """
+        Set the node to be in the 'down' state
         """
         self.up_state = False
 
     def get_rgb(self):
         """
+        Return the rgb colour value currently assigned to the node as a list
         """
         return self.rgb
 
     def set_rgb(self, rgb):
         """
+        Set the rgb colour value list for the node.
+
+        The list is organised as follows: [red, green, blue] (but you
+        probably guessed that)
+
+        @param rgb: the list of rgb values
+        @type rgb: list of floats
         """
         self.rgb[0] = rgb[0]
         self.rgb[1] = rgb[1]
@@ -100,6 +144,8 @@ class ComputeNode(object):
 
     def get_box_height(self):
         """
+        Return the height of the box representing the node in the load
+        matrix.
         """
         if self.three_d_view:
             return self.box_scale*self.load_avg/self.max_load
@@ -108,37 +154,59 @@ class ComputeNode(object):
 
     def get_box_width(self):
         """
+        Return the width of the box representing the node in the load or job
+        matrix.
         """
         return self.box_scale
 
     def get_grid_x_pos(self):
         """
+        Return the x position of the node box within the grid
         """
         return self.grid_x_pos
 
     def set_grid_x_pos(self, grid_x_pos):
         """
+        Set the x position of the node box within the grid
+
+        @param grid_x_pos: the grid x position
+        @type grid_x_pos: integer
         """
         self.grid_x_pos = float(grid_x_pos)
 
     def get_grid_y_pos(self):
         """
+        Return the y position of the node box within the grid
         """
         return self.grid_y_pos
 
     def set_grid_y_pos(self, grid_y_pos):
         """
+        Set the y position of the node box within the grid
+
+        @param grid_y_pos: the grid y position
+        @type grid_y_pos: integer
         """
         self.grid_y_pos = float(grid_y_pos)
 
     def set_grid_xy_pos(self, grid_x_pos, grid_y_pos):
         """
+        Set the x-y position of the node box within the grid
+
+        @param grid_x_pos: the grid x position
+        @type grid_x_pos: integer
+        @param grid_y_pos: the grid y position
+        @type grid_y_pos: integer
         """
         self.set_grid_x_pos(grid_x_pos)
         self.set_grid_y_pos(grid_y_pos)
 
     def add_box(self, renderer):
         """
+        Add a box to the given renderer object
+
+        @param renderer: the vtk renderer
+        @type renderer: vtk renderer object
         """
         # set up the box to display
         voxel_points = vtk.vtkPoints()
@@ -190,6 +258,11 @@ class ComputeNode(object):
 
     def add_label(self, renderer):
         """
+        Add a label to the given renderer.  This actually adds a label to
+        the box within the load or job matrix
+
+        @param renderer: the vtk renderer to add the label to
+        @type renderer: vtk renderer object
         """
         # make a label for the box
         node_label = vtk.vtkTextMapper()
