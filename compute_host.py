@@ -2,7 +2,7 @@
 
 import vtk
 
-class ComputeHost(object):
+class ComputeNode(object):
     """
     """
     def __init__(self,
@@ -18,7 +18,7 @@ class ComputeHost(object):
         self.max_jobs = max_jobs
         self.num_jobs = num_jobs
         self.load_avg = 0.0
-        self.up_state = True  # assume the host is up
+        self.up_state = True  # assume the node is up
         self.grid_x_pos = float(xy_pos[0])
         self.grid_y_pos = float(xy_pos[1])
         self.rgb = [ 0.0, 0.0, 0.0 ]
@@ -81,7 +81,7 @@ class ComputeHost(object):
         """
         return not self.up_state
 
-    def set_host_down(self):
+    def set_node_down(self):
         """
         """
         self.up_state = False
@@ -178,7 +178,7 @@ class ComputeHost(object):
         voxel_mapper = vtk.vtkDataSetMapper()
         voxel_mapper.SetInput(voxel_grid)
 
-        # if the host is down make the colour white
+        # if the node is down make the colour white
         if self.is_down():
             [r, g, b] = [1.0, 1.0, 1.0]
         else:
@@ -192,18 +192,18 @@ class ComputeHost(object):
         """
         """
         # make a label for the box
-        host_label = vtk.vtkTextMapper()
-        host_label.SetInput(self.get_hostname())
+        node_label = vtk.vtkTextMapper()
+        node_label.SetInput(self.get_hostname())
 
         # use the relevant text properties
-        host_label_prop = host_label.GetTextProperty()
-        host_label_prop.ShallowCopy(host_label_prop)
-        host_label_prop.SetJustificationToCentered()
-        host_label_prop.SetVerticalJustificationToTop()
-        host_label_prop.SetFontSize(8)
-        host_label_prop.BoldOn()
-        host_label_prop.SetFontFamilyToCourier()
-        host_label_prop.SetOpacity(1.0)
+        node_label_prop = node_label.GetTextProperty()
+        node_label_prop.ShallowCopy(node_label_prop)
+        node_label_prop.SetJustificationToCentered()
+        node_label_prop.SetVerticalJustificationToTop()
+        node_label_prop.SetFontSize(8)
+        node_label_prop.BoldOn()
+        node_label_prop.SetFontFamilyToCourier()
+        node_label_prop.SetOpacity(1.0)
 
         # make the actor for the label
         box_width = self.get_box_width()
@@ -211,17 +211,17 @@ class ComputeHost(object):
         y_pos = -self.grid_scale*self.get_grid_y_pos()-box_width*1.2
         z_pos = self.get_box_height()
 
-        host_label_actor = vtk.vtkTextActor3D()
-        host_label_actor.SetPosition(x_pos, z_pos, y_pos)
-        host_label_actor.SetInput(self.get_hostname())
-        host_label_actor.SetScale(0.1, 0.1, 0.1)
-        host_label_actor.SetTextProperty(host_label_prop)
+        node_label_actor = vtk.vtkTextActor3D()
+        node_label_actor.SetPosition(x_pos, z_pos, y_pos)
+        node_label_actor.SetInput(self.get_hostname())
+        node_label_actor.SetScale(0.1, 0.1, 0.1)
+        node_label_actor.SetTextProperty(node_label_prop)
         if self.three_d_view:
-            host_label_actor.SetOrientation(30, 180, 0)
+            node_label_actor.SetOrientation(30, 180, 0)
         else:
-            host_label_actor.SetOrientation(90, 180, 0)
+            node_label_actor.SetOrientation(90, 180, 0)
 
-        renderer.AddActor(host_label_actor)
+        renderer.AddActor(node_label_actor)
 
         # if we're down, add a label to say as much
         if self.is_down():
@@ -251,9 +251,9 @@ class ComputeHost(object):
             down_label_actor.SetScale(0.1, 0.1, 0.1)
             down_label_actor.SetTextProperty(down_label_prop)
             if self.three_d_view:
-                host_label_actor.SetOrientation(30, 180, 0)
+                node_label_actor.SetOrientation(30, 180, 0)
             else:
-                host_label_actor.SetOrientation(90, 180, 0)
+                node_label_actor.SetOrientation(90, 180, 0)
 
             renderer.AddActor(down_label_actor)
 

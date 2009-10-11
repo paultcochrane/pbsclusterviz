@@ -26,7 +26,7 @@ The main file for the cluster_job_status application
 import pbs
 from pbs.pbsnodes import PBSNodes, Node
 from pbs.xml_handler import PBSNodesXMLHandler
-from compute_host import ComputeHost
+from compute_host import ComputeNode
 import xml.sax
 import getopt
 import sys, re
@@ -127,7 +127,7 @@ for line in lines:
         y_pos = node_info[2]
 
     if node_table.has_key(node_name):
-        node = ComputeHost()
+        node = ComputeNode()
         node.set_hostname(node_name)
         node.set_max_jobs(node_table[node_name].get_num_processors())
         node.set_num_jobs(node_table[node_name].get_num_jobs())
