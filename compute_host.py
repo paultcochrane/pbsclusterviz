@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-# $Id: cluster_status.py 28 2009-04-24 15:27:36Z cochrane $
-
 import vtk
 
 class ComputeHost(object):
+    """
+    """
     def __init__(self,
             hostname = "",
             max_load = 0.0,
@@ -27,75 +27,119 @@ class ComputeHost(object):
         self.three_d_view = three_d_view
 
     def get_hostname(self):
+        """
+        """
         return self.hostname
 
     def set_hostname(self, hostname):
+        """
+        """
         self.hostname = hostname
 
     def get_max_load(self):
+        """
+        """
         return self.max_load
 
     def set_max_load(self, max_load):
+        """
+        """
         self.max_load = max_load
 
     def get_max_jobs(self):
+        """
+        """
         return self.max_jobs
 
     def set_max_jobs(self, max_jobs):
+        """
+        """
         self.max_jobs = max_jobs
 
     def get_num_jobs(self):
+        """
+        """
         return self.num_jobs
 
     def set_num_jobs(self, num_jobs):
+        """
+        """
         self.num_jobs = num_jobs
 
     def get_load_avg(self):
+        """
+        """
         return self.load_avg
 
     def set_load_avg(self, load_avg):
+        """
+        """
         self.load_avg = load_avg
 
     def is_down(self):
+        """
+        """
         return not self.up_state
 
     def set_host_down(self):
+        """
+        """
         self.up_state = False
 
     def get_rgb(self):
+        """
+        """
         return self.rgb
 
     def set_rgb(self, rgb):
+        """
+        """
         self.rgb[0] = rgb[0]
         self.rgb[1] = rgb[1]
         self.rgb[2] = rgb[2]
 
     def get_box_height(self):
+        """
+        """
         if self.three_d_view:
             return self.box_scale*self.load_avg/self.max_load
         else:
             return 0.0
 
     def get_box_width(self):
+        """
+        """
         return self.box_scale
 
     def get_grid_x_pos(self):
+        """
+        """
         return self.grid_x_pos
 
     def set_grid_x_pos(self, grid_x_pos):
+        """
+        """
         self.grid_x_pos = float(grid_x_pos)
 
     def get_grid_y_pos(self):
+        """
+        """
         return self.grid_y_pos
 
     def set_grid_y_pos(self, grid_y_pos):
+        """
+        """
         self.grid_y_pos = float(grid_y_pos)
 
     def set_grid_xy_pos(self, grid_x_pos, grid_y_pos):
+        """
+        """
         self.set_grid_x_pos(grid_x_pos)
         self.set_grid_y_pos(grid_y_pos)
 
     def add_box(self, renderer):
+        """
+        """
         # set up the box to display
         voxel_points = vtk.vtkPoints()
         voxel_points.SetNumberOfPoints(8)
@@ -145,6 +189,8 @@ class ComputeHost(object):
         renderer.AddActor(voxel_actor)
 
     def add_label(self, renderer):
+        """
+        """
         # make a label for the box
         host_label = vtk.vtkTextMapper()
         host_label.SetInput(self.get_hostname())
