@@ -16,6 +16,7 @@ def usage():
     [-h/--help]                Print usage information and exit
     [-V/--version]             Print version information and exit
     [-t/--three_d_view]        Display in three dimensions (default 2D)
+    [-i/--interactive]         Turn on interactive behaviour
     [-x/--xmlfile]             Specify an input xml file
     """
 
@@ -24,8 +25,8 @@ def version():
 
 # Handle options
 try:
-    options_list, args_list = getopt.getopt(sys.argv[1:], "hVtx:",
-            ["help", "version", "three_d_view", "xmlfile"])
+    options_list, args_list = getopt.getopt(sys.argv[1:], "hVtix:",
+            ["help", "version", "three_d_view", "interactive", "xmlfile"])
 except getopt.GetoptError:
     # print help information and exit:
     usage()
@@ -34,6 +35,7 @@ except getopt.GetoptError:
 testing = True
 three_d_view = False
 xml_file = None
+interactive = False
 
 for option, arg in options_list:
     if option in ("-h", "--help"):
@@ -44,6 +46,8 @@ for option, arg in options_list:
         sys.exit()
     elif option in ("-t", "--three_d_view"):
         three_d_view = True
+    elif option in ("-i", "--interactive"):
+        interactive = True
     elif option in ("-x", "--xmlfile"):
         xml_file = arg
     else:
@@ -215,7 +219,6 @@ else:
     renderer.GetActiveCamera().Elevation(90)
     renderer.GetActiveCamera().Zoom(1.3)
 
-interactive = 0
 if interactive:
     # Render the scene and start interaction.
     iren.Initialize()
