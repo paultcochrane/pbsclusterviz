@@ -4,4 +4,4 @@
    node list
  - add documentation
  - add the title text of the output images as a configuration option
- - 
+ - print better usage information when the command barfs
