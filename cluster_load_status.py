@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
-import os
-import re
-import sys
+import os, re, sys
+from pbsclusterviz.pbs.pbsnodes import PBSNodes, Node
+from pbsclusterviz.pbs.xml_handler import PBSNodesXMLHandler
+from pbsclusterviz.compute_node import ComputeNode
+import xml.sax
 from pbsclusterviz.compute_node import ComputeNode
 import getopt
 
@@ -14,6 +16,7 @@ def usage():
     [-h/--help]                Print usage information and exit
     [-V/--version]             Print version information and exit
     [-t/--three_d_view]        Display in three dimensions (default 2D)
+    [-x/--xmlfile]             Specify an input xml file
     """
 
 def version():
@@ -21,8 +24,8 @@ def version():
 
 # Handle options
 try:
-    options_list, args_list = getopt.getopt(sys.argv[1:], "hVt",
-            ["help", "version", "three_d_view"])
+    options_list, args_list = getopt.getopt(sys.argv[1:], "hVtx:",
+            ["help", "version", "three_d_view", "xmlfile"])
 except getopt.GetoptError:
     # print help information and exit:
     usage()
@@ -30,16 +33,19 @@ except getopt.GetoptError:
 
 testing = True
 three_d_view = False
+xml_file = None
 
 for option, arg in options_list:
     if option in ("-h", "--help"):
         usage()
         sys.exit()
-    if option in ("-V", "--version"):
+    elif option in ("-V", "--version"):
         version()
         sys.exit()
-    if option in ("-t", "--three_d_view"):
+    elif option in ("-t", "--three_d_view"):
         three_d_view = True
+    elif option in ("-x", "--xmlfile"):
+        xml_file = arg
     else:
         print "Unknown option %s" % option
         sys.exit(2)
@@ -49,419 +55,52 @@ if len(args_list) > 2:
     usage()
     sys.exit()
 
-host_list = []
+pbsnodes = PBSNodes()
+parser = xml.sax.make_parser()
+handler = PBSNodesXMLHandler(pbsnodes)
+parser.setContentHandler(handler)
 
-host_list.append(
-    ComputeNode(
-        hostname = 'orac',
-        max_load = 4.0, xy_pos = (0, 0), three_d_view = three_d_view,
-    )
-)
+if xml_file is not None:
+    # TODO: check that the file exists
+    parser.parse(xml_file)
+else:
+    # TODO: implement a direct call to pbsnodes -x
+    print "Direct call to pbsnodes not yet implemented"
+    sys.exit()
 
-host_list.append(
-    ComputeNode(
-        hostname = 'pozzo',
-        max_load = 16.0, xy_pos = (1, 0), three_d_view = three_d_view,
-    )
-)
+node_table = pbsnodes.get_node_table()
 
-host_list.append(
-    ComputeNode(
-        hostname = 'paris',
-        max_load = 8.0, xy_pos = (2, 0), three_d_view = three_d_view,
-    )
-)
+# read in the node list
+fp = open("nodes", "r")
+lines = fp.readlines()
 
-host_list.append(
-    ComputeNode(
-        hostname = 'paris-n001',
-        max_load = 8.0, xy_pos = (0, 1), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'paris-n002',
-        max_load = 8.0, xy_pos = (1, 1), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'paris-n003',
-        max_load = 8.0, xy_pos = (2, 1), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'paris-n004',
-        max_load = 8.0, xy_pos = (3, 1), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'paris-n005',
-        max_load = 8.0, xy_pos = (4, 1), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'paris-n006',
-        max_load = 8.0, xy_pos = (5, 1), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'paris-n007',
-        max_load = 8.0, xy_pos = (0, 2), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'paris-n008',
-        max_load = 8.0, xy_pos = (1, 2), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'paris-n009',
-        max_load = 8.0, xy_pos = (2, 2), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'paris-n010',
-        max_load = 8.0, xy_pos = (3, 2), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'paris-n011',
-        max_load = 8.0, xy_pos = (4, 2), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tclog',
-        max_load = 2.0, xy_pos = (3, 0), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn01',
-        max_load = 2.0, xy_pos = (0, 3), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn02',
-        max_load = 2.0, xy_pos = (1, 3), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn03',
-        max_load = 2.0, xy_pos = (2, 3), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn04',
-        max_load = 2.0, xy_pos = (3, 3), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn05',
-        max_load = 2.0, xy_pos = (4, 3), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn06',
-        max_load = 2.0, xy_pos = (5, 3), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn07',
-        max_load = 2.0, xy_pos = (0, 4), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn08',
-        max_load = 2.0, xy_pos = (1, 4), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn09',
-        max_load = 2.0, xy_pos = (2, 4), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn10',
-        max_load = 2.0, xy_pos = (3, 4), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn11',
-        max_load = 2.0, xy_pos = (4, 4), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'tcn12',
-        max_load = 2.0, xy_pos = (5, 4), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'cluhadm',
-        max_load = 2.0, xy_pos = (4, 0), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn01',
-        max_load = 4.0, xy_pos = (0, 5), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn02',
-        max_load = 4.0, xy_pos = (1, 5), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn03',
-        max_load = 4.0, xy_pos = (2, 5), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn04',
-        max_load = 4.0, xy_pos = (3, 5), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn05',
-        max_load = 4.0, xy_pos = (4, 5), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn06',
-        max_load = 4.0, xy_pos = (5, 5), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn07',
-        max_load = 4.0, xy_pos = (6, 5), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn08',
-        max_load = 4.0, xy_pos = (7, 5), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn09',
-        max_load = 4.0, xy_pos = (0, 6), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn10',
-        max_load = 4.0, xy_pos = (1, 6), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn11',
-        max_load = 4.0, xy_pos = (2, 6), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn12',
-        max_load = 4.0, xy_pos = (3, 6), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn13',
-        max_load = 4.0, xy_pos = (4, 6), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn14',
-        max_load = 4.0, xy_pos = (5, 6), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn15',
-        max_load = 4.0, xy_pos = (6, 6), three_d_view = three_d_view,
-    )
-)
-
-host_list.append(
-    ComputeNode(
-        hostname = 'lcn16',
-        max_load = 4.0, xy_pos = (7, 6), three_d_view = three_d_view,
-    )
-)
-
-# username to use for the ssh command
-username = "zzzzcoch"
-
-# TODO: need to ping each host to see if it is there and display that
-load_avg = {}
-load_avg['orac'] = 0.08
-load_avg['pozzo'] = 0.06
-load_avg['paris'] = 0.85
-
-load_avg['paris-n001'] = 1.00
-load_avg['paris-n002'] = 8.00
-load_avg['paris-n003'] = 0.00
-load_avg['paris-n004'] = 0.00
-load_avg['paris-n005'] = 0.02
-load_avg['paris-n006'] = 0.00
-load_avg['paris-n007'] = 0.00
-load_avg['paris-n008'] = 0.00
-load_avg['paris-n009'] = 0.00
-load_avg['paris-n010'] = 0.00
-load_avg['paris-n011'] = 0.07
-
-load_avg['tclog'] = 0.08
-load_avg['tcn01'] = 0.00
-load_avg['tcn02'] = 0.00
-load_avg['tcn03'] = 0.00
-load_avg['tcn04'] = 4.00
-load_avg['tcn05'] = 0.00
-load_avg['tcn06'] = 0.00
-load_avg['tcn07'] = 0.00
-load_avg['tcn08'] = 0.00
-load_avg['tcn09'] = 0.00
-load_avg['tcn10'] = 0.00
-load_avg['tcn11'] = 0.00
-load_avg['tcn12'] = 0.00
-
-load_avg['cluhadm'] = 0.00
-load_avg['lcn01'] = 0.00
-load_avg['lcn02'] = 0.00
-load_avg['lcn03'] = 0.00
-load_avg['lcn04'] = 4.00
-load_avg['lcn05'] = 0.00
-load_avg['lcn06'] = 0.00
-load_avg['lcn07'] = 2.00
-load_avg['lcn08'] = 0.00
-load_avg['lcn09'] = 0.00
-load_avg['lcn10'] = 0.00
-load_avg['lcn11'] = 0.00
-load_avg['lcn12'] = 0.00
-load_avg['lcn13'] = 0.00
-load_avg['lcn14'] = 0.00
-load_avg['lcn15'] = 0.00
-load_avg['lcn16'] = 0.00
-
-from subprocess import *
-import time
-
-# get the current uptime of each host
-for host in host_list:
-    hostname = host.get_hostname()
-    one_min_avg = 0.0
-    if not testing:
-        # get the uptime from the host
-        command = "ssh %s@%s uptime" % (username, hostname)
-        subproc = Popen(command, shell=True, stdin=PIPE, stdout=PIPE)
-        (child_stdin, child_stdout) = (subproc.stdin, subproc.stdout)
-        child_pid = subproc.pid
-        # check if the child has terminated
-        sleep_counter = 0
-        while sleep_counter < 30:
-            poll_result = subproc.poll()
-            if poll_result is not None:
-                break
-            else:
-                time.sleep(1)
-                sleep_counter += 1
-                print "Waiting... %d s" % sleep_counter
-
-        # if we've waited too long, kill the process
-        if sleep_counter == 30:
-            kill_cmd = "kill -15 %d" % child_pid
-            killproc = Popen(kill_cmd, shell=True, stdin=PIPE, stdout=PIPE)
-            if killproc.poll() is None:
-                kill_cmd = "kill -9 %d" % child_pid
-                killproc = Popen(kill_cmd, shell=True, stdin=PIPE, stdout=PIPE)
-
-            #subproc.kill()  # only from python 2.6
-            host.set_host_down()   # label the host as down
-        else:
-            cmd_output = child_stdout.read()
-
-            # just get the 1 minute load average
-            uptime_regex = re.compile("load average:\s+(\d+\.\d{2}),")
-            if uptime_regex.search(cmd_output) is None:
-                one_min_avg = 0.0
-            else:
-                one_min_avg = uptime_regex.search(cmd_output).group(1)
+node_list = []
+hash_regex = re.compile(r'^#')
+return_regex = re.compile(r'\n')
+for line in lines:
+    node_name = ""
+    x_pos = 0
+    y_pos = 0
+    if hash_regex.match(line) or return_regex.match(line):
+        pass
     else:
-        one_min_avg = load_avg[hostname]
+        node_info = line.split(' ', 3)
+        node_name = node_info[0]
+        x_pos = node_info[1]
+        y_pos = node_info[2]
 
-    host.set_load_avg(float(one_min_avg))
-    print hostname, one_min_avg
-    if host.is_down():
-        print "Node marked as down:", hostname
+    if node_table.has_key(node_name):
+        node = ComputeNode(display_mode = "load", three_d_view = three_d_view)
+        node.set_hostname(node_name)
+        node.set_max_load(node_table[node_name].get_num_processors())
+        if testing:
+            node.set_load_avg(float(x_pos+y_pos)/20.0)
+        else:
+            node.set_load_avg(node_table[node_name].get_load_avg())
+        node.set_grid_xy_pos(x_pos, y_pos)
+        node_list.append(node)
+
+fp.close()
 
 import vtk
 
@@ -524,12 +163,12 @@ for j in range(num_colors):
 
 # get the colours
 rgb = [0.0, 0.0, 0.0]
-for host in host_list:
-    hostname = host.get_hostname()
-    host_load = host.get_load_avg()
-    max_host_load = host.get_max_load()
-    lut.GetColor(host_load/max_host_load, rgb)
-    host.set_rgb(rgb)
+for node in node_list:
+    hostname = node.get_hostname()
+    node_load = node.get_load_avg()
+    max_node_load = node.get_max_load()
+    lut.GetColor(node_load/max_node_load, rgb)
+    node.set_rgb(rgb)
 
 # set up the scalar bar
 scalar_bar = vtk.vtkScalarBarActor()
@@ -559,10 +198,10 @@ scalar_bar_label_prop.ItalicOff()
 
 renderer.AddActor(scalar_bar)
 
-### generate the host matrix
-for host in host_list:
-    host.add_box(renderer)
-    host.add_label(renderer)
+### generate the node matrix
+for node in node_list:
+    node.add_box(renderer)
+    node.add_label(renderer)
 
 # set up the camera properly
 renderer.ResetCamera()
