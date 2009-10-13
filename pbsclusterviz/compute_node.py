@@ -125,7 +125,7 @@ class ComputeNode(object):
         @param load_avg: the current load average
         @type load_avg: float
         """
-        self.load_avg = load_avg
+        self.load_avg = float(load_avg)
 
     def is_down(self):
         """
