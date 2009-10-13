@@ -3,5 +3,3 @@
    node list
  - add documentation
  - add the title text of the output images as a configuration option
- - status information from PBS can be extracted into a hash for easier
-   access
