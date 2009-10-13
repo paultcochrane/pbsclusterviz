@@ -128,13 +128,9 @@ for line in lines:
         node.set_max_jobs(node_table[node_name].get_num_processors())
         node.set_num_jobs(node_table[node_name].get_num_jobs())
         node.set_grid_xy_pos(x_pos, y_pos)
-        # what did display_mode do??
-        #node.set_display_mode("jobs")
         node_list.append(node)
 
 fp.close()
-
-#sys.exit(0)
 
 import vtk
 
