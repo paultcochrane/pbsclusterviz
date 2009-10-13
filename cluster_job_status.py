@@ -99,8 +99,10 @@ else:
     print "Direct call to pbsnodes not yet implemented"
     sys.exit()
 
+max_num_jobs = 0
 for node in pbsnodes.get_node_list():
     print "%s %i" % (node.get_name(), node.get_num_jobs())
+    max_num_jobs += node.get_num_processors()
 node_table = pbsnodes.get_node_table()
 
 # read in the node list
@@ -186,14 +188,42 @@ refLut.Build()
 for j in range(256):
     lut.SetTableValue(j, refLut.GetTableValue(255-j))
 
-# get the colours
+# get the colours, assign a colour to each host and get the current total
+# number of jobs
+current_num_jobs = 0
 rgb = [0.0, 0.0, 0.0]
 for node in node_list:
     hostname = node.get_hostname()
     node_num_jobs = node.get_num_jobs()
     node_max_jobs = node.get_max_jobs()
+    current_num_jobs += node_num_jobs
+
     lut.GetColor(float(node_num_jobs)/float(node_max_jobs), rgb)
     node.set_rgb(rgb)
+
+# how well is the cluster system being used?
+utilisation_value = current_num_jobs*100.0/max_num_jobs
+
+# add the utilisation text to the image
+utilisation_text = "System utilisation: %0.2f %%" % utilisation_value
+
+utilisation = vtk.vtkTextMapper()
+utilisation.SetInput(utilisation_text)
+
+utilisation_prop = utilisation.GetTextProperty()
+utilisation_prop.ShallowCopy(text_prop)
+utilisation_prop.SetJustificationToCentered()
+utilisation_prop.SetVerticalJustificationToTop()
+utilisation_prop.SetFontSize(16)
+utilisation_prop.SetColor(1,1,1)
+utilisation_prop.BoldOn()
+
+utilisation_actor = vtk.vtkTextActor()
+utilisation_actor.SetMapper(utilisation)
+utilisation_actor.GetPositionCoordinate().SetCoordinateSystemToNormalizedDisplay()
+utilisation_actor.GetPositionCoordinate().SetValue(0.5,0.92)
+
+renderer.AddActor(utilisation_actor)
 
 # set up the scalar bar
 scalar_bar = vtk.vtkScalarBarActor()
