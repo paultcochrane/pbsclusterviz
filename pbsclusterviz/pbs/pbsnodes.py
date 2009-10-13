@@ -84,7 +84,8 @@ class Node:
         self.num_processors = None
         self.properties = None   # usually the queue name
         self.jobs_string = None  # a string of jobs currently running
-        #self.status = "" # maybe can extract useful info out of here someday
+        self.status = None       # status information of the node, contains
+                                 # lots of info
 
     def set_name(self, node_name):
         """
@@ -123,7 +124,7 @@ class Node:
         @param num_processors: the number of processors on the node
         @type num_processors: integer
         """
-        self.num_processors = num_processors
+        self.num_processors = int(num_processors)
 
     def get_num_processors(self):
         """
@@ -161,6 +162,36 @@ class Node:
         """
         return self.jobs_string
 
+    def set_status_string(self, status_string):
+        """
+        Set the string of the node's current status.  This contains lots of 
+        information including operating system, load average, uname,
+        available memory, totalmemory etc.
+
+        @param status_string: the status string for the node
+        @type status_string: string
+        """
+        self.status_string = status_string
+
+    def get_status_string(self):
+        """
+        Return the node's current status string
+        """
+        return self.status_string
+
+    def get_status_information(self):
+        """
+        Return a hash of the current status information for the node
+        """
+        status_string = self.get_status_string()
+        status_info_list = re.split(',', status_string)
+        status_info = {}
+        for item in status_info_list:
+            (tag, value) = re.split('=', item)
+            status_info[tag] = value
+
+        return status_info
+
     def get_num_jobs(self):
         """
         Return the number of jobs currently running on the node
@@ -172,5 +203,13 @@ class Node:
             jobs = re.split(',', jobs_string)
             num_jobs = len(jobs)
             return num_jobs
+
+    def get_load_avg(self):
+        """
+        Return the current load average as found via PBS
+        """
+        status_info = self.get_status_info()
+
+        return float(status_info['loadave'])
 
 # vim: expandtab shiftwidth=4:
