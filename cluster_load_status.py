@@ -8,11 +8,21 @@ import getopt
 
 def usage():
     print """Usage:
-    python cluster_load_status.py -t/--three_d_view
+    python cluster_load_status.py [options]
+    
+    options:
+    [-h/--help]                Print usage information and exit
+    [-V/--version]             Print version information and exit
+    [-t/--three_d_view]        Display in three dimensions (default 2D)
     """
 
+def version():
+    print """cluster_load_status version 0.1a"""
+
+# Handle options
 try:
-    options_list, args_list = getopt.getopt(sys.argv[1:], "t", ["three_d_view"])
+    options_list, args_list = getopt.getopt(sys.argv[1:], "hVt",
+            ["help", "version", "three_d_view"])
 except getopt.GetoptError:
     # print help information and exit:
     usage()
@@ -22,11 +32,22 @@ testing = True
 three_d_view = False
 
 for option, arg in options_list:
+    if option in ("-h", "--help"):
+        usage()
+        sys.exit()
+    if option in ("-V", "--version"):
+        version()
+        sys.exit()
     if option in ("-t", "--three_d_view"):
         three_d_view = True
     else:
         print "Unknown option %s" % option
         sys.exit(2)
+
+if len(args_list) > 2:
+    print "Too many arguments"
+    usage()
+    sys.exit()
 
 host_list = []
 
