@@ -3,7 +3,7 @@
 import os
 import re
 import sys
-from compute_node import ComputeNode
+from pbsclusterviz.compute_node import ComputeNode
 import getopt
 
 def usage():
