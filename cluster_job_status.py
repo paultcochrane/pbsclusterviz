@@ -28,6 +28,7 @@ from pbsclusterviz.compute_node import ComputeNode
 import xml.sax
 import getopt
 import sys, re
+import ConfigParser
 
 
 def usage():
@@ -40,6 +41,8 @@ def usage():
     [-l/--logfile=<filename>]    Specify an alternative log file name
     [-i/--interactive]           Turn on interactive behaviour
     [-x/--xmlfile=<filename>]    Specify an input xml file
+    [-o/--outfile=<filename>]    Specify an output image file
+    [-c/--configfile=<filename>] Specify an input configuration file
     """
 
 def version():
@@ -50,8 +53,9 @@ def version():
 #---------------------------------------------------------------------
 
 try:
-    options_list, args_list = getopt.getopt(sys.argv[1:], "hVil:x:o:d",
-            ["help", "version", "interactive", "logfile=", "xmlfile=", "outfile=", "debug"])
+    options_list, args_list = getopt.getopt(sys.argv[1:], "hVil:x:o:c:d",
+            ["help", "version", "interactive", "logfile=", "xmlfile=",
+                "outfile=", "configfile=", "debug"])
 except getopt.GetoptError:
     # print help information and exit:
     usage()
@@ -61,6 +65,7 @@ interactive = False
 xml_file = None
 output_file = "cluster_job_status.png"
 pbsclusterviz.pbs.__debug = False
+config_file = "clusterviz.conf"
 for option, arg in options_list:
     if option in ("-h", "--help"):
         usage()
@@ -78,6 +83,8 @@ for option, arg in options_list:
         xml_file = arg
     elif option in ("-o", "--outfile"):
         output_file = arg
+    elif option in ("-c", "--configfile"):
+        config_file = arg
     elif option in ("-d", "--debug"):
         pbsclusterviz.pbs.__debug = True
 
@@ -133,6 +140,10 @@ for line in lines:
         node_list.append(node)
 
 fp.close()
+
+# read in the configuration file
+config = ConfigParser.RawConfigParser()
+config.read(config_file)
 
 import vtk
 
