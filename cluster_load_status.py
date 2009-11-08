@@ -1,23 +1,27 @@
 #!/usr/bin/env python
 
-import os, re, sys
+import pbsclusterviz
 from pbsclusterviz.pbs.pbsnodes import PBSNodes, Node
 from pbsclusterviz.pbs.xml_handler import PBSNodesXMLHandler
 from pbsclusterviz.compute_node import ComputeNode
+import os, re, sys
 import xml.sax
-from pbsclusterviz.compute_node import ComputeNode
 import getopt
+import ConfigParser
 
 def usage():
     print """Usage:
     python cluster_load_status.py [options]
     
     options:
-    [-h/--help]                Print usage information and exit
-    [-V/--version]             Print version information and exit
-    [-t/--three_d_view]        Display in three dimensions (default 2D)
-    [-i/--interactive]         Turn on interactive behaviour
-    [-x/--xmlfile]             Specify an input xml file
+    [-h/--help]                  Print usage information and exit
+    [-V/--version]               Print version information and exit
+    [-l/--logfile=<filename>]    Specify an alternative log file name
+    [-t/--three_d_view]          Display in three dimensions (default 2D)
+    [-i/--interactive]           Turn on interactive behaviour
+    [-x/--xmlfile]               Specify an input xml file
+    [-o/--outfile=<filename>]    Specify an output image file
+    [-c/--configfile=<filename>] Specify an input configuration file
     """
 
 def version():
@@ -25,8 +29,9 @@ def version():
 
 # Handle options
 try:
-    options_list, args_list = getopt.getopt(sys.argv[1:], "hVtix:",
-            ["help", "version", "three_d_view", "interactive", "xmlfile"])
+    options_list, args_list = getopt.getopt(sys.argv[1:], "hVtil:x:o:c:d",
+            ["help", "version", "three_d_view", "interactive", "logfile=",
+                "xmlfile=", "outfile=", "configfile=", "debug"])
 except getopt.GetoptError:
     # print help information and exit:
     usage()
@@ -36,7 +41,9 @@ testing = True
 three_d_view = False
 xml_file = None
 interactive = False
-
+output_file = "cluster_load_status.png"
+pbsclusterviz.pbs.__debug = False
+config_file = "clusterviz.conf"
 for option, arg in options_list:
     if option in ("-h", "--help"):
         usage()
@@ -48,8 +55,18 @@ for option, arg in options_list:
         three_d_view = True
     elif option in ("-i", "--interactive"):
         interactive = True
+    elif option in ("-l", "--logfile"):
+        print "Not yet implemented"
+        sys.exit()
+        log_file = arg
     elif option in ("-x", "--xmlfile"):
         xml_file = arg
+    elif option in ("-o", "--outfile"):
+        output_file = arg
+    elif option in ("-c", "--configfile"):
+        config_file = arg
+    elif option in ("-d", "--debug"):
+        pbsclusterviz.pbs.__debug = True
     else:
         print "Unknown option %s" % option
         sys.exit(2)
@@ -106,6 +123,11 @@ for line in lines:
 
 fp.close()
 
+# read in the configuration file
+config = ConfigParser.RawConfigParser()
+config.read(config_file)
+title_text = config.get('load viewer', 'title')
+
 import vtk
 
 # Create the usual rendering stuff.
@@ -131,7 +153,7 @@ text_prop.ShadowOff()
 import time
 now = time.ctime()
 
-title_text = "RRZN Cluster Load Status: %s" % now
+title_text = "%s: %s" % (title_text, now)
 
 title = vtk.vtkTextMapper()
 title.SetInput(title_text)
