@@ -111,7 +111,7 @@ else:
 
 max_num_jobs = 0
 for node in pbsnodes.get_node_list():
-    print "%s %i" % (node.get_name(), node.get_num_jobs())
+    #print "%s %i" % (node.get_name(), node.get_num_jobs())
     max_num_jobs += node.get_num_processors()
 node_table = pbsnodes.get_node_table()
 
@@ -148,6 +148,15 @@ fp.close()
 config = ConfigParser.RawConfigParser()
 config.read(config_file)
 title_text = config.get('job viewer', 'title')
+
+# work out the output file name's base name (the bit without .png)
+base_regex = re.compile(r'(.*?)\.\w+$')
+basename_search_result = base_regex.search(output_file)
+if basename_search_result.group(1) is None:
+    print "Unable to determine the base image output file name"
+    sys.exit(0)
+
+output_file_basename = basename_search_result.group(1)
 
 import vtk
 
@@ -296,7 +305,7 @@ else:
 
     out_writer = vtk.vtkPNGWriter()
     out_writer.SetInput(win2img_filter.GetOutput())
-    out_writer.SetFileName("cluster_job_status.png")
+    out_writer.SetFileName("%s.png" % output_file_basename)
 
     # render the window to save it to file
     render_window.Render()
@@ -306,7 +315,7 @@ else:
     from datetime import datetime
     date = datetime.now()
     date_str = date.strftime("%Y%m%d_%H%M")
-    fname_str = "cluster_job_status_%s.png" % (date_str)
+    fname_str = "%s_%s.png" % (output_file_basename, date_str)
     out_writer.SetFileName(fname_str)
 
     # save it to file
