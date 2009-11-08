@@ -87,6 +87,9 @@ for option, arg in options_list:
         config_file = arg
     elif option in ("-d", "--debug"):
         pbsclusterviz.pbs.__debug = True
+    else:
+        print "Unknown option %s" % option
+        sys.exit(2)
 
 if len(args_list) > 2:
     print "Too many arguments"
