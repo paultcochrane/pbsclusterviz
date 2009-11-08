@@ -144,6 +144,7 @@ fp.close()
 # read in the configuration file
 config = ConfigParser.RawConfigParser()
 config.read(config_file)
+title_text = config.get('job viewer', 'title')
 
 import vtk
 
@@ -170,7 +171,7 @@ text_prop.ShadowOff()
 import time
 now = time.ctime()
 
-title_text = "RRZN Cluster Job Status: %s" % now
+title_text = "%s: %s" % (title_text, now)
 
 title = vtk.vtkTextMapper()
 title.SetInput(title_text)
