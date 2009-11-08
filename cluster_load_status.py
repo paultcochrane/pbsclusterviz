@@ -128,6 +128,15 @@ config = ConfigParser.RawConfigParser()
 config.read(config_file)
 title_text = config.get('load viewer', 'title')
 
+# work out the output file name's base name (the bit without .png)
+base_regex = re.compile(r'(.*?)\.\w+$')
+basename_search_result = base_regex.search(output_file)
+if basename_search_result.group(1) is None:
+    print "Unable to determine the base image output file name"
+    sys.exit(0)
+
+output_file_basename = basename_search_result.group(1)
+
 import vtk
 
 # Create the usual rendering stuff.
@@ -263,9 +272,9 @@ else:
     out_writer = vtk.vtkPNGWriter()
     out_writer.SetInput(win2img_filter.GetOutput())
     if three_d_view:
-        out_writer.SetFileName("cluster_load_status.png")
+        out_writer.SetFileName("%s.png" % output_file_basename)
     else:
-        out_writer.SetFileName("cluster_load_status_2d.png")
+        out_writer.SetFileName("%s_2d.png" % output_file_basename)
 
     # render the window to save it to file
     render_window.Render()
@@ -276,9 +285,9 @@ else:
     date = datetime.now()
     date_str = date.strftime("%Y%m%d_%H%M")
     if three_d_view:
-        fname_str = "cluster_load_status_%s.png" % (date_str)
+        fname_str = "%s_%s.png" % (output_file_basename, date_str)
     else:
-        fname_str = "cluster_load_status_2d_%s.png" % (date_str)
+        fname_str = "%s_2d_%s.png" % (output_file_basename, date_str)
     out_writer.SetFileName(fname_str)
 
     # save it to file
