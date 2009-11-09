@@ -122,6 +122,7 @@ node_table = pbsnodes.get_node_table()
 # read in the node list
 fp = open(nodes_file, "r")
 lines = fp.readlines()
+fp.close()
 
 node_list = []
 hash_regex = re.compile(r'^#')
@@ -145,8 +146,6 @@ for line in lines:
         node.set_num_jobs(node_table[node_name].get_num_jobs())
         node.set_grid_xy_pos(x_pos, y_pos)
         node_list.append(node)
-
-fp.close()
 
 # read in the configuration file
 config = ConfigParser.RawConfigParser()
