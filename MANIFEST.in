@@ -9,6 +9,7 @@ include MANIFEST
 include setup.py
 include bin/cluster_job_status
 include bin/cluster_load_status
+include bin/gen_nodes_file
 
 # add base package files
 include pbsclusterviz/__init__.py
