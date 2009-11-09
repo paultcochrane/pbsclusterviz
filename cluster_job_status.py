@@ -43,6 +43,7 @@ def usage():
     [-x/--xmlfile=<filename>]    Specify an input xml file
     [-o/--outfile=<filename>]    Specify an output image file
     [-c/--configfile=<filename>] Specify an input configuration file
+    [-n/--nodesfile=<filename>]  Specify an alternate nodes file
     """
 
 def version():
@@ -53,9 +54,9 @@ def version():
 #---------------------------------------------------------------------
 
 try:
-    options_list, args_list = getopt.getopt(sys.argv[1:], "hVil:x:o:c:d",
+    options_list, args_list = getopt.getopt(sys.argv[1:], "hVil:x:o:c:n:d",
             ["help", "version", "interactive", "logfile=", "xmlfile=",
-                "outfile=", "configfile=", "debug"])
+                "outfile=", "configfile=", "nodesfile=", "debug"])
 except getopt.GetoptError:
     # print help information and exit:
     usage()
@@ -66,6 +67,7 @@ xml_file = None
 output_file = "cluster_job_status.png"
 pbsclusterviz.pbs.__debug = False
 config_file = "clusterviz.conf"
+nodes_file = "nodes"
 for option, arg in options_list:
     if option in ("-h", "--help"):
         usage()
@@ -85,6 +87,8 @@ for option, arg in options_list:
         output_file = arg
     elif option in ("-c", "--configfile"):
         config_file = arg
+    elif option in ("-n", "--nodesfile"):
+        nodes_file = arg
     elif option in ("-d", "--debug"):
         pbsclusterviz.pbs.__debug = True
     else:
@@ -116,7 +120,7 @@ for node in pbsnodes.get_node_list():
 node_table = pbsnodes.get_node_table()
 
 # read in the node list
-fp = open("nodes", "r")
+fp = open(nodes_file, "r")
 lines = fp.readlines()
 
 node_list = []
