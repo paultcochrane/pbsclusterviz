@@ -2,3 +2,4 @@
    node list
  - can we get this to work with HLRN?
  - implement a setup.py so that one can install the package
+ - write a program to automatically generate a nodes file
