@@ -87,7 +87,7 @@ for option, arg in options_list:
     elif option in ("-w", "--table_width"):
 	table_width = int(arg)
     elif option in ("-a", "--append"):
-        pbsclusterviz.pbs.__debug = True
+        append_to_nodes_file = True
     elif option in ("-d", "--debug"):
         pbsclusterviz.pbs.__debug = True
     else:
@@ -124,13 +124,30 @@ else:
 # multi-cluster system
 prefix_regex = re.compile(r"^%s" % section_prefix)
 
-# TODO: build in the ability to automatically determine the current y grid
-# position from a previous nodes file.  This should only be done if the
-# "append" option is used.
-
 x_grid_pos = 0
 y_grid_pos = 0
 
+# automatically determine the current y grid position from a previous nodes
+# file.  Only necessary if the "append" option is used.
+if append_to_nodes_file:
+    fp = open(nodes_file, "r")
+    lines = fp.readlines()
+    fp.close()
+    
+    # get the last line but ignore leading hashes and lines with only return
+    # characters in them
+    hash_regex = re.compile(r'^#')
+    return_regex = re.compile(r'\n')
+    last_line = None
+    for line in lines:
+	if hash_regex.match(line) or return_regex.match(line):
+	    pass
+	else:
+	    last_line = line
+    
+    y_grid_pos = int(last_line.split(' ')[-1]) + 1
+
+# write the nodes info to file
 fp = None
 if append_to_nodes_file:
     fp = open(nodes_file, "a")
@@ -151,4 +168,4 @@ for node in pbsnodes.get_node_list():
 
 fp.close()
 
-
+# vim: expandtab shiftwidth=4:
