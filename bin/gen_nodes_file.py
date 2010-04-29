@@ -40,7 +40,7 @@ def usage():
     [-x/--xmlfile=<filename>]       Specify an input xml file
     [-o/--nodesfile=<filename>]     Specify an nodes file
     [-n/--section_name=<name>]      Specify a name for the node section
-    [-p/--section_prefix=<prefix>]  Specify a prefix for the node section
+    [-p/--node_prefix=<prefix>]     Specify a nodename prefix
     [-w/--table_width=<width>]      Number of nodes across a section
     [-a/--append]                   Append to existing nodes file?
     """
@@ -55,7 +55,7 @@ def version():
 try:
     options_list, args_list = getopt.getopt(sys.argv[1:], "hVax:o:n:p:w:d",
             ["help", "version", "xmlfile=", "nodesfile=", 
-		"section_name=", "section_prefix=", "table_width=",
+		"section_name=", "node_prefix=", "table_width=",
 		"append", "debug"])
 except getopt.GetoptError:
     # print help information and exit:
@@ -66,7 +66,7 @@ xml_file = None
 nodes_file = "nodes.gen"
 pbsclusterviz.pbs.__debug = False
 section_name = None
-section_prefix = None
+node_prefix = None
 table_width = 10
 append_to_nodes_file = False
 for option, arg in options_list:
@@ -82,8 +82,8 @@ for option, arg in options_list:
         nodes_file = arg
     elif option in ("-n", "--section_name"):
 	section_name = arg
-    elif option in ("-p", "--section_prefix"):
-	section_prefix = arg
+    elif option in ("-p", "--node_prefix"):
+	node_prefix = arg
     elif option in ("-w", "--table_width"):
 	table_width = int(arg)
     elif option in ("-a", "--append"):
@@ -103,8 +103,8 @@ if section_name is None:
     print "You need to specify a section name (-n <name>)"
     sys.exit(2)
 
-if section_prefix is None:
-    print "You need to specify a section prefix (-p <prefix>)"
+if node_prefix is None:
+    print "You need to specify a node prefix (-p <prefix>)"
     sys.exit(2)
 
 pbsnodes = PBSNodes()
@@ -124,7 +124,7 @@ else:
 
 # the section prefix is used to filter the different kinds of nodes on a
 # multi-cluster system
-prefix_regex = re.compile(r"^%s" % section_prefix)
+prefix_regex = re.compile(r"^%s" % node_prefix)
 
 x_grid_pos = 0
 y_grid_pos = 0
