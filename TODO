@@ -1,4 +1,2 @@
  - implement the configuration file format that Holger recently used for the
    node list
- - can we get this to work with HLRN?
- - write a program to automatically generate a nodes file
