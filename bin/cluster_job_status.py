@@ -27,7 +27,7 @@ from pbsclusterviz.pbs.xml_handler import PBSNodesXMLHandler
 from pbsclusterviz.compute_node import ComputeNode
 import xml.sax
 import getopt
-import sys, re
+import sys, re, os
 import ConfigParser
 
 
@@ -106,7 +106,9 @@ handler = PBSNodesXMLHandler(pbsnodes)
 parser.setContentHandler(handler)
 
 if xml_file is not None:
-    # TODO: check that the file exists
+    if not os.path.exists(xml_file):
+        print "PBSNodes XML file: '%s' does not exist!" % xml_file
+        sys.exit(1)
     parser.parse(xml_file)
 else:
     # TODO: implement a direct call to pbsnodes -x
