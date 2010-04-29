@@ -82,10 +82,10 @@ class Node:
         self.name = None
         self.state = None
         self.num_processors = None
-        self.properties = None   # usually the queue name
-        self.jobs_string = None  # a string of jobs currently running
-        self.status = None       # status information of the node, contains
-                                 # lots of info
+        self.properties = None     # usually the queue name
+        self.jobs_string = None    # a string of jobs currently running
+        self.status_string = None  # status information of the node, contains
+                                   # lots of info
 
     def set_name(self, node_name):
         """
@@ -183,13 +183,19 @@ class Node:
         """
         Return a hash of the current status information for the node
         """
-        status_string = self.get_status_string()
-        status_info_list = re.split(',', status_string)
-        status_info = {}
-        for item in status_info_list:
-            (tag, value) = re.split('=', item)
-            status_info[tag] = value
-
+        if self.state == 'down':
+            status_info = None
+        else:
+            status_string = self.get_status_string()
+            # if there isn't a status string, the node is down (probably...)
+            if status_string is None:
+                return None
+            status_info_list = re.split(',', status_string)
+            status_info = {}
+            for item in status_info_list:
+                (tag, value) = re.split('=', item)
+                status_info[tag] = value
+    
         return status_info
 
     def get_num_jobs(self):
@@ -208,8 +214,10 @@ class Node:
         """
         Return the current load average as found via PBS
         """
-        status_info = self.get_status_info()
-
-        return float(status_info['loadave'])
+        status_info = self.get_status_information()
+        if status_info is None:
+            return 0.0
+        else:
+            return float(status_info['loadave'])
 
 # vim: expandtab shiftwidth=4:
