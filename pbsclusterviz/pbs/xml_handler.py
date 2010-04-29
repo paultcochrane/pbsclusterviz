@@ -42,6 +42,7 @@ class PBSNodesXMLHandler(ContentHandler):
         self.is_num_processors_element = False
         self.is_properities_element = False
         self.is_jobs_element = False
+        self.is_status_element = False
 
         self.node = Node()
         self.pbsnodes = pbsnodes
@@ -50,6 +51,7 @@ class PBSNodesXMLHandler(ContentHandler):
         self.num_processors = ""
         self.properties = ""
         self.jobs = ""
+        self.status = ""
 
     def startElement(self, name, attrs):
 	"""
@@ -80,6 +82,9 @@ class PBSNodesXMLHandler(ContentHandler):
         elif name == "jobs":
             self.is_jobs_element = True
             self.jobs = ""
+        elif name == "status":
+            self.is_status_element = True
+            self.status = ""
 
     def endElement(self, name):
 	"""
@@ -106,6 +111,9 @@ class PBSNodesXMLHandler(ContentHandler):
         elif name == "jobs":
             self.is_jobs_element = False
             self.node.set_jobs_string(self.jobs)
+        elif name == "status":
+            self.is_status_element = False
+            self.node.set_status_string(self.status)
 
     def characters(self, content):
 	"""
@@ -125,5 +133,7 @@ class PBSNodesXMLHandler(ContentHandler):
             self.properties += content
         elif self.is_jobs_element:
             self.jobs += content
+        elif self.is_status_element:
+            self.status += content
 
 # vim: expandtab shiftwidth=4:
