@@ -38,7 +38,7 @@ except getopt.GetoptError:
     usage()
     sys.exit(2)
 
-testing = True
+testing = False
 three_d_view = False
 xml_file = None
 interactive = False
