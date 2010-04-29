@@ -11,7 +11,7 @@ import ConfigParser
 
 def usage():
     print """Usage:
-    python cluster_load_status.py [options]
+    cluster_load_status [options]
     
     options:
     [-h/--help]                  Print usage information and exit

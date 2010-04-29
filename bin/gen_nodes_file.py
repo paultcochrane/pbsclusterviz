@@ -32,7 +32,7 @@ import sys, re, os
 
 def usage():
     print """Usage:
-    python gen_nodes_file.py [options]
+    gen_nodes_file [options]
 
     options:
     [-h/--help]                     Print usage information and exit

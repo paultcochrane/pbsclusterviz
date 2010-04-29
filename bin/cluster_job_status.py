@@ -33,7 +33,7 @@ import ConfigParser
 
 def usage():
     print """Usage:
-    python cluster_job_status.py [options]
+    cluster_job_status [options]
 
     options:
     [-h/--help]                  Print usage information and exit
