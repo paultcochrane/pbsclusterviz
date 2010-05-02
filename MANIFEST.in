@@ -24,3 +24,11 @@ include pbsclusterviz/compute_node.py
 include pbsclusterviz/pbs/__init__.py
 include pbsclusterviz/pbs/pbsnodes.py
 include pbsclusterviz/pbs/xml_handler.py
+
+# add the example files
+include examples/rrznviz.conf
+include examples/pbsnodes_rrzn.xml
+include examples/nodes.rrzn
+include examples/hlrnviz.conf
+include examples/pbsnodes_hlrn.xml
+include examples/nodes.hlrn
