@@ -5,6 +5,7 @@ File containing the ComputeNode class
 """
 
 import vtk
+import sys
 
 class ComputeNode(object):
     """
