@@ -29,9 +29,9 @@ class PBSNodes:
     """
 
     def __init__(self):
-	"""
-	Initialise the PBSNodes class
-	"""
+        """
+        Initialise the PBSNodes class
+        """
 
         self.node_list = []
 
