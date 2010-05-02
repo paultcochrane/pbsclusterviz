@@ -13,6 +13,8 @@ include bin/cluster_load_status
 include bin/cluster_load_status.py
 include bin/gen_nodes_file
 include bin/gen_nodes_file.py
+include etc/pbsclusterviz.d/clusterviz.conf
+include etc/pbsclusterviz.d/nodes
 
 # add base package files
 include pbsclusterviz/__init__.py
