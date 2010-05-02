@@ -33,7 +33,7 @@ Then you need to extend your PYTHONPATH environment variable so:
 
 and extend your PATH so:
 
-   export PATH=$PATH:$HOME/pbsclusterviz/scripts-2.5
+   export PATH=$PATH:$HOME/pbsclusterviz/bin
 
 
 Dependencies:
