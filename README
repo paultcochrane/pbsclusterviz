@@ -182,3 +182,21 @@ jobs.  For instance, one could save images every ten minutes, then after a
 day or even a week, one can generate an mpeg movie file from the collected
 images.
 
+--------------------------------------------------------------------------
+Examples
+--------------------------------------------------------------------------
+
+In the examples/ directory of the distribution you will find some
+pre-generated pbsnodes xml files and an example configuration file.
+
+The first example works for the RRZN cluster system.  Change into the
+examples/ directory and run the following commands:
+
+   $ cluster_load_status -x pbsnodes_rrzn.xml -n nodes.rrzn -c rrznviz.conf -i
+   $ cluster_job_status -x pbsnodes_rrzn.xml -n nodes.rrzn -c rrznviz.conf -i
+
+The other example is for the HLRN supercomputer system (http://www.hlrn.de).
+Change into the examples/ directory and run the following commands:
+
+   $ cluster_load_status -x pbsnodes_hlrn.xml -n nodes.hlrn -c hlrnviz.conf -i
+   $ cluster_job_status -x pbsnodes_hlrn.xml -n nodes.hlrn -c hlrnviz.conf -i
