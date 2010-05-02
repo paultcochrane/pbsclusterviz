@@ -66,8 +66,36 @@ interactive = False
 xml_file = None
 output_file = "cluster_job_status.png"
 pbsclusterviz.pbs.__debug = False
-config_file = "clusterviz.conf"
-nodes_file = "nodes"
+
+# work out where the config files are from the PYTHONPATH environment variable
+pythonpath = os.environ.get('PYTHONPATH')
+pythonpath_elements = []
+config_path = "/etc/pbsclusterviz.d"
+if pythonpath is not None:
+    # split the PYTHONPATH on ':' and search for the pbsclusterviz.d directory
+    pythonpath_elements = pythonpath.split(':')
+    for path in pythonpath_elements:
+        # trim off the path to the python site-packages to get the base path
+        site_packages_regexp = re.compile(r'lib/python\d\.\d/site-packages')
+        path = site_packages_regexp.sub('', path)
+        test_path = "%s/etc/pbsclusterviz.d" % path
+        if os.path.exists(test_path):
+            config_path = test_path
+
+config_file = "%s/clusterviz.conf" % config_path
+nodes_file = "%s/nodes" % config_path
+
+# make sure one can find the config file and the nodes file
+if not os.path.exists(config_file):
+    print "Unable to find pbsclusterviz configuration file"
+    print "Did you set your PYTHONPATH variable correctly?"
+    sys.exit(1)
+
+if not os.path.exists(nodes_file):
+    print "Unable to find pbsclusterviz configuration file"
+    print "Did you set your PYTHONPATH variable correctly?"
+    sys.exit(1)
+
 for option, arg in options_list:
     if option in ("-h", "--help"):
         usage()
