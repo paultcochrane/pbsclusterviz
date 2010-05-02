@@ -39,8 +39,8 @@ def usage():
     [-h/--help]                  Print usage information and exit
     [-V/--version]               Print version information and exit
     [-l/--logfile=<filename>]    Specify an alternative log file name
-    [-i/--interactive]           Turn on interactive behaviour
-    [-x/--xmlfile=<filename>]    Specify an input xml file
+    [-i/--interactive]           Turn on interactive behaviour (default off)
+    [-x/--xmlfile=<filename>]    Specify an input pbsnodes xml file
     [-o/--outfile=<filename>]    Specify an output image file
     [-c/--configfile=<filename>] Specify an input configuration file
     [-n/--nodesfile=<filename>]  Specify an alternate nodes file
