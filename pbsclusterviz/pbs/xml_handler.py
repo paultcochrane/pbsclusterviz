@@ -30,17 +30,17 @@ class PBSNodesXMLHandler(ContentHandler):
     """
 
     def __init__(self, pbsnodes):
-	"""
-	Initialise the handler class
-	"""
+        """
+        Initialise the handler class
+        """
 
-	ContentHandler.__init__(self)
+        ContentHandler.__init__(self)
 
         self.is_node_element = False
         self.is_name_element = False
         self.is_state_element = False
         self.is_num_processors_element = False
-        self.is_properities_element = False
+        self.is_properties_element = False
         self.is_jobs_element = False
         self.is_status_element = False
 
@@ -54,15 +54,15 @@ class PBSNodesXMLHandler(ContentHandler):
         self.status = ""
 
     def startElement(self, name, attrs):
-	"""
-	Method to call at the beginning of an XML element
-	
-	@param name: the element name
-	@type name: string
+        """
+        Method to call at the beginning of an XML element
+        
+        @param name: the element name
+        @type name: string
 
-	@param attrs: the attribute name
-	@type attrs: string
-	"""
+        @param attrs: the attribute name
+        @type attrs: string
+        """
 
         if name == "Node":
             self.is_node_element = True
@@ -87,12 +87,12 @@ class PBSNodesXMLHandler(ContentHandler):
             self.status = ""
 
     def endElement(self, name):
-	"""
-	Method to call at the end of an XML element
+        """
+        Method to call at the end of an XML element
 
-	@param name: the element name
-	@type name: string
-	"""
+        @param name: the element name
+        @type name: string
+        """
         if name == "Node":
             self.is_node_element = False
             self.pbsnodes.add_node(self.node)
@@ -116,12 +116,12 @@ class PBSNodesXMLHandler(ContentHandler):
             self.node.set_status_string(self.status)
 
     def characters(self, content):
-	"""
-	Process the characters in the XML data
+        """
+        Process the characters in the XML data
 
-	@param content: the current character(s) (i.e. content) to be processed
-	@type content: string
-	"""
+        @param content: the current character(s) (i.e. content) to be processed
+        @type content: string
+        """
 
         if self.is_name_element:
             self.name += content
