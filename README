@@ -1,0 +1,19 @@
+Installation in a central location:
+
+   $ python setup.py install
+
+Installation in your home directory:
+
+   $ python setup.py install --prefix=$HOME/pbsclusterviz
+
+Then you need to set your PYTHONPATH environment variable so:
+
+   export PYTHONPATH=$HOME/pbsclusterviz/lib
+
+and extend your PATH so:
+
+   export PATH=$PATH:$HOME/pbsclusterviz/scripts-2.5
+
+
+Dependencies:
+   python 2.5, Visualisation Toolkit (python-vtk), Python XML libraries (python-xml)
