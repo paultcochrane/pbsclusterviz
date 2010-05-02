@@ -104,7 +104,7 @@ class Node:
 
     def set_state(self, node_state):
         """
-        Set the node's state (e.g. busy, free, job-exclusive)
+        Set the node's state (e.g. busy, free, job-exclusive, down, offline)
 
         @param node_state: the state to set
         @type node_state: string
@@ -183,7 +183,7 @@ class Node:
         """
         Return a hash of the current status information for the node
         """
-        if self.state == 'down':
+        if re.search('down', self.state):
             status_info = None
         else:
             status_string = self.get_status_string()

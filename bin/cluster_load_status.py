@@ -126,6 +126,8 @@ for line in lines:
         else:
             node.set_load_avg(node_table[node_name].get_load_avg())
         node.set_grid_xy_pos(x_pos, y_pos)
+        if re.search('down', node_table[node_name].get_state()):
+            node.set_node_down()
         node_list.append(node)
 
 # read in the configuration file
@@ -208,7 +210,10 @@ for node in node_list:
     node_load = node.get_load_avg()
     max_node_load = node.get_max_load()
     lut.GetColor(node_load/max_node_load, rgb)
-    node.set_rgb(rgb)
+    if node.is_down():
+        node.set_rgb([0.5, 0.5, 0.5])
+    else:
+        node.set_rgb(rgb)
 
 # set up the scalar bar
 scalar_bar = vtk.vtkScalarBarActor()
