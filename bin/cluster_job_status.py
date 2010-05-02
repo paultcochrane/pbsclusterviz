@@ -112,7 +112,11 @@ if xml_file is not None:
     parser.parse(xml_file)
 else:
     xml_file = '/tmp/pbsnodes.xml'
-    os.system("pbsnodes -x > %s" % xml_file)
+    pbsnodes_cmd = "pbsnodes -x"
+    error = os.system("%s > %s" % (pbsnodes_cmd, xml_file) )
+    if error:
+        print "Unable to run '%s'.  Exiting." % pbsnodes_cmd
+        sys.exit(1)
     parser.parse(xml_file)
 
 max_num_jobs = 0
