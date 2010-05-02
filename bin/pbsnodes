@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cat pbsnodes_example.xml
