@@ -19,6 +19,8 @@ a=setup(name="pbsclusterviz",
 		'bin/cluster_load_status',
 		'bin/gen_nodes_file',
 		],
+      data_files=[('etc/pbsclusterviz.d',
+		['etc/nodes', 'etc/clusterviz.conf'])],
 )
 
 
