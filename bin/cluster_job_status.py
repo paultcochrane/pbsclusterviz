@@ -111,9 +111,9 @@ if xml_file is not None:
         sys.exit(1)
     parser.parse(xml_file)
 else:
-    # TODO: implement a direct call to pbsnodes -x
-    print "Direct call to pbsnodes not yet implemented"
-    sys.exit()
+    xml_file = '/tmp/pbsnodes.xml'
+    os.system("pbsnodes -x > %s" % xml_file)
+    parser.parse(xml_file)
 
 max_num_jobs = 0
 for node in pbsnodes.get_node_list():
