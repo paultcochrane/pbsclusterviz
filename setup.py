@@ -20,7 +20,10 @@ a=setup(name="pbsclusterviz",
 		'bin/gen_nodes_file',
 		],
       data_files=[('etc/pbsclusterviz.d',
-		['etc/nodes', 'etc/clusterviz.conf'])],
+		    [
+		    'etc/pbsclusterviz.d/nodes',
+		    'etc/pbsclusterviz.d/clusterviz.conf'
+		    ])],
 )
 
 
