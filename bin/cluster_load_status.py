@@ -17,9 +17,9 @@ def usage():
     [-h/--help]                  Print usage information and exit
     [-V/--version]               Print version information and exit
     [-l/--logfile=<filename>]    Specify an alternative log file name
-    [-t/--three_d_view]          Display in three dimensions (default 2D)
-    [-i/--interactive]           Turn on interactive behaviour
-    [-x/--xmlfile]               Specify an input xml file
+    [-t/--two_d_view]            Display in two dimensions (default 3D)
+    [-i/--interactive]           Turn on interactive behaviour (default off)
+    [-x/--xmlfile]               Specify an input pbsnodes xml file
     [-o/--outfile=<filename>]    Specify an output image file
     [-c/--configfile=<filename>] Specify an input configuration file
     [-n/--nodesfile=<filename>]  Specify an alternate nodes file
@@ -31,7 +31,7 @@ def version():
 # Handle options
 try:
     options_list, args_list = getopt.getopt(sys.argv[1:], "hVtil:x:o:c:n:d",
-            ["help", "version", "three_d_view", "interactive", "logfile=",
+            ["help", "version", "two_d_view", "interactive", "logfile=",
                 "xmlfile=", "outfile=", "configfile=", "nodesfile=", "debug"])
 except getopt.GetoptError:
     # print help information and exit:
@@ -39,7 +39,7 @@ except getopt.GetoptError:
     sys.exit(2)
 
 testing = False
-three_d_view = False
+three_d_view = True
 xml_file = None
 interactive = False
 output_file = "cluster_load_status.png"
@@ -53,8 +53,8 @@ for option, arg in options_list:
     elif option in ("-V", "--version"):
         version()
         sys.exit()
-    elif option in ("-t", "--three_d_view"):
-        three_d_view = True
+    elif option in ("-t", "--two_d_view"):
+        three_d_view = False
     elif option in ("-i", "--interactive"):
         interactive = True
     elif option in ("-l", "--logfile"):
