@@ -29,6 +29,3 @@ include pbsclusterviz/pbs/xml_handler.py
 include examples/rrznviz.conf
 include examples/pbsnodes_rrzn.xml
 include examples/nodes.rrzn
-include examples/hlrnviz.conf
-include examples/pbsnodes_hlrn.xml
-include examples/nodes.hlrn
