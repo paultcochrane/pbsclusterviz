@@ -68,6 +68,39 @@ output_file = "cluster_job_status.png"
 
 pbsclusterviz.pbs.__debug = False
 
+# parse the command line options
+for option, arg in options_list:
+    if option in ("-h", "--help"):
+        usage()
+        sys.exit()
+    if option in ("-V", "--version"):
+        version()
+        sys.exit()
+    if option in ("-i", "--interactive"):
+        interactive = True
+    elif option in ("-l", "--logfile"):
+        print "Not yet implemented"
+        sys.exit()
+        log_file = arg
+    elif option in ("-x", "--xmlfile"):
+        xml_file = arg
+    elif option in ("-o", "--outfile"):
+        output_file = arg
+    elif option in ("-c", "--configfile"):
+        config_file = arg
+    elif option in ("-n", "--nodesfile"):
+        nodes_file = arg
+    elif option in ("-d", "--debug"):
+        pbsclusterviz.pbs.__debug = True
+    else:
+        print "Unknown option %s" % option
+        sys.exit(2)
+
+if len(args_list) > 2:
+    print "Too many arguments"
+    usage()
+    sys.exit()
+
 # work out where the config files are from the PYTHONPATH environment variable
 pythonpath = os.environ.get('PYTHONPATH')
 pythonpath_elements = []
@@ -104,38 +137,7 @@ if not os.path.exists(nodes_file):
     print ".../etc/pbsclusterviz.d directory"
     sys.exit(1)
 
-for option, arg in options_list:
-    if option in ("-h", "--help"):
-        usage()
-        sys.exit()
-    if option in ("-V", "--version"):
-        version()
-        sys.exit()
-    if option in ("-i", "--interactive"):
-        interactive = True
-    elif option in ("-l", "--logfile"):
-        print "Not yet implemented"
-        sys.exit()
-        log_file = arg
-    elif option in ("-x", "--xmlfile"):
-        xml_file = arg
-    elif option in ("-o", "--outfile"):
-        output_file = arg
-    elif option in ("-c", "--configfile"):
-        config_file = arg
-    elif option in ("-n", "--nodesfile"):
-        nodes_file = arg
-    elif option in ("-d", "--debug"):
-        pbsclusterviz.pbs.__debug = True
-    else:
-        print "Unknown option %s" % option
-        sys.exit(2)
-
-if len(args_list) > 2:
-    print "Too many arguments"
-    usage()
-    sys.exit()
-
+# Now collect the data from the pbsnodes-generated XML file
 pbsnodes = PBSNodes()
 parser = xml.sax.make_parser()
 handler = PBSNodesXMLHandler(pbsnodes)
