@@ -90,7 +90,7 @@ if pythonpath is not None:
     pythonpath_elements = pythonpath.split(':')
     for path in pythonpath_elements:
         # trim off the path to the python site-packages to get the base path
-        site_packages_regexp = re.compile(r'lib/python\d\.\d/site-packages')
+        site_packages_regexp = re.compile(r'lib\d{0,2}/python\d\.\d/site-packages')
         path = site_packages_regexp.sub('', path)
         test_path = "%s/etc/pbsclusterviz.d" % path
         if os.path.exists(test_path):
