@@ -87,12 +87,12 @@ nodes_file = "%s/nodes" % config_path
 
 # make sure one can find the config file and the nodes file
 if not os.path.exists(config_file):
-    print "Unable to find pbsclusterviz configuration file"
+    print "Unable to find pbsclusterviz configuration file: %s" % config_file
     print "Did you set your PYTHONPATH variable correctly?"
     sys.exit(1)
 
 if not os.path.exists(nodes_file):
-    print "Unable to find pbsclusterviz configuration file"
+    print "Unable to find pbsclusterviz nodes file: %s" % nodes_file
     print "Did you set your PYTHONPATH variable correctly?"
     sys.exit(1)
 
