@@ -348,9 +348,9 @@ class ComputeNode(object):
             down_label_actor.SetScale(0.1, 0.1, 0.1)
             down_label_actor.SetTextProperty(down_label_prop)
             if self.three_d_view:
-                node_label_actor.SetOrientation(30, 180, 0)
+                down_label_actor.SetOrientation(30, 180, 0)
             else:
-                node_label_actor.SetOrientation(90, 180, 0)
+                down_label_actor.SetOrientation(90, 180, 0)
 
             renderer.AddActor(down_label_actor)
 
