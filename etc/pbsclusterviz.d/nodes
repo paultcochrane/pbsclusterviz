@@ -1,8 +1,8 @@
 # format: name x-position y-position
 orac 0 0
 # 'smp' partition
-lucky 5 0
-vladimir 4 0
+vladimir 5 0
+lucky 4 0
 centaurus 3 0 
 estragon 2 0
 pozzo 1 0
