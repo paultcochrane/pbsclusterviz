@@ -1,23 +1,21 @@
 # format: name x-position y-position
 orac 0 0
-# 'pozzo' partition
+# 'smp' partition
+lucky 5 0
+vladimir 4 0
 centaurus 3 0 
 estragon 2 0
 pozzo 1 0
 # 'cluh' partition
 cluhadm 0 5
-lcn01 1 5
 lcn02 2 5
 lcn03 3 5
-lcn04 4 5
 lcn05 5 5
 lcn06 6 5
 lcn07 7 5
 lcn08 8 5
 lcn09 1 6
 lcn10 2 6
-lcn11 3 6
-lcn12 4 6
 lcn13 5 6
 lcn14 6 6
 lcn15 7 6
@@ -47,5 +45,3 @@ tcn07 1 4
 tcn08 2 4
 tcn09 3 4
 tcn10 4 4
-tcn11 5 4
-tcn12 6 4
