@@ -43,36 +43,10 @@ three_d_view = True
 xml_file = None
 interactive = False
 output_file = "cluster_load_status.png"
+
 pbsclusterviz.pbs.__debug = False
-# work out where the config files are from the PYTHONPATH environment variable
-pythonpath = os.environ.get('PYTHONPATH')
-pythonpath_elements = []
-config_path = "/etc/pbsclusterviz.d"
-if pythonpath is not None:
-    # split the PYTHONPATH on ':' and search for the pbsclusterviz.d directory
-    pythonpath_elements = pythonpath.split(':')
-    for path in pythonpath_elements:
-        # trim off the path to the python site-packages to get the base path
-        site_packages_regexp = re.compile(r'lib/python\d\.\d/site-packages')
-        path = site_packages_regexp.sub('', path)
-        test_path = "%s/etc/pbsclusterviz.d" % path
-        if os.path.exists(test_path):
-            config_path = test_path
 
-config_file = "%s/clusterviz.conf" % config_path
-nodes_file = "%s/nodes" % config_path
-
-# make sure one can find the config file and the nodes file
-if not os.path.exists(config_file):
-    print "Unable to find pbsclusterviz configuration file"
-    print "Did you set your PYTHONPATH variable correctly?"
-    sys.exit(1)
-
-if not os.path.exists(nodes_file):
-    print "Unable to find pbsclusterviz configuration file"
-    print "Did you set your PYTHONPATH variable correctly?"
-    sys.exit(1)
-
+# parse the command line options
 for option, arg in options_list:
     if option in ("-h", "--help"):
         usage()
@@ -107,6 +81,43 @@ if len(args_list) > 2:
     usage()
     sys.exit()
 
+# work out where the config files are from the PYTHONPATH environment variable
+pythonpath = os.environ.get('PYTHONPATH')
+pythonpath_elements = []
+config_path = "/etc/pbsclusterviz.d"
+if pythonpath is not None:
+    # split the PYTHONPATH on ':' and search for the pbsclusterviz.d directory
+    pythonpath_elements = pythonpath.split(':')
+    for path in pythonpath_elements:
+        # trim off the path to the python site-packages to get the base path
+        site_packages_regexp = re.compile(r'lib/python\d\.\d/site-packages')
+        path = site_packages_regexp.sub('', path)
+        test_path = "%s/etc/pbsclusterviz.d" % path
+        if os.path.exists(test_path):
+            config_path = test_path
+
+        if pbsclusterviz.pbs.__debug:
+            print "path = %s" % path
+            print "test_path = %s" % test_path
+            print "config_path = %s" % config_path
+
+config_file = "%s/clusterviz.conf" % config_path
+nodes_file = "%s/nodes" % config_path
+
+# make sure one can find the config file and the nodes file
+if not os.path.exists(config_file):
+    print "Unable to find pbsclusterviz configuration file: %s" % config_file
+    print "Your PYTHONPATH variable should include the location of the"
+    print ".../etc/pbsclusterviz.d directory"
+    sys.exit(1)
+
+if not os.path.exists(nodes_file):
+    print "Unable to find pbsclusterviz nodes file: %s" % nodes_file
+    print "Your PYTHONPATH variable should include the location of the"
+    print ".../etc/pbsclusterviz.d directory"
+    sys.exit(1)
+
+# Now collect the data from the pbsnodes-generated XML file
 pbsnodes = PBSNodes()
 parser = xml.sax.make_parser()
 handler = PBSNodesXMLHandler(pbsnodes)
