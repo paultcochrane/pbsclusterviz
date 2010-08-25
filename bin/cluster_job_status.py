@@ -65,6 +65,7 @@ except getopt.GetoptError:
 interactive = False
 xml_file = None
 output_file = "cluster_job_status.png"
+
 pbsclusterviz.pbs.__debug = False
 
 # work out where the config files are from the PYTHONPATH environment variable
@@ -82,18 +83,25 @@ if pythonpath is not None:
         if os.path.exists(test_path):
             config_path = test_path
 
+        if pbsclusterviz.pbs.__debug:
+            print "path = %s" % path
+            print "test_path = %s" % test_path
+            print "config_path = %s" % config_path
+
 config_file = "%s/clusterviz.conf" % config_path
 nodes_file = "%s/nodes" % config_path
 
 # make sure one can find the config file and the nodes file
 if not os.path.exists(config_file):
     print "Unable to find pbsclusterviz configuration file: %s" % config_file
-    print "Did you set your PYTHONPATH variable correctly?"
+    print "Your PYTHONPATH variable should include the location of the"
+    print ".../etc/pbsclusterviz.d directory"
     sys.exit(1)
 
 if not os.path.exists(nodes_file):
     print "Unable to find pbsclusterviz nodes file: %s" % nodes_file
-    print "Did you set your PYTHONPATH variable correctly?"
+    print "Your PYTHONPATH variable should include the location of the"
+    print ".../etc/pbsclusterviz.d directory"
     sys.exit(1)
 
 for option, arg in options_list:
