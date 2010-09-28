@@ -1,6 +1,8 @@
 # format: name x-position y-position
 orac 0 2
-# 'smp' partition
+# 'smp' partition (tesla isn't actually an SMP node, but it fits nicely here
+# on the graph)
+tesla 6 2
 vladimir 5 2
 lucky 4 2
 centaurus 3 2 
