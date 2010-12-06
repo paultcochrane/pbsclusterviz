@@ -195,6 +195,7 @@ for line in lines:
 config = ConfigParser.RawConfigParser()
 config.read(config_file)
 title_text = config.get('job viewer', 'title')
+zoom_factor = float(config.get('job viewer', 'zoom'))
 
 # work out the output file name's base name (the bit without .png)
 base_regex = re.compile(r'(.*?)\.\w+$')
@@ -328,7 +329,8 @@ renderer.ResetCamera()
 renderer.ResetCameraClippingRange()
 renderer.GetActiveCamera().Azimuth(140)
 renderer.GetActiveCamera().Elevation(30)
-renderer.GetActiveCamera().Zoom(1.3)
+#renderer.GetActiveCamera().Zoom(1.3)
+renderer.GetActiveCamera().Zoom(zoom_factor)
 
 #interactive = 0
 if interactive:
