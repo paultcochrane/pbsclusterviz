@@ -236,6 +236,11 @@ title_text = "%s: %s" % (title_text, now)
 title = vtk.vtkTextMapper()
 title.SetInput(title_text)
 
+title_actor = vtk.vtkTextActor()
+title_actor.SetMapper(title)
+title_actor.GetPositionCoordinate().SetCoordinateSystemToNormalizedDisplay()
+title_actor.GetPositionCoordinate().SetValue(0.5,0.95)
+
 title_prop = title.GetTextProperty()
 title_prop.ShallowCopy(text_prop)
 title_prop.SetJustificationToCentered()
@@ -243,11 +248,6 @@ title_prop.SetVerticalJustificationToTop()
 title_prop.SetFontSize(20)
 title_prop.SetColor(1,1,1)
 title_prop.BoldOn()
-
-title_actor = vtk.vtkTextActor()
-title_actor.SetMapper(title)
-title_actor.GetPositionCoordinate().SetCoordinateSystemToNormalizedDisplay()
-title_actor.GetPositionCoordinate().SetValue(0.5,0.95)
 
 renderer.AddActor(title_actor)
 
@@ -282,6 +282,11 @@ utilisation_text = "System utilisation: %0.2f %%" % utilisation_value
 utilisation = vtk.vtkTextMapper()
 utilisation.SetInput(utilisation_text)
 
+utilisation_actor = vtk.vtkTextActor()
+utilisation_actor.SetMapper(utilisation)
+utilisation_actor.GetPositionCoordinate().SetCoordinateSystemToNormalizedDisplay()
+utilisation_actor.GetPositionCoordinate().SetValue(0.5,0.92)
+
 utilisation_prop = utilisation.GetTextProperty()
 utilisation_prop.ShallowCopy(text_prop)
 utilisation_prop.SetJustificationToCentered()
@@ -289,11 +294,6 @@ utilisation_prop.SetVerticalJustificationToTop()
 utilisation_prop.SetFontSize(16)
 utilisation_prop.SetColor(1,1,1)
 utilisation_prop.BoldOn()
-
-utilisation_actor = vtk.vtkTextActor()
-utilisation_actor.SetMapper(utilisation)
-utilisation_actor.GetPositionCoordinate().SetCoordinateSystemToNormalizedDisplay()
-utilisation_actor.GetPositionCoordinate().SetValue(0.5,0.92)
 
 renderer.AddActor(utilisation_actor)
 

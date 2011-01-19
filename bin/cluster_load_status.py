@@ -216,6 +216,11 @@ title_text = "%s: %s" % (title_text, now)
 title = vtk.vtkTextMapper()
 title.SetInput(title_text)
 
+title_actor = vtk.vtkTextActor()
+title_actor.SetMapper(title)
+title_actor.GetPositionCoordinate().SetCoordinateSystemToNormalizedDisplay()
+title_actor.GetPositionCoordinate().SetValue(0.5,0.95)
+
 title_prop = title.GetTextProperty()
 title_prop.ShallowCopy(text_prop)
 title_prop.SetJustificationToCentered()
@@ -223,11 +228,6 @@ title_prop.SetVerticalJustificationToTop()
 title_prop.SetFontSize(20)
 title_prop.SetColor(1,1,1)
 title_prop.BoldOn()
-
-title_actor = vtk.vtkTextActor()
-title_actor.SetMapper(title)
-title_actor.GetPositionCoordinate().SetCoordinateSystemToNormalizedDisplay()
-title_actor.GetPositionCoordinate().SetValue(0.5,0.95)
 
 renderer.AddActor(title_actor)
 
