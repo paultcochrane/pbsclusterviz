@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# This is a program to visualize the load status of a cluster 
+# using the output of pbsnodes
+
 import pbsclusterviz
 from pbsclusterviz.pbs.pbsnodes import PBSNodes, Node
 from pbsclusterviz.pbs.xml_handler import PBSNodesXMLHandler
