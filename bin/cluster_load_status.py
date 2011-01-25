@@ -347,9 +347,13 @@ else:
 
     # generate a high resolution version
     render_window.SetSize(2560, 1440)
+    renderer.GetActiveCamera().Zoom(1.4)
 
     win2img_filter = vtk.vtkWindowToImageFilter()
     win2img_filter.SetInput(render_window)
+
+    title_prop.SetFontSize(44)
+    utilisation_prop.SetFontSize(30)
 
     out_writer = vtk.vtkPNGWriter()
     out_writer.SetInput(win2img_filter.GetOutput())
