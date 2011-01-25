@@ -353,7 +353,6 @@ else:
     win2img_filter.SetInput(render_window)
 
     title_prop.SetFontSize(44)
-    utilisation_prop.SetFontSize(30)
 
     out_writer = vtk.vtkPNGWriter()
     out_writer.SetInput(win2img_filter.GetOutput())
