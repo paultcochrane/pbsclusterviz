@@ -160,6 +160,8 @@ else:
 max_num_jobs = 0
 for node in pbsnodes.get_node_list():
     #print "%s %i" % (node.get_name(), node.get_num_jobs())
+    # if the node is down, don't count it in the utilisation stats
+    #if not node.is_down():
     max_num_jobs += node.get_num_processors()
 node_table = pbsnodes.get_node_table()
 
@@ -362,6 +364,19 @@ else:
     out_writer.SetFileName(fname_str)
 
     # save it to file
+    out_writer.Write()
+
+    # generate a high resolution version
+    render_window.SetSize(2560, 1440)
+
+    win2img_filter = vtk.vtkWindowToImageFilter()
+    win2img_filter.SetInput(render_window)
+
+    out_writer = vtk.vtkPNGWriter()
+    out_writer.SetInput(win2img_filter.GetOutput())
+    out_writer.SetFileName("%s_highres.png" % output_file_basename)
+
+    render_window.Render()
     out_writer.Write()
 
 # vim: expandtab shiftwidth=4:
