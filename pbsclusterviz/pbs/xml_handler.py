@@ -24,6 +24,35 @@ File containing the XML handler class for processing pbs-related XML output
 from xml.sax.handler import ContentHandler
 from pbsclusterviz.pbs.pbsnodes import PBSNodes, Node
 
+# This class extends the ContentHandler class from xml.sax.handler.
+# When a xml.sax-Parser parses a xml-file, at each xml-element 
+# this handler is invoked. 
+# For example a segment like
+#    <tag1>
+#        property1, property2
+#    </tag1>
+# will lead to the following calls of the handler:
+#    ContentHandler.startElement( "tag1" )
+#    ContentHandler.characters( "property1, property2" )
+#    ContentHandler.endElement( "tag1" )
+# According to the output of 'pbsnodes -x' the call of 
+# startElement only marks the type of the current element.
+# Then the content is read and stored to the corresponding 
+# variable. Calling endElement unsets the current type,
+# stores the result in the nodelist 'pbsnodes' and
+# resets the handler for the next element.
+#
+# The hierarchy of the output of 'pbsnodes -x' is flat,
+# i.e. there is only the <Node>-tag and then a list
+# of properties, which contain no further sub-properties:
+# <Node>
+#    <name>Pozzo</name>
+#    ...
+#    <status>blubb</status>
+# </Node>
+# Further nesting could lead to problems as the hierarchy
+# of the tags is not stored in the implementation of this 
+# handler.
 class PBSNodesXMLHandler(ContentHandler):
     """
     The XML handler class for processing pbsnodes XML output
