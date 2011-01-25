@@ -333,17 +333,15 @@ else:
     out_writer.Write()
 
     # and write out a file with the current date on it
-    from datetime import datetime
-    date = datetime.now()
-    date_str = date.strftime("%Y%m%d_%H%M")
     if three_d_view:
+        from datetime import datetime
+        date = datetime.now()
+        date_str = date.strftime("%Y%m%d_%H%M")
         fname_str = "%s_%s.png" % (output_file_basename, date_str)
-    else:
-        fname_str = "%s_2d_%s.png" % (output_file_basename, date_str)
-    out_writer.SetFileName(fname_str)
+        out_writer.SetFileName(fname_str)
 
-    # save it to file
-    out_writer.Write()
+        # save it to file
+        out_writer.Write()
 
     # generate a high resolution version
     render_window.SetSize(2560, 1440)
