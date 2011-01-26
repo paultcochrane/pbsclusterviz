@@ -11,6 +11,7 @@ import os, re, sys
 import xml.sax
 import getopt
 import ConfigParser
+import vtk
 
 def usage():
     print """Usage:
@@ -31,6 +32,108 @@ def usage():
 def version():
     print """cluster_load_status version 0.1a"""
 
+# This function looks up the config files, checks whether they exist
+# and returns a list with two elements. The first is a Parser for 
+# the config file and the second one a list of all nodes
+
+def get_config( xml_file ):
+    # work out where the config files are from the PYTHONPATH environment variable
+    pythonpath = os.environ.get('PYTHONPATH')
+    pythonpath_elements = []
+    config_path = "/etc/pbsclusterviz.d"
+    if pythonpath is not None:
+        # split the PYTHONPATH on ':' and search for the pbsclusterviz.d directory
+        pythonpath_elements = pythonpath.split(':')
+        for path in pythonpath_elements:
+            # trim off the path to the python site-packages to get the base path
+            site_packages_regexp = re.compile(r'lib\d{0,2}/python\d\.\d/site-packages')
+            path = site_packages_regexp.sub('', path)
+            test_path = "%s/etc/pbsclusterviz.d" % path
+            if os.path.exists(test_path):
+                config_path = test_path
+    
+            if pbsclusterviz.pbs.__debug:
+                print "path = %s" % path
+                print "test_path = %s" % test_path
+                print "config_path = %s" % config_path
+    
+    config_file = "%s/clusterviz.conf" % config_path
+    nodes_file = "%s/nodes" % config_path
+    
+    # make sure one can find the config file and the nodes file
+    if not os.path.exists(config_file):
+        print "Unable to find pbsclusterviz configuration file: %s" % config_file
+        print "Your PYTHONPATH variable should include the location of the"
+        print ".../etc/pbsclusterviz.d directory"
+        sys.exit(1)
+    
+    if not os.path.exists(nodes_file):
+        print "Unable to find pbsclusterviz nodes file: %s" % nodes_file
+        print "Your PYTHONPATH variable should include the location of the"
+        print ".../etc/pbsclusterviz.d directory"
+        sys.exit(1)
+
+    # create a parser for the config file as return value
+    config = ConfigParser.RawConfigParser()
+    config.read(config_file)
+
+    # Now collect the data from the pbsnodes-generated XML file
+    pbsnodes = PBSNodes()
+    parser = xml.sax.make_parser()
+    handler = PBSNodesXMLHandler(pbsnodes)
+    parser.setContentHandler(handler)
+    
+    if xml_file is not None:
+        if not os.path.exists(xml_file):
+            print "PBSNodes XML file: '%s' does not exist!" % xml_file
+            sys.exit(1)
+        parser.parse(xml_file)
+    else:
+        xml_file = '/tmp/pbsnodes.xml'
+        pbsnodes_cmd = "pbsnodes -x"
+        error = os.system("%s > %s" % (pbsnodes_cmd, xml_file) )
+        if error:
+            print "Unable to run '%s'.  Exiting." % pbsnodes_cmd
+            sys.exit(1)
+        parser.parse(xml_file)
+
+    node_table = pbsnodes.get_node_table()
+
+    # read in the node list
+    fp = open(nodes_file, "r")
+    lines = fp.readlines()
+    fp.close()
+    
+    node_list = []
+    hash_regex = re.compile(r'^#')
+    return_regex = re.compile(r'\n')
+    for line in lines:
+        node_name = ""
+        x_pos = 0
+        y_pos = 0
+        if hash_regex.match(line) or return_regex.match(line):
+            pass
+        else:
+            node_info = line.split(' ', 3)
+            node_name = node_info[0]
+            x_pos = node_info[1]
+            y_pos = node_info[2]
+    
+        if node_table.has_key(node_name):
+            node = ComputeNode(display_mode = "load", three_d_view = three_d_view)
+            node.set_hostname(node_name)
+            node.set_max_load(node_table[node_name].get_num_processors())
+            if testing:
+                node.set_load_avg(float(x_pos+y_pos)/20.0)
+            else:
+                node.set_load_avg(node_table[node_name].get_load_avg())
+            node.set_grid_xy_pos(x_pos, y_pos)
+            if re.search('down', node_table[node_name].get_state()):
+                node.set_node_down()
+            node_list.append(node)
+    
+    return ( config, node_list )
+    
 # Handle options
 try:
     options_list, args_list = getopt.getopt(sys.argv[1:], "hVtil:x:o:c:n:d",
@@ -84,101 +187,8 @@ if len(args_list) > 2:
     usage()
     sys.exit()
 
-# work out where the config files are from the PYTHONPATH environment variable
-pythonpath = os.environ.get('PYTHONPATH')
-pythonpath_elements = []
-config_path = "/etc/pbsclusterviz.d"
-if pythonpath is not None:
-    # split the PYTHONPATH on ':' and search for the pbsclusterviz.d directory
-    pythonpath_elements = pythonpath.split(':')
-    for path in pythonpath_elements:
-        # trim off the path to the python site-packages to get the base path
-        site_packages_regexp = re.compile(r'lib\d{0,2}/python\d\.\d/site-packages')
-        path = site_packages_regexp.sub('', path)
-        test_path = "%s/etc/pbsclusterviz.d" % path
-        if os.path.exists(test_path):
-            config_path = test_path
-
-        if pbsclusterviz.pbs.__debug:
-            print "path = %s" % path
-            print "test_path = %s" % test_path
-            print "config_path = %s" % config_path
-
-config_file = "%s/clusterviz.conf" % config_path
-nodes_file = "%s/nodes" % config_path
-
-# make sure one can find the config file and the nodes file
-if not os.path.exists(config_file):
-    print "Unable to find pbsclusterviz configuration file: %s" % config_file
-    print "Your PYTHONPATH variable should include the location of the"
-    print ".../etc/pbsclusterviz.d directory"
-    sys.exit(1)
-
-if not os.path.exists(nodes_file):
-    print "Unable to find pbsclusterviz nodes file: %s" % nodes_file
-    print "Your PYTHONPATH variable should include the location of the"
-    print ".../etc/pbsclusterviz.d directory"
-    sys.exit(1)
-
-# Now collect the data from the pbsnodes-generated XML file
-pbsnodes = PBSNodes()
-parser = xml.sax.make_parser()
-handler = PBSNodesXMLHandler(pbsnodes)
-parser.setContentHandler(handler)
-
-if xml_file is not None:
-    if not os.path.exists(xml_file):
-        print "PBSNodes XML file: '%s' does not exist!" % xml_file
-        sys.exit(1)
-    parser.parse(xml_file)
-else:
-    xml_file = '/tmp/pbsnodes.xml'
-    pbsnodes_cmd = "pbsnodes -x"
-    error = os.system("%s > %s" % (pbsnodes_cmd, xml_file) )
-    if error:
-        print "Unable to run '%s'.  Exiting." % pbsnodes_cmd
-        sys.exit(1)
-    parser.parse(xml_file)
-
-node_table = pbsnodes.get_node_table()
-
-# read in the node list
-fp = open(nodes_file, "r")
-lines = fp.readlines()
-fp.close()
-
-node_list = []
-hash_regex = re.compile(r'^#')
-return_regex = re.compile(r'\n')
-for line in lines:
-    node_name = ""
-    x_pos = 0
-    y_pos = 0
-    if hash_regex.match(line) or return_regex.match(line):
-        pass
-    else:
-        node_info = line.split(' ', 3)
-        node_name = node_info[0]
-        x_pos = node_info[1]
-        y_pos = node_info[2]
-
-    if node_table.has_key(node_name):
-        node = ComputeNode(display_mode = "load", three_d_view = three_d_view)
-        node.set_hostname(node_name)
-        node.set_max_load(node_table[node_name].get_num_processors())
-        if testing:
-            node.set_load_avg(float(x_pos+y_pos)/20.0)
-        else:
-            node.set_load_avg(node_table[node_name].get_load_avg())
-        node.set_grid_xy_pos(x_pos, y_pos)
-        if re.search('down', node_table[node_name].get_state()):
-            node.set_node_down()
-        node_list.append(node)
-
-# read in the configuration file
-config = ConfigParser.RawConfigParser()
-config.read(config_file)
-title_text = config.get('load viewer', 'title')
+( config, node_list ) = get_config( xml_file )
+title_text = config.get( 'load viewer', 'title' )
 
 # work out the output file name's base name (the bit without .png)
 base_regex = re.compile(r'(.*?)\.\w+$')
@@ -188,8 +198,6 @@ if basename_search_result.group(1) is None:
     sys.exit(0)
 
 output_file_basename = basename_search_result.group(1)
-
-import vtk
 
 # Create the usual rendering stuff.
 renderer = vtk.vtkRenderer()
