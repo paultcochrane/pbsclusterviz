@@ -214,7 +214,7 @@ import vtk
 renderer = vtk.vtkRenderer()
 render_window = vtk.vtkRenderWindow()
 render_window.AddRenderer(renderer)
-render_window.SetSize(1024, 768)
+render_window.SetSize(2560, 1024)
 iren = vtk.vtkRenderWindowInteractor()
 iren.SetRenderWindow(render_window)
 
