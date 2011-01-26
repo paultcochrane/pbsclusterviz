@@ -187,7 +187,10 @@ if len(args_list) > 2:
     usage()
     sys.exit()
 
+# Read in the config file
 ( config, node_list ) = get_config( xml_file )
+
+# Extract the title for the image
 title_text = config.get( 'load viewer', 'title' )
 
 # work out the output file name's base name (the bit without .png)
@@ -206,6 +209,8 @@ render_window.AddRenderer(renderer)
 render_window.SetSize(1024, 768)
 iren = vtk.vtkRenderWindowInteractor()
 iren.SetRenderWindow(render_window)
+style = vtk.vtkInteractorStyleTrackballCamera()
+iren.SetInteractorStyle(style)
 
 renderer.SetBackground(0, 0, 0)
 
@@ -253,18 +258,6 @@ refLut.Build()
 for j in range(num_colors):
     lut.SetTableValue(j, refLut.GetTableValue(num_colors-1-j))
 
-# get the colours
-rgb = [0.0, 0.0, 0.0]
-for node in node_list:
-    hostname = node.get_hostname()
-    node_load = node.get_load_avg()
-    max_node_load = node.get_max_load()
-    lut.GetColor(node_load/max_node_load, rgb)
-    if node.is_down():
-        node.set_rgb([0.5, 0.5, 0.5])
-    else:
-        node.set_rgb(rgb)
-
 # set up the scalar bar
 scalar_bar = vtk.vtkScalarBarActor()
 scalar_bar.SetLookupTable(lut)
@@ -292,6 +285,18 @@ scalar_bar_label_prop.SetFontSize(4)
 scalar_bar_label_prop.ItalicOff()
 
 renderer.AddActor(scalar_bar)
+
+# get the colours
+rgb = [0.0, 0.0, 0.0]
+for node in node_list:
+    hostname = node.get_hostname()
+    node_load = node.get_load_avg()
+    max_node_load = node.get_max_load()
+    lut.GetColor(node_load/max_node_load, rgb)
+    if node.is_down():
+        node.set_rgb([0.5, 0.5, 0.5])
+    else:
+        node.set_rgb(rgb)
 
 ### generate the node matrix
 for node in node_list:
