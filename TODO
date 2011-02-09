@@ -1,2 +1,5 @@
  - implement the configuration file format that Holger recently used for the
    node list
+ - interactive mode
+    - the program updates itself after a configurable length of time
+    - "balloons" show the jobs active on a given node via mouseover events
