@@ -2,6 +2,10 @@
 orac 0 0
 # 'smp' partition (tesla and slave aren't actually SMP nodes, but they fit
 # nicely here on the graph)
+tfd-n004 16 0
+tfd-n003 15 0
+tfd-n002 14 0
+tfd-n001 13 0
 smp-n004 12 0
 smp-n003 11 0
 smp-n002 10 0
