@@ -367,7 +367,7 @@ else:
     out_writer.Write()
 
     # generate a high resolution version
-    render_window.SetSize(2560, 1440)
+    render_window.SetSize(1900, 1080)
     renderer.GetActiveCamera().Zoom(1.2)
 
     win2img_filter = vtk.vtkWindowToImageFilter()
