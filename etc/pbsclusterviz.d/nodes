@@ -1,22 +1,28 @@
 # format: name x-position y-position
 orac 0 0
-# 'smp' partition (tesla and slave aren't actually SMP nodes, but they fit
-# nicely here on the graph)
+# 'smp' partition
 estragon 1 0
 centaurus 2 0 
 lucky 3 0
 vladimir 4 0
-tesla 5 0
-test-n001 6 0
-helena 7 0
-smp-n001 8 0
-smp-n002 9 0
-smp-n003 10 0
-smp-n004 11 0
-tfd-n001 12 0
-tfd-n002 13 0
-tfd-n003 14 0
-tfd-n004 15 0
+helena 5 0
+smp-n001 6 0
+smp-n002 7 0
+smp-n003 8 0
+smp-n004 9 0
+smp-n005 10 0
+smp-n006 11 0
+smp-n007 12 0
+smp-n008 13 0
+smp-n009 14 0
+# 'tfd' partition (tesla and test-n001 aren't actually SMP nodes, but they fit
+# nicely here on the graph)
+test-n001 1 1
+tesla 2 1
+tfd-n001 4 1
+tfd-n002 5 1
+tfd-n003 6 1
+tfd-n004 7 1
 # 'paris' partition
 paris 0 2
 paris-n001 1 2
