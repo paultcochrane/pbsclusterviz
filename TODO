@@ -1,0 +1,9 @@
+ - implement the configuration file format that Holger recently used for the
+   node list
+ - need to clean up the code a bit and do some more testing
+ - merge "interactive" branch back into the trunk
+  - balloons should appear without needing to use the 'i' key
+ - 3D visualisation in a browser.  X3D or VRML or what?  Need to investigate
+   - X3D is VRML 3.0...  FreeWML is a good visualiser of X3D files and it
+     provides a web browser plugin
+ - add support for building Debian and RPM packages

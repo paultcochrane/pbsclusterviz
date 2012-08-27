@@ -1,0 +1,32 @@
+0.6a
+===
+
+ - Improvement of internal structure
+ - gen_nodes_file works again
+ - Removed old, unused classes and files
+ - Improved and extended debugging capabilities
+ - Default display mode is now 'job'
+ - gen_nodes_file now says what it is doing instead of being silent
+ - Setting the display mode on the command line now works
+ - Documentation updated
+ - Colourmap changes properly between 'load' and 'job' view
+ - Display updates with the 'u' key now works
+ - The -c/--configfile command line option performs now as expected
+ - The nodes_file command line option now works
+
+0.5a
+===
+
+ - Prerelease of the new interactive visualisation capabilities.
+ - Interactive output is now default.
+ - cluster_load_status and cluster_job_status consolidated into one file
+ - Keyboard input directly interpreted to change between "load" and "job"
+   display modes.
+ - Balloons pop up (with the "i" key) to show the jobs running on a given
+   node and the total load on that node.
+ - Many internal structural changes.
+
+0.1
+===
+
+ - First public release.
