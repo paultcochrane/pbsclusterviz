@@ -96,26 +96,24 @@ def update_display(node_grid, node_grid_display, clusterviz_config, render_windo
 ### The main program
 def main():
 
-
     #Hotfix
     os.system("ssh avon 'pbsnodes -x' > pbsnodes.xml")
 
     # set up a log output for critical errors
     logger = logging.getLogger("")
     logger.setLevel(logging.DEBUG)
+
     # create console handler
     ch = logging.StreamHandler()
     ch.setLevel(logging.ERROR)
     logger.addHandler(ch)
-
-
 
     # Read in the configuration
     clusterviz_config = ClustervizConfig()
     clusterviz_config.find_config_files()
     clusterviz_config.read_config()
 
-
+    handle_options(sys.argv[1:], clusterviz_config)
 
     # set up the renderer to create the images
     renderer = vtkRenderer()
