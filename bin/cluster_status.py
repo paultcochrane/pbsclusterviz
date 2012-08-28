@@ -169,8 +169,8 @@ def main():
     active_camera.SetViewUp(0, 0, 1)
     active_camera.Azimuth(-30)
     active_camera.Elevation(35)
-    active_camera.Zoom(1.4)
     renderer.ResetCameraClippingRange()
+    active_camera.Zoom(1.3)
 
     if clusterviz_config.is_interactive():
         # set up the interactive render window stuff
