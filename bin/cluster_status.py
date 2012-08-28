@@ -111,9 +111,11 @@ def main():
     # Read in the configuration
     clusterviz_config = ClustervizConfig()
     clusterviz_config.find_config_files()
-    clusterviz_config.read_config()
 
+    # parse the command line options
     handle_options(sys.argv[1:], clusterviz_config)
+
+    clusterviz_config.read_config()
 
     # set up the renderer to create the images
     renderer = vtkRenderer()
