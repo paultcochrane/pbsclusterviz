@@ -166,6 +166,10 @@ def main():
     renderer.ResetCameraClippingRange()
     active_camera.Zoom(1.3)
 
+    #Add text log
+    text_log.synch()
+    renderer.AddActor(text_log.get_log_actor())
+
     if clusterviz_config.is_interactive():
         # set up the interactive render window stuff
         iren = vtkRenderWindowInteractor()
@@ -192,10 +196,6 @@ def main():
 
             iren.AddObserver("TimerEvent", lambda o, e:
                 update_display(node_grid, node_grid_display, clusterviz_config, render_window, text_log))
-
-        #Add text log
-        text_log.synch()
-        renderer.AddActor(text_log.get_log_actor())
 
         render_window.Render()
         iren.Start()
