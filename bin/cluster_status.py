@@ -48,15 +48,7 @@ def key_input(obj, event, node_grid, node_grid_display, clusterviz_config, rende
 
 def update_display(node_grid, node_grid_display, clusterviz_config, render_window, text_log):
 
-    if clusterviz_config.is_syscalling():
-        config_parser = clusterviz_config.get_config_parser()
-        if config_parser.has_option("main", "syscall"):
-            syscall = config_parser.get("main", "syscall")
-            os.system(syscall)
-        else:
-            logging.error("No system call specified in the config file.")
-
-    
+    syscall(clusterviz_config)
 
     text_log.add_to_log("Updating ...")
     display_mode = clusterviz_config.get_display_mode()
@@ -97,7 +89,7 @@ def update_display(node_grid, node_grid_display, clusterviz_config, render_windo
 def main():
 
     #Hotfix
-    os.system("ssh avon 'pbsnodes -x' > pbsnodes.xml")
+    #os.system("ssh avon 'pbsnodes -x' > pbsnodes.xml")
 
     # set up a log output for critical errors
     logger = logging.getLogger("")
@@ -116,6 +108,8 @@ def main():
     handle_options(sys.argv[1:], clusterviz_config)
 
     clusterviz_config.read_config()
+
+    syscall(clusterviz_config)
 
     # set up the renderer to create the images
     renderer = vtkRenderer()
@@ -209,6 +203,15 @@ def main():
         # write the displayed window to file
         node_grid_display.save_render_window(render_window, \
                 clusterviz_config, display_mode)
+
+def syscall(clusterviz_config):
+    if clusterviz_config.is_syscalling():
+        config_parser = clusterviz_config.get_config_parser()
+        if config_parser.has_option("main", "syscall"):
+            syscall = config_parser.get("main", "syscall")
+            os.system(syscall)
+        else:
+            logging.error("No system call specified in the config file.")
 
 def usage():
     """
