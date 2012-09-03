@@ -76,7 +76,7 @@ def update_display(node_grid, node_grid_display, clusterviz_config, render_windo
 
     # update the title text
     title_text = \
-            node_grid_display.get_title_text(display_mode, clusterviz_config)
+            node_grid_display.get_title_text(clusterviz_config)
     title_actor = node_grid_display.get_title_actor()
     title_actor.SetInput(title_text)
 

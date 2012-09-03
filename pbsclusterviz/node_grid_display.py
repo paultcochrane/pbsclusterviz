@@ -24,7 +24,7 @@ Controls various display aspects of a node grid
 from vtk import vtkLookupTable, vtkScalarBarActor, vtkTextProperty, \
         vtkTextActor, vtkGraphicsFactory, vtkWindowToImageFilter, \
         vtkPNGWriter, vtkRenderWindow
-import re, sys, os, datetime
+import re, sys, os, datetime, time
 
 class NodeGridDisplay(object):
     """
@@ -161,21 +161,7 @@ class NodeGridDisplay(object):
         Sets up and returns the display actor for the title text
         """
         # add a title to the image
-        xml = clusterviz_config.get_xml_file()
-        if xml is not None and os.path.isfile(xml):
-            time = datetime.datetime.fromtimestamp(os.path.getmtime(xml))
-        else:
-            time = "N.a."
-
-        config_parser = clusterviz_config.get_config_parser()
-        config_segment = clusterviz_config.get_display_mode() + " viewer"
-        if config_parser.has_option(config_segment, 'title' ):
-            title_text = config_parser.get(config_segment, 'title' )
-        else:
-            title_text = "pbsclusterviz"
-        title_text = "%s: %s" % (title_text, time)
-
-        self.title_actor.SetInput(title_text)
+        self.title_actor.SetInput(self.get_title_text(clusterviz_config))
         title_actor_position = self.title_actor.GetPositionCoordinate()
         title_actor_position.SetCoordinateSystemToNormalizedDisplay()
         title_actor_position.SetValue(0.5, 0.95)
@@ -191,20 +177,24 @@ class NodeGridDisplay(object):
     def get_title_actor(self):
         return self.title_actor
 
-    def get_title_text(self, display_mode, clusterviz_config):
+    def get_title_text(self, clusterviz_config):
         """
         Returns the title text depending upon display mode
         """
         xml = clusterviz_config.get_xml_file()
-        time = datetime.datetime.fromtimestamp(os.path.getmtime(xml))
-        title_text = ''
-        if display_mode == 'load':
-            title_text = clusterviz_config.get_config_parser().get(
-                    'load viewer', 'title' )
+        if xml is not None and os.path.isfile(xml):
+            mtime = time.localtime(os.path.getmtime(xml))
+            mtime = time.strftime("%d.%m.%Y um %H:%M:%S Uhr", mtime) 
         else:
-            title_text = clusterviz_config.get_config_parser().get(
-                    'job viewer', 'title' )
-        title_text = "%s: %s" % (title_text, time)
+            mtime = "N.a."
+
+        config_parser = clusterviz_config.get_config_parser()
+        config_segment = clusterviz_config.get_display_mode() + " viewer"
+        if config_parser.has_option(config_segment, 'title' ):
+            title_text = config_parser.get(config_segment, 'title' )
+        else:
+            title_text = "pbsclusterviz"
+        title_text = "%s: %s" % (title_text, mtime)
 
         return title_text
 
