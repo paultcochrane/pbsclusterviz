@@ -83,6 +83,9 @@ class Node(object):
         self.x_pos = x_pos
         self.y_pos = y_pos
 
+    def get_num_processors(self):
+        return self.num_processors
+
     def init_box(self):
         """
         Routine to create an actor, which visualizes the load or the
@@ -114,15 +117,8 @@ class Node(object):
             lut.GetColor(self.norm_load, color)
             height = 0.6 * self.norm_load
         elif display_mode == 'job':
-            # BUG!  nodes file and xml file need to agree with one another
-            # if a node exists in the nodes file but not in the xml (and
-            # vice versa!) we need to be able to handle this gracefully
-            # Now doing kludge fix to patch the problem temporarily
-            if self.num_processors is None:
-                height = 0.0
-            else:
-                lut.GetColor(self.norm_jobs, color)
-                height = 0.6 * self.norm_jobs
+            lut.GetColor(self.norm_jobs, color)
+            height = 0.6 * self.norm_jobs
         else:
             self.logger.error("Unknown display mode: ", display_mode)
 

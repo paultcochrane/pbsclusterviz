@@ -88,9 +88,6 @@ def update_display(node_grid, node_grid_display, clusterviz_config, render_windo
 ### The main program
 def main():
 
-    #Hotfix
-    #os.system("ssh avon 'pbsnodes -x' > pbsnodes.xml")
-
     # set up a log output for critical errors
     logger = logging.getLogger("")
     logger.setLevel(logging.DEBUG)
@@ -134,9 +131,6 @@ def main():
     # Collect the actors of the visualized loads from the nodes
     box_list = node_grid.init_boxes()
 
-    for box in box_list:
-        renderer.AddActor(box)
-
     # initialize the visualisation of the grid
     label_list = node_grid.init_labels()
     for label in label_list:
@@ -149,6 +143,15 @@ def main():
     # read in the output of pbsnodes -x
     xml_file = clusterviz_config.get_xml_file()
     node_grid.update(xml_file, display_mode, node_grid_display)
+
+    # now that we now more about them, we can choose boxes to show
+    for box in box_list:
+        if box.get_num_processors() is None:
+            logging.error("Node " + box.get_name() + " not initialised correctly.")
+        else:
+            renderer.AddActor(box.init_box())
+        
+        
 
     node_grid_display.set_utilisation_actor(display_mode, node_grid)
     renderer.AddActor(node_grid_display.get_utilisation_actor())
@@ -186,7 +189,7 @@ def main():
         # Render the scene and start interaction.
         iren.Initialize()
 
-        # Adding a 5 sec timer to autonmously update the display
+        # Adding a timer to autonmously update the display
         if clusterviz_config.is_updating():
             config_parser = clusterviz_config.get_config_parser()
             if config_parser.has_option("main", "update_rate"):

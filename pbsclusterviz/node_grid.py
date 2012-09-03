@@ -98,8 +98,7 @@ class NodeGrid(object):
         Initialises each box in the node list and returns the box list
         """
         for node in self.get_node_list():
-            box = node.init_box()
-            self.box_list.append(box)
+            self.box_list.append(node)
         return self.box_list
 
     def init_labels(self):
