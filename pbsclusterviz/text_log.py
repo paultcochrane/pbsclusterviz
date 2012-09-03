@@ -70,7 +70,7 @@ class TextLog(object):
         for log_line in reversed(self.log):
             if ("overloaded" in log_line and show_overloaded) or \
                 ("imbalance" in log_line and show_imbalance) or \
-                "Updating" in log_line:
+                "Updating" in log_line or "Start" in log_line:
                 log_to_print.append(log_line + " - " + self.time[log_line_index] + "\n")
             log_line_index -= 1
         txt = "".join(sorted(log_to_print[0:self.max_log_lines]))
