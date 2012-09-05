@@ -1,1 +1,10 @@
-Probably several.  This is why a test suite is needed...
+ - the boxes for the nodes sit *in* the plane instead of *on* the plane
+ - in non-interactive mode only the text "Initialization" is shown
+    - we should be seeing here all current log messages
+ - down nodes aren't shown anymore
+    - a node which has the state "down" should show up as a grey box/square
+      in the grid
+ - the pbsnodes.xml file should not be automatically created when the
+   -x <xmlfile>  is used
+
+Probably several more.  This is why a test suite is needed...
