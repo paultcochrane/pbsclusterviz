@@ -146,12 +146,10 @@ def main():
 
     # now that we now more about them, we can choose boxes to show
     for box in box_list:
-        if box.get_num_processors() is None:
-            logging.error("Node " + box.get_name() + " not initialised correctly.")
-        else:
+        #if box.get_num_processors() is None:
+            #logging.error("Node " + box.get_name() + " not initialised correctly.")
+        #else:
             renderer.AddActor(box.init_box())
-
-    node_grid.update(xml_file, display_mode, node_grid_display)
     
     node_grid_display.set_utilisation_actor(display_mode, node_grid)
     renderer.AddActor(node_grid_display.get_utilisation_actor())

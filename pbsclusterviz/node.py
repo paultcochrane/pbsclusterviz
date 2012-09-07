@@ -91,7 +91,6 @@ class Node(object):
         Routine to create an actor, which visualizes the load or the
         job status.
         """
-        self.box.SetCenter((float(self.x_pos), float(self.y_pos), 0.0))
         self.box.SetXLength(0.8)
         self.box.SetYLength(0.8)
 
@@ -106,7 +105,8 @@ class Node(object):
         Updates the box describing the load/job status of a node
         """
 
-        if "down" in self.state or "offline" in self.state:
+        if self.state is not None and \
+            ("down" in self.state or "offline" in self.state):
             return self.get_grey_square()
 
         color = [ 0.0, 0.0, 0.0 ]
