@@ -93,7 +93,7 @@ class Node(object):
         """
         self.box.SetXLength(0.8)
         self.box.SetYLength(0.8)
-
+        self.box.SetCenter((float(self.x_pos), float(self.y_pos), 0.0))
         box_mapper = vtkPolyDataMapper()
         box_mapper.SetInput(self.box.GetOutput())
         self.box_actor.SetMapper(box_mapper)

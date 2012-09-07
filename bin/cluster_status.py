@@ -150,6 +150,8 @@ def main():
             logging.error("Node " + box.get_name() + " not initialised correctly.")
         else:
             renderer.AddActor(box.init_box())
+
+    node_grid.update(xml_file, display_mode, node_grid_display) #Again?!
     
     node_grid_display.set_utilisation_actor(display_mode, node_grid)
     renderer.AddActor(node_grid_display.get_utilisation_actor())
