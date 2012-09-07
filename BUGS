@@ -1,6 +1,3 @@
- - down nodes aren't shown anymore
-    - a node which has the state "down" should show up as a grey box/square
-      in the grid
  - the pbsnodes.xml file should not be automatically created when the
    -x <xmlfile>  is used
 

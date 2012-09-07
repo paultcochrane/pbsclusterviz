@@ -105,6 +105,10 @@ class Node(object):
         """
         Updates the box describing the load/job status of a node
         """
+
+        if "down" in self.state or "offline" in self.state:
+            return self.get_grey_square()
+
         color = [ 0.0, 0.0, 0.0 ]
         height = 1.0
         lut = node_grid_display.get_lookup_table(display_mode)
@@ -139,6 +143,12 @@ class Node(object):
         self.box.SetCenter((float(self.x_pos), float(self.y_pos), height/2))
         self.box_actor.GetProperty().SetDiffuseColor(color)
         self.height = height
+        return self.box_actor
+
+    def get_grey_square(self):
+        color = [ 0.5, 0.5, 0.5 ]
+        self.box.SetZLength(0.0)
+        self.box_actor.GetProperty().SetDiffuseColor(color)
         return self.box_actor
 
     def init_label(self):
