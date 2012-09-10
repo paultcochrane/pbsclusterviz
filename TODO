@@ -5,6 +5,5 @@
    - X3D is VRML 3.0...  FreeWML is a good visualiser of X3D files and it
      provides a web browser plugin
  - add support for building Debian and RPM packages
- - nodes which are "down" should also be noted in the log
  - nodes which are "offline" should also be noted in the log
  - only "down" nodes should be shown in grey

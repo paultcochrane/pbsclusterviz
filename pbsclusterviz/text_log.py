@@ -65,15 +65,22 @@ class TextLog(object):
             show_imbalance = self.config_parser.getboolean("log", "show_imbalance")
         else:
             show_imbalance = True
+        if self.config_parser.has_option("log", "show_down"):
+            show_down = self.config_parser.getboolean("log", "show_down")
+        else:
+            show_down = True
         log_to_print = []
         log_line_index = len(self.log)-1
         for log_line in reversed(self.log):
             if ("overloaded" in log_line and show_overloaded) or \
                 ("imbalance" in log_line and show_imbalance) or \
+                ("down" in log_line and show_down) or \
                 "Updating" in log_line or "Initialisation" in log_line:
                 log_to_print.append(log_line + " - " + self.time[log_line_index] + "\n")
             log_line_index -= 1
         txt = "".join(sorted(log_to_print[0:self.max_log_lines]))
+        if len(log_to_print) > self.max_log_lines:
+            txt += "Some messages hidden."
         return txt
 
     def synch(self):

@@ -107,6 +107,7 @@ class Node(object):
 
         if self.state is not None and \
             ("down" in self.state or "offline" in self.state):
+            self.text_log.add_to_log(self.name + " down.")
             return self.get_grey_square()
 
         color = [ 0.0, 0.0, 0.0 ]
