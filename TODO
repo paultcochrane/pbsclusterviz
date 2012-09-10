@@ -1,9 +1,9 @@
 For the 0.7 release:
- - implement the configuration file format that Holger recently used for the
-   node list
+ - update the documentation
 
 For the 0.8 release:
  - add support for building Debian and RPM packages
+ - implement a better format for the node file?
 
 For the 0.9 release:
  - add an "update" button
