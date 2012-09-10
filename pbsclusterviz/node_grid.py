@@ -162,6 +162,7 @@ class NodeGrid(object):
             node.get_balloon_text()
         return
 
+    # restore coplanarity after modifying box height
     def flatten(self):
         for node in self.get_node_list():
             node.flat()
