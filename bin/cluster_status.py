@@ -249,7 +249,7 @@ def version():
     """
     Prints version information
     """
-    print """cluster_status version 0.6a"""
+    print """cluster_status version 0.7a"""
 
 def handle_options(args, clusterviz_config):
     logger = logging.getLogger("")

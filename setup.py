@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 a=setup(name="pbsclusterviz",
-      version="0.6a",
+      version="0.7a",
       description="PBS Cluster Visualisation",
       author="Paul Cochrane",
       author_email="paultcochrane@users.sourceforge.net",
