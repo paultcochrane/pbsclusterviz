@@ -1,7 +1,16 @@
+For the 0.7 release:
  - implement the configuration file format that Holger recently used for the
    node list
+
+For the 0.8 release:
+ - add support for building Debian and RPM packages
+
+For the 0.9 release:
+ - add an "update" button
+ - add a "toggle job/load view" button
+
+For the future:
  - need to clean up the code a bit and do some more testing
  - 3D visualisation in a browser.  X3D or VRML or what?  Need to investigate
    - X3D is VRML 3.0...  FreeWML is a good visualiser of X3D files and it
      provides a web browser plugin
- - add support for building Debian and RPM packages
