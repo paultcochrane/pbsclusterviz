@@ -48,6 +48,7 @@ def key_input(obj, event, node_grid, node_grid_display, clusterviz_config, rende
 
 def update_display(node_grid, node_grid_display, clusterviz_config, render_window, text_log):
 
+    # system call to update the xml
     syscall(clusterviz_config)
 
     text_log.add_to_log("Updating ...")
@@ -106,6 +107,7 @@ def main():
 
     clusterviz_config.read_config()
 
+    # System call to update the xml
     syscall(clusterviz_config)
 
     # set up the renderer to create the images
@@ -121,7 +123,7 @@ def main():
     display_mode = clusterviz_config.get_display_mode()
     logging.debug("Display mode = %s" % display_mode)
 
-    #Create text log
+    # Create text log
     text_log = TextLog(clusterviz_config)
 
     # read in the nodes list
@@ -131,11 +133,12 @@ def main():
     # Collect the actors of the visualized loads from the nodes
     box_list = node_grid.init_boxes()
 
-    # initialize the visualisation of the grid
+    # initialise the visualisation of the grid
     label_list = node_grid.init_labels()
     for label in label_list:
         renderer.AddActor(label)
 
+    # get the title ready
     node_grid_display = NodeGridDisplay()
     node_grid_display.set_title_actor(clusterviz_config)
     renderer.AddActor(node_grid_display.get_title_actor())
@@ -151,11 +154,14 @@ def main():
         else:
             renderer.AddActor(box.init_box())
 
+    # boxes now have heights and are no longer on one plane
     node_grid.flatten()
-    
+
+    # shows overall utilisation as text
     node_grid_display.set_utilisation_actor(display_mode, node_grid)
     renderer.AddActor(node_grid_display.get_utilisation_actor())
 
+    # displays approximately corresponding colors to numerical values
     node_grid_display.set_scalar_bar(display_mode)
     renderer.AddActor(node_grid_display.get_scalar_bar())
 
@@ -169,7 +175,7 @@ def main():
     renderer.ResetCameraClippingRange()
     active_camera.Zoom(1.3)
 
-    #Add text log
+    # add text log
     text_log.synch()
     renderer.AddActor(text_log.get_log_actor())
 
@@ -207,6 +213,7 @@ def main():
         node_grid_display.save_render_window(render_window, \
                 clusterviz_config, display_mode)
 
+# system call to update the xml
 def syscall(clusterviz_config):
     if clusterviz_config.is_syscalling():
         config_parser = clusterviz_config.get_config_parser()
