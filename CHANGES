@@ -1,5 +1,25 @@
+0.7a
+====
+
+ - merge of "interactive" branch with trunk
+ - pbsnodes file can be downloaded via ssh and viewed locally on the user's
+   computer
+ - added a command line option to specify the ssh command if desired
+ - log information about overloaded/down/offline nodes now displayed
+ - display automatically updated
+ - added configuration options for pbsnodes file download, display update,
+   and what to display in log information
+ - pop-up balloons appear with node information after pressing the 'i' key
+   in interactive mode
+ - pop-up balloons require python-vtk 5.2+
+ - nodes not appearing in nodes file but which appear in pbsnodes output
+   (and vice versa) are detected and mentioned in error output
+ - documentation update; better integration of docs with sourceforge website
+ - examples updated to agree with current code
+ - several minor bug fixes
+
 0.6a
-===
+====
 
  - Improvement of internal structure
  - gen_nodes_file works again
@@ -15,7 +35,7 @@
  - The nodes_file command line option now works
 
 0.5a
-===
+====
 
  - Prerelease of the new interactive visualisation capabilities.
  - Interactive output is now default.
