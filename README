@@ -11,6 +11,7 @@ For the impatient:
    $ python setup.py install
    $ pbsnodes -x > pbsnodes.xml
    # assuming your cluster nodes all start with 'lcn'
+   # and your cluster name is "Cluster"
    $ gen_nodes_file -x pbsnodes.xml -n Cluster -p lcn -o nodes
    $ cluster_status
 
@@ -28,7 +29,7 @@ Installation in your home directory:
 
 Then you need to extend your PYTHONPATH environment variable so:
 
-   export PYTHONPATH=$PYTHONPATH:$HOME/pbsclusterviz/lib/python2.5/site-packages
+   export PYTHONPATH=$PYTHONPATH:$HOME/pbsclusterviz/lib/python2.x/site-packages
 
 and extend your PATH so:
 
