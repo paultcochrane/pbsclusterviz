@@ -105,8 +105,7 @@ class Node(object):
         Updates the box describing the load/job status of a node
         """
 
-        if self.state is not None and \
-            ("down" in self.state or "offline" in self.state):
+        if self.state is not None and "down" in self.state:
             self.text_log.add_to_log(self.name + " down.")
             return self.get_grey_square()
 
