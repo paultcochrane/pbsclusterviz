@@ -112,7 +112,6 @@ class Node(object):
             self.text_log.add_to_log(self.name + " offline.")
 
         color = [ 0.0, 0.0, 0.0 ]
-        height = 1.0
         lut = node_grid_display.get_lookup_table(display_mode)
         self.norm_load = self.get_load_avg()/float(self.max_load)
         if self.num_processors is not None:
@@ -121,10 +120,10 @@ class Node(object):
             # select color and height of the box according to the
             # current load
             lut.GetColor(self.norm_load, color)
-            height = 0.6 * self.norm_load
+            self.height = 0.6 * self.norm_load
         elif display_mode == 'job':
             lut.GetColor(self.norm_jobs, color)
-            height = 0.6 * self.norm_jobs
+            self.height = 0.6 * self.norm_jobs
         else:
             self.logger.error("Unknown display mode: ", display_mode)
 
@@ -141,11 +140,13 @@ class Node(object):
                 self.logger.debug(node_load_info)
                 self.text_log.add_to_log(self.name + " overloaded.")
 
-        self.box.SetZLength(height)
-        self.box.SetCenter((float(self.x_pos), float(self.y_pos), height/2))
+        self.box.SetZLength(self.height)
+        self.box.SetCenter((float(self.x_pos), float(self.y_pos), self.height/2))
         self.box_actor.GetProperty().SetDiffuseColor(color)
-        self.height = height
         return self.box_actor
+
+    def flat(self):
+        self.box.SetCenter((float(self.x_pos), float(self.y_pos), self.height/2))
 
     def get_grey_square(self):
         color = [ 0.5, 0.5, 0.5 ]

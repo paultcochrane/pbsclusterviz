@@ -162,6 +162,10 @@ class NodeGrid(object):
             node.get_balloon_text()
         return
 
+    def flatten(self):
+        for node in self.get_node_list():
+            node.flat()
+
     def get_job_utilisation(self):
         """
         Return the system utilisation in the job display mode

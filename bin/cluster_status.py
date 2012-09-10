@@ -151,7 +151,7 @@ def main():
         else:
             renderer.AddActor(box.init_box())
 
-    node_grid.update(xml_file, display_mode, node_grid_display) #Again?!
+    node_grid.flatten()
     
     node_grid_display.set_utilisation_actor(display_mode, node_grid)
     renderer.AddActor(node_grid_display.get_utilisation_actor())
