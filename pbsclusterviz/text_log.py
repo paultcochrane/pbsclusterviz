@@ -3,9 +3,11 @@ import time
 
 class TextLog(object):
     def __init__(self, clusterviz_config):
-        #First log entry
+        # first log entry
         self.time = [time.strftime("%H:%M:%S")]
         self.log = ["Initialisation"]
+
+        # read config file section
         self.config_parser = clusterviz_config.get_config_parser()
         if self.config_parser.has_section("log"):
             if self.config_parser.has_option("log", "log_pos_h"):
@@ -25,10 +27,12 @@ class TextLog(object):
             self.log_pos_v = 0.01
             self.max_log_lines = 12
 
+        # initialise the vtk actor
         txt = self.get_log_txt()
         self.log_actor = vtkTextActor()
         self.log_actor.SetInput(txt)
         text_prop = self.log_actor.GetTextProperty()
+        # this seems to be documented nowhere: 2 means right-aligned
         text_prop.SetJustification(2)
         log_position = self.log_actor.GetPositionCoordinate()
         log_position.SetCoordinateSystemToNormalizedDisplay()
@@ -38,7 +42,7 @@ class TextLog(object):
         return self
 
     def add_to_log(self, log_message):
-        #Updating... only needs to appear once but with correct Timestamp.
+        # Updating... only needs to appear once but with correct Timestamp.
         if log_message== "Updating ...":
             log_line_index = 0
             for log_line in self.log:
@@ -57,6 +61,7 @@ class TextLog(object):
         return self.log_actor
 
     def get_log_txt(self):
+        # preparating config options
         if self.config_parser.has_option("log", "show_overloaded"):
             show_overloaded = self.config_parser.getboolean("log", "show_overloaded")
         else:
@@ -69,6 +74,7 @@ class TextLog(object):
             show_down = self.config_parser.getboolean("log", "show_down")
         else:
             show_down = True
+        # preparing array of log messages
         log_to_print = []
         log_line_index = len(self.log)-1
         for log_line in reversed(self.log):
@@ -76,9 +82,12 @@ class TextLog(object):
                 ("imbalance" in log_line and show_imbalance) or \
                 ("down" in log_line and show_down) or \
                 "Updating" in log_line or "Initialisation" in log_line:
+                # merging message and timestamp and new line symbol
                 log_to_print.append(log_line + " - " + self.time[log_line_index] + "\n")
             log_line_index -= 1
+        # merging the sorted log array to string
         txt = "".join(sorted(log_to_print[0:self.max_log_lines]))
+        # informing user about hidden messages
         if len(log_to_print) > self.max_log_lines:
             txt += "Some messages hidden."
         return txt
