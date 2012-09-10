@@ -1,3 +1,4 @@
- - the pbsnodes.xml file should not be automatically created when the
-   -x <xmlfile>  is used
+
+
+
 Probably several more.  This is why a test suite is needed...
