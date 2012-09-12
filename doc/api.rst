@@ -39,3 +39,11 @@ NodeGridXMLHandler
 .. automodule:: pbsclusterviz.node_grid_xml_handler
    :members:
 
+--------------------------------------------------------------------------
+TextLog
+--------------------------------------------------------------------------
+
+.. automodule:: pbsclusterviz.text_log
+   :members:
+
+

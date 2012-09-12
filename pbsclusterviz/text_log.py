@@ -15,11 +15,23 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,
 # USA.
 
+"""
+An object of this class stores various messages from other
+modules and shows them according to configuration.
+"""
+
 from vtk import vtkTextProperty, vtkTextActor
 import time
 
 class TextLog(object):
+    """
+    Holds data and functions for the text log.
+    """
     def __init__(self, clusterviz_config):
+        """
+        Initialises with a first message, configuration or default values
+        and create the first vtk actor.
+        """
         # first log entry
         self.time = [time.strftime("%H:%M:%S")]
         self.log = ["Initialisation"]
@@ -55,10 +67,13 @@ class TextLog(object):
         log_position.SetCoordinateSystemToNormalizedDisplay()
         log_position.SetValue(self.log_pos_h, self.log_pos_v)
 
-    def get_log(self):
-        return self
-
     def add_to_log(self, log_message):
+        """
+        Takes all messages from other modules and decides which timestamp
+        to show.
+        :param log_message: new message to add
+        :type fname: string
+        """
         # Updating... only needs to appear once but with correct Timestamp.
         if log_message== "Updating ...":
             log_line_index = 0
@@ -75,9 +90,16 @@ class TextLog(object):
         self.log.append(log_message)
 
     def get_log_actor(self):
+        """
+        Provides the log actor for the main program to display.
+        Be aware that this might not be the latest version.
+        """
         return self.log_actor
 
     def get_log_txt(self):
+        """
+        This function returnes a well formatted text log as one string.
+        """
         # preparating config options
         if self.config_parser.has_option("log", "show_overloaded"):
             show_overloaded = self.config_parser.getboolean("log", "show_overloaded")
@@ -110,6 +132,9 @@ class TextLog(object):
         return txt
 
     def synch(self):
+        """
+        Refreshes the vtk actor with latest text output.
+        """
         self.log_actor.SetInput(self.get_log_txt())
 
 # vim: expandtab shiftwidth=4:
