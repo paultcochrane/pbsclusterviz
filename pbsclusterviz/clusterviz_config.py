@@ -267,15 +267,27 @@ class ClustervizConfig(object):
         return self.nodes_file
 
     def is_updating(self):
+        """
+        Return true when the display is updating
+        """
         return self.updating
 
     def set_updating(self, u):
+        """
+        Set the updating flag
+        """
         self.updating = u
 
     def is_syscalling(self):
+        """
+        Return true if a system call should be used for every update
+        """
         return self.syscalling
 
     def set_syscalling(self, s):
+        """
+        Set the syscalling flag
+        """
         self.syscalling = s
 
 # vim: expandtab shiftwidth=4:
