@@ -20,7 +20,7 @@ An object of this class stores various messages from other
 modules and shows them according to configuration.
 """
 
-from vtk import vtkTextProperty, vtkTextActor
+from vtk import vtkTextActor
 import time
 
 class TextLog(object):
@@ -75,7 +75,7 @@ class TextLog(object):
         :type fname: string
         """
         # Updating... only needs to appear once but with correct Timestamp.
-        if log_message== "Updating ...":
+        if log_message == "Updating ...":
             log_line_index = 0
             for log_line in self.log:
                 if log_line == "Updating ...":
