@@ -40,7 +40,7 @@ class ClustervizConfig(object):
         self.window_height = 768
         self.log_file = None
         # does the user want the visualisation to update itself?
-	self.updating = True
+        self.updating = True
         self.logger = logging.getLogger("")
         # does the user want to issue a system call at every update?
         self.syscalling = None
@@ -267,7 +267,7 @@ class ClustervizConfig(object):
         return self.nodes_file
 
     def is_updating(self):
-	return self.updating
+        return self.updating
 
     def set_updating(self, u):
         self.updating = u
