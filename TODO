@@ -4,6 +4,7 @@ For the 0.7 release:
 For the 0.8 release:
  - add support for building Debian and RPM packages
  - implement a better format for the node file?
+ - start a test suite with unit- and integration-tests
 
 For the 0.9 release:
  - add an "update" button
