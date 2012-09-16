@@ -84,6 +84,9 @@ class Node(object):
         self.y_pos = y_pos
 
     def get_num_processors(self):
+        """
+        Return the number of processors in the given node
+        """
         return self.num_processors
 
     def init_box(self):
@@ -146,9 +149,15 @@ class Node(object):
         return self.box_actor
 
     def flat(self):
+        """
+        Utility function to help restore coplanarity of node boxes in display
+        """
         self.box.SetCenter((float(self.x_pos), float(self.y_pos), self.height/2))
 
     def get_grey_square(self):
+        """
+        Creates and returns a grey square in order to denote "down" nodes
+        """
         color = [ 0.5, 0.5, 0.5 ]
         self.box.SetZLength(0.0)
         self.box_actor.GetProperty().SetDiffuseColor(color)
