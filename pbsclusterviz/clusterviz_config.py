@@ -272,11 +272,11 @@ class ClustervizConfig(object):
         """
         return self.updating
 
-    def set_updating(self, u):
+    def set_updating(self, updating):
         """
         Set the updating flag
         """
-        self.updating = u
+        self.updating = updating
 
     def is_syscalling(self):
         """
@@ -284,10 +284,10 @@ class ClustervizConfig(object):
         """
         return self.syscalling
 
-    def set_syscalling(self, s):
+    def set_syscalling(self, syscalling):
         """
         Set the syscalling flag
         """
-        self.syscalling = s
+        self.syscalling = syscalling
 
 # vim: expandtab shiftwidth=4:
