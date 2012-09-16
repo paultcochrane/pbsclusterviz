@@ -57,3 +57,6 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. raw:: html
+
+    <script type="text/javascript" src="http://www.ohloh.net/p/350664/widgets/project_partner_badge.js"></script>
