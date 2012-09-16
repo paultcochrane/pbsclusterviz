@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 Paul Cochrane
+# Copyright (C) 2009-2012 Paul Cochrane, Matthias Zach and Marco Reps
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
