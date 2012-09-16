@@ -23,8 +23,8 @@ Controls various display aspects of a node grid
 
 from vtk import vtkLookupTable, vtkScalarBarActor, vtkTextProperty, \
         vtkTextActor, vtkGraphicsFactory, vtkWindowToImageFilter, \
-        vtkPNGWriter, vtkRenderWindow
-import re, sys, os, datetime, time
+        vtkPNGWriter
+import re, sys, os, time
 
 class NodeGridDisplay(object):
     """
