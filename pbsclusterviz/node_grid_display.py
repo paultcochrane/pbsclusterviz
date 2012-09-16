@@ -24,7 +24,7 @@ Controls various display aspects of a node grid
 from vtk import vtkLookupTable, vtkScalarBarActor, vtkTextProperty, \
         vtkTextActor, vtkGraphicsFactory, vtkWindowToImageFilter, \
         vtkPNGWriter
-import re, sys, os, time
+import re, sys, os, time, logging
 
 class NodeGridDisplay(object):
     """
@@ -35,6 +35,7 @@ class NodeGridDisplay(object):
         self.scalar_bar = vtkScalarBarActor()
         self.utilisation_actor = vtkTextActor()
         self.title_actor = vtkTextActor()
+        self.logger = logging.getLogger("")
     
     def get_lookup_table(self, display_mode):
         """
