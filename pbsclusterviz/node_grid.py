@@ -164,6 +164,9 @@ class NodeGrid(object):
 
     # restore coplanarity after modifying box height
     def flatten(self):
+        """
+        Restore coplanarity after modifying box height
+        """
         for node in self.get_node_list():
             node.flat()
 

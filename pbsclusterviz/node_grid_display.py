@@ -88,6 +88,9 @@ class NodeGridDisplay(object):
         scalar_bar_label_prop.ItalicOff()
 
     def get_scalar_bar(self):
+        """
+        Return the scalar bar object
+        """
         return self.scalar_bar
 
     def get_scalar_bar_title(self, display_mode):
@@ -141,6 +144,9 @@ class NodeGridDisplay(object):
         utilisation_prop.BoldOn()
 
     def get_utilisation_actor(self):
+        """
+        Return the actor holding the utilisation text
+        """
         return self.utilisation_actor
 
     def get_utilisation_text(self, display_mode, node_grid):
@@ -175,6 +181,9 @@ class NodeGridDisplay(object):
         title_prop.BoldOn()
 
     def get_title_actor(self):
+        """
+        Return the actor containing the title text
+        """
         return self.title_actor
 
     def get_title_text(self, clusterviz_config):
