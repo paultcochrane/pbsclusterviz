@@ -29,11 +29,11 @@ Installation in your home directory:
 
 Then you need to extend your PYTHONPATH environment variable so:
 
-   export PYTHONPATH=$PYTHONPATH:$HOME/pbsclusterviz/lib/python2.x/site-packages
+   $ export PYTHONPATH=$PYTHONPATH:$HOME/pbsclusterviz/lib/python2.x/site-packages
 
 and extend your PATH so:
 
-   export PATH=$PATH:$HOME/pbsclusterviz/bin
+   $ export PATH=$PATH:$HOME/pbsclusterviz/bin
 
 
 Dependencies:
@@ -165,6 +165,32 @@ Updating the display
 
 The display output can be updated by pressing the u key when in interactive
 mode.
+
+***********************************
+Remote pbsnodes XML file generation
+***********************************
+
+Instead of just using a local 'pbsnodes.xml' file one can also get this file
+from a remote host.  This is a practical solution when the computer where
+the cluster status is being visualised is not part of PBS-based cluster
+system and so is not able to extract the pbsnodes information itself.  With
+the '-s' option to 'cluster_status' it is now possible to generate the
+'pbsnodes.xml' file on a remote host and have it read at the local host.
+Normally this would occur via 'ssh', and after having added a line similar
+to the following to the '[main]' section of the configuration file
+
+[main]
+syscall = ssh login-node 'pbsnodes -x' > pbsnodes.xml
+
+one then merely needs to start 'cluster_status' like so:
+
+   $ cluster_status -s
+
+For this to run smoothly (and without you needing to enter your password
+each time the display is updated) you should enable password-less 'ssh'
+access to the remote server.  This article gives a good overview:
+
+http://www.howtoforge.com/ssh-best-practices
 
 ****************************************************
 Generating movies of your cluster status information
