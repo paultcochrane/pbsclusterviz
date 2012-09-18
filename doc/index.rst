@@ -20,6 +20,7 @@ Contents:
    installation.rst
    usage.rst
    examples.rst
+   configuration.rst
    development.rst
    api.rst
 
