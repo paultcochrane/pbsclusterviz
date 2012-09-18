@@ -6,9 +6,6 @@ help:
 doc:
 	cd doc; $(MAKE) html
 
-api:
-	epydoc --html -o api/ --graph=all -n "PBS Cluster Viz" pbsclusterviz
-
 pylint:
 	pylint --rcfile=pylint.rc pbsclusterviz
 
