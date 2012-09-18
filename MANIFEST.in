@@ -15,12 +15,7 @@ include etc/pbsclusterviz.d/clusterviz.conf
 include etc/pbsclusterviz.d/nodes
 
 # add base package files
-include pbsclusterviz/__init__.py
-include pbsclusterviz/clusterviz_config.py
-include pbsclusterviz/node.py
-include pbsclusterviz/node_grid.py
-include pbsclusterviz/node_grid_display.py
-include pbsclusterviz/node_grid_xml_handler.py
+include pbsclusterviz/*.py
 
 # add the example files
 include examples/rrznviz.conf
