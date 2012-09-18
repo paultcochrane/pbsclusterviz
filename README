@@ -219,3 +219,25 @@ The first example works for the RRZN cluster system
 examples/ directory and run the following command:
 
    $ cluster_status -x pbsnodes_rrzn.xml -n nodes.rrzn -c rrznviz.conf -i
+
+--------------------------------------------------------------------------
+Documentation
+--------------------------------------------------------------------------
+
+The documentation is distributed with 'pbsclusterviz' in the 'doc/'
+directory.  Make sure that you have installed the 'sphinx' package so that
+you can build the documentation.
+
+To build the html documentation change into the 'doc/' directory and run
+
+   $ make html
+
+then point your browser to '.../doc/_build/html/index.html'.
+
+To build the pdf documentation change into the 'doc/' directory and run
+
+   $ make latex
+   $ cd _build/latex
+   $ make all-pdf
+
+then open the file 'PBSClusterViz.pdf' with your favourite PDF-viewer.
