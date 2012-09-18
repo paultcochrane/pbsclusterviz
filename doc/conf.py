@@ -38,7 +38,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'PBS Cluster Viz'
-copyright = u'2011, Paul Cochrane'
+copyright = u'2012, Paul Cochrane, Marco Reps and Matthias Zach'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -173,7 +173,7 @@ htmlhelp_basename = 'PBSClusterVizdoc'
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'PBSClusterViz.tex', u'PBS Cluster Viz Documentation',
-   u'Paul Cochrane', 'manual'),
+   u'Paul Cochrane, Marco Reps and Matthias Zach', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
