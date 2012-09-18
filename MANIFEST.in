@@ -7,10 +7,14 @@ include TODO
 include BUGS
 include MANIFEST
 include setup.py
+
+# add the main programs
 include bin/cluster_status
 include bin/cluster_status.py
 include bin/gen_nodes_file
 include bin/gen_nodes_file.py
+
+# add the default configuration files
 include etc/pbsclusterviz.d/clusterviz.conf
 include etc/pbsclusterviz.d/nodes
 
@@ -21,3 +25,10 @@ include pbsclusterviz/*.py
 include examples/rrznviz.conf
 include examples/pbsnodes_rrzn.xml
 include examples/nodes.rrzn
+
+# add the docs
+include doc/*.rst
+include doc/conf.py
+include doc/Makefile
+include doc/job_status_july_2011.png
+include doc/load_status_july_2011.png
