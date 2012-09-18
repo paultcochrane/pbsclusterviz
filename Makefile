@@ -1,7 +1,7 @@
 .PHONY: help doc api pylint dist
 
 help:
-	@echo "Possible make targets: doc, api, pylint, wwwsync, dist"
+	@echo "Possible make targets: doc, pylint, wwwsync, dist"
 
 doc:
 	cd doc; $(MAKE) html
