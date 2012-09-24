@@ -1,0 +1,13 @@
+Source: pbsclusterviz
+Maintainer: Paul Cochrane <paultcochrane@users.sourceforge.net>
+Section: python
+Priority: optional
+Build-Depends: python-all (>= 2.6.6-3), debhelper (>= 7.4.3)
+Standards-Version: 3.9.1
+
+Package: python-pbsclusterviz
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python, libvtk5.8, python-vtk
+Description: PBS Cluster Visualisation
+ PBS Cluster Viz is a project to display information useful to admins and users about a computing cluster managed by a PBS-compatible resource manager.
+ Information includes load and job distribution. Interactive as well as static output is available.
