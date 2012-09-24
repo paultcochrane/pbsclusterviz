@@ -19,13 +19,6 @@ buildrpm:
 	python setup.py bdist_rpm
 
 builddeb:
-	#To build a .deb package you have to rename pbsclusterviz-0.7b.tar.gz to
-	#pbsclusterviz_0.7b.orig.tar.gz and place it the parent directory.
-	#If you are having trouble, you might try to start from scratch:
-	#apt-get install python python-dev python-dbg python-all python-all-dev python-all-dbg
-	#py2dsc -m 'Paul Cochrane <paultcochrane@users.sourceforge.net>' ../pbsclusterviz-0.7b.tar.gz
-	#python deb_dist/pbsclusterviz-0.7b/setup.py --command-packages=stdeb.command debianize
-	#cp  ../pbsclusterviz-0.7b.tar.gz ../pbsclusterviz_0.7b.orig.tar.gz
 	debuild
 
 clean:
