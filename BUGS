@@ -1,4 +1,6 @@
-
+ - text in balloons doesn't get updated after a screen update
+ - old and out of date messages about overloaded computers are still shown
+   in the log
 
 
 Probably several more.  This is why a test suite is needed...
