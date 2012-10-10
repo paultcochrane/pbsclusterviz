@@ -159,7 +159,8 @@ class NodeGrid(object):
         for node in self.get_node_list():
             node.update_box(display_mode, node_grid_display)
             node.update_label()
-            node.get_balloon_text()
+            balloon_text = node.get_balloon_text()
+            self.balloon_widget.UpdateBalloonString(node.get_box_actor(), balloon_text)
         return
 
     # restore coplanarity after modifying box height
