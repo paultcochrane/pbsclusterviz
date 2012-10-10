@@ -35,6 +35,7 @@ class TextLog(object):
         # first log entry
         self.time = [time.strftime("%H:%M:%S")]
         self.log = ["Initialisation"]
+        self.last_seen = [time.time()]
 
         # read config file section
         self.config_parser = clusterviz_config.get_config_parser()
@@ -74,20 +75,29 @@ class TextLog(object):
         :param log_message: new message to add
         :type fname: string
         """
+        log_line_index = 0
         # Updating... only needs to appear once but with correct Timestamp.
         if log_message == "Updating ...":
-            log_line_index = 0
             for log_line in self.log:
                 if log_line == "Updating ...":
                     self.time[log_line_index] = time.strftime("%H:%M:%S")
+                    self.last_seen[log_line_index] = time.time()
+                    return
                 log_line_index += 1
-
-        #For everything else we want to see the time of the first appearance.
-        for log_line in self.log:
-            if log_message == log_line:
-                return
+            self.time.append(time.strftime("%H:%M:%S"))
+            self.log.append(log_message)
+            self.last_seen.append(time.time())
+            return
+        # For everything else we want to see the time of the first appearance.
+        else:
+            for log_line in self.log:
+                if log_message == log_line:
+                    self.last_seen[log_line_index] = time.time()
+                    return
+                log_line_index += 1
         self.time.append(time.strftime("%H:%M:%S"))
         self.log.append(log_message)
+        self.last_seen.append(time.time())
 
     def get_log_actor(self):
         """
@@ -100,7 +110,7 @@ class TextLog(object):
         """
         This function returnes a well formatted text log as one string.
         """
-        # preparating config options
+        # parsing config options
         if self.config_parser.has_option("log", "show_overloaded"):
             show_overloaded = self.config_parser.getboolean("log", "show_overloaded")
         else:
@@ -113,16 +123,23 @@ class TextLog(object):
             show_down = self.config_parser.getboolean("log", "show_down")
         else:
             show_down = True
+        if self.config_parser.has_option("main", "update_rate"):
+            update_rate = self.config_parser.getfloat("main", "update_rate")
+        else:
+            update_rate = 60000.0
         # preparing array of log messages
         log_to_print = []
         log_line_index = len(self.log)-1
         for log_line in reversed(self.log):
-            if ("overloaded" in log_line and show_overloaded) or \
-                ("imbalance" in log_line and show_imbalance) or \
-                ("down" in log_line and show_down) or \
-                "Updating" in log_line or "Initialisation" in log_line:
-                # merging message and timestamp and new line symbol
-                log_to_print.append(log_line + " - " + self.time[log_line_index] + "\n")
+            # if the message has been sent within one update interval, it is relevant.
+            if(time.time() - self.last_seen[log_line_index] < update_rate/1000):
+                # filtering messages according to configuration
+                if ("overloaded" in log_line and show_overloaded) or \
+                    ("imbalance" in log_line and show_imbalance) or \
+                    ("down" in log_line and show_down) or \
+                    "Updating" in log_line or "Initialisation" in log_line:
+                    # merging message, timestamp and new line symbol
+                    log_to_print.append(log_line + " - " + self.time[log_line_index] + "\n")
             log_line_index -= 1
         # merging the sorted log array to string
         txt = "".join(sorted(log_to_print[0:self.max_log_lines]))
