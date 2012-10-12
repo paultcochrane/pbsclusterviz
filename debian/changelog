@@ -1,5 +1,5 @@
-pbsclusterviz (0.7b-1) unstable; urgency=low
+pbsclusterviz (0.7a-1) UNRELEASED; urgency=low
 
-  * source package automatically created by stdeb 0.6.0+git
+  * Initial release.
 
- -- Paul Cochrane <paultcochrane@users.sourceforge.net>  Mon, 24 Sep 2012 11:51:54 +0200
+ -- Paul Cochrane <paultcochrane@users.sourceforge.net>  Fri, 12 Oct 2012 12:03:46 +0200

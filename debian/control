@@ -2,12 +2,22 @@ Source: pbsclusterviz
 Maintainer: Paul Cochrane <paultcochrane@users.sourceforge.net>
 Section: python
 Priority: optional
-Build-Depends: python-all (>= 2.6.6-3), debhelper (>= 7.4.3)
+Homepage: http://pbsclusterviz.sourceforge.net
+Build-Depends: debhelper (>= 8), python
 Standards-Version: 3.9.1
 
 Package: python-pbsclusterviz
+Version: 0.7a
+Depends: ${shlibs:Depends}, ${misc:Depends}, python, python-vtk (>= 5.4)
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}, python, libvtk5.8, python-vtk
+Copyright: LICENSE
+Changelog: changelog
+Readme: README
+Extra-Files: README, BUGS, TODO, CHANGES, nodes.rrzn, pbsnodes_rrzn.xml, rrznviz.conf
+Files: clusterviz.conf /etc/pbsclusterviz.d
+       nodes           /etc/pbsclusterviz.d
 Description: PBS Cluster Visualisation
- PBS Cluster Viz is a project to display information useful to admins and users about a computing cluster managed by a PBS-compatible resource manager.
- Information includes load and job distribution. Interactive as well as static output is available.
+ PBS Cluster Viz is a project to display information useful to admins and
+ users about a computing cluster managed by a PBS-compatible resource manager.
+ Information includes load and job distribution.
+ Interactive as well as static output is available.
