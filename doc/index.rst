@@ -27,6 +27,9 @@ Contents:
 Project page:
     http://sourceforge.net/projects/pbsclusterviz/
 
+Download:
+    http://sourceforge.net/projects/pbsclusterviz/files/latest/download
+
 --------------------------------------------------------------------------
 For the impatient:
 --------------------------------------------------------------------------
