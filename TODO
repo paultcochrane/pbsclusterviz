@@ -2,6 +2,7 @@ For the 0.8 release:
  - add support for building Debian and RPM packages
  - implement a better format for the node file?
  - start a test suite with unit- and integration-tests
+ - is it possible to run pbsclusterviz on Windows?
 
 For the 0.9 release:
  - add an "update" button
