@@ -28,6 +28,10 @@ builddeb: dist
 	cd $(DEBUILD_DIR)/pbsclusterviz-$(VERSION)/debian; debuild -us -uc
 	cp $(DEBUILD_DIR)/python-pbsclusterviz_$(VERSION)-1_all.deb dist
 
+builddeb_test: builddeb
+	cd $(DEBUILD_DIR); sudo pbuilder --build pbsclusterviz_0.7a-1.dsc
+	echo "Now check the .deb file in /var/cache/pbuilder/result"
+
 clean:
 	python setup.py clean
 	find . -name '*.pyc' -delete
