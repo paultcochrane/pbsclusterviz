@@ -37,8 +37,8 @@ def usage():
     options:
     [-h/--help]                     Print usage information and exit
     [-V/--version]                  Print version information and exit
-    [-x/--xmlfile=<filename>]       Specify an input xml file
-    [-o/--nodesfile=<filename>]     Specify an nodes file
+    [-x/--xmlfile=<filename>]       Specify an input pbsnodes xml file
+    [-o/--nodesfile=<filename>]     Specify an output nodes file
     [-n/--section_name=<name>]      Specify a name for the node section
     [-p/--node_prefix=<prefix>]     Specify a nodename prefix
     [-w/--table_width=<width>]      Number of nodes across a section
