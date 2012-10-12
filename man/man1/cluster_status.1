@@ -1,0 +1,92 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH CLUSTER_STATUS 1 "October 12, 2012"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+cluster_status - Visualise the status of a PBS-based HPC cluster
+.SH SYNOPSIS
+.B cluster_status
+.RI [ options ]
+.br
+.SH DESCRIPTION
+.B cluster_status 
+is a program to visualise the status of a PBS-based HPC cluster system.
+.B cluster_status
+generates a 3D view of all nodes in a cluster giving load and job-fill
+status information.  Information about individual nodes is shown by holding
+the mouse over a given node.  Visualisation can be either interactive with
+OpenGL or non-interactive via PNG graphics output.
+.PP
+.SH OPTIONS
+This program follows the usual GNU command line syntax, with long
+options starting with two dashes (`-').
+A summary of options is included below.
+.TP
+.B \-h, \-\-help
+Print usage information and exit
+.TP
+.B \-v, \-\-version
+Print version information and exit
+.TP
+.B \-d, \-\-debug
+Turn on debugging output
+.TP
+.B \-l, \-\-logfile=<filename>
+Specify an alternative log file name
+.TP
+.B \-i, \-\-interactive
+Turn on interactive behaviour (default on)
+.TP
+.B \-N, \-\-non_interactive
+Turn off interactive behaviour
+.TP
+.B \-x, \-\-xmlfile=<filename>
+Specify an input pbsnodes xml file
+.TP
+.B \-s, \-\-syscall
+Issue system call at update to renew xml file
+.TP
+.B \-o, \-\-outfile=<filename>
+Specify an output image file
+.TP
+.B \-c, \-\-configfile=<filename>
+Specify an input configuration file
+.TP
+.B \-n, \-\-nodefile=<filename>
+Specify an alternate nodes file
+.TP
+.B \-m, \-\-display_mode=<mode>
+Specify either 'job' or 'load' display mode
+.TP
+.br
+The program is documented fully by the 
+.B pbsclusterviz
+manual, which should be available at http://pbsclusterviz.sourceforge.net.
+.SH AUTHOR
+.B cluster_status
+was written by Paul Cochrane <paultcochrane@users.sourceforge.net>.
+.SH SEE ALSO
+cluster_status(1), http://pbsclusterviz.sf.net
+.SH COPYRIGHT
+Copyright \(co 2009 Free Software Foundation, Inc.
+License GPLv2+: GNU GPL version 2 or later
+<http://gnu.org/licenses/gpl.html>.
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.PP
+This manual page was written by Paul Cochrane <paultcochrane@users.sourceforge.net>,
+for the Debian project (but may be used by others).

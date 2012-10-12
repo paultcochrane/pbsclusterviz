@@ -1,0 +1,94 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH GEN_NODES_FILE 1 "October 12, 2012"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+gen_nodes_file - Generate a nodes file for input to
+.B cluster_status
+.SH SYNOPSIS
+.B gen_nodes_file
+.RI [ options ]
+.br
+.SH DESCRIPTION
+.B gen_nodes_file
+generates an initial "nodes" file for use with
+.B cluster_status.
+.PP
+HPC cluster systems are often split into several sub-clusters each
+controlled by the same batch system.  Usually there are so many nodes, that
+each node in a given sub-cluster has a specific prefix
+(e.g. 'mynode-n001', 'mynode-n002', ... etc.).
+.B gen_nodes_file
+assumes this structure and expects as input an XML file generated from the
+output of the 'pbsnodes -x' command.  One then specifies a section name for
+each of the sub-clusters, a node prefix for the nodes in the given sub-cluster
+and a table width (e.g. to split a 96-node cluster into 6 rows of 16 one would
+use a table width of 16).
+.B gen_nodes_file
+uses this information to generate a 'nodes' file in the required format
+for visualisation with the
+.B cluster_status
+program of the
+.B pbsclusterviz
+project.
+.SH OPTIONS
+This program follows the usual GNU command line syntax, with long
+options starting with two dashes (`-').
+A summary of options is included below.
+.TP
+.B \-h, \-\-help
+Print usage information and exit
+.TP
+.B \-v, \-\-version
+Print version information and exit
+.TP
+.B \-x, \-\-xmlfile=<filename>
+Specify an input pbsnodes xml file
+.TP
+.B \-o, \-\-nodesfile=<filename>
+Specify an output nodes file
+.TP
+.B \-n, \-\-section_name=<name>
+Specify a name for the node section
+.TP
+.B \-p, \-\-node_prefix=<prefix>
+Specify a nodename prefix
+.TP
+.B \-w, \-\-table_width=<width>
+Number of nodes across a section
+.TP
+.B \-a, \-\-append
+Append to existing nodes file?
+.TP
+.br
+The program is documented fully by the 
+.B pbsclusterviz
+manual, which should be available at http://pbsclusterviz.sourceforge.net.
+.SH AUTHOR
+.B gen_nodes_file
+was written by Paul Cochrane <paultcochrane@users.sourceforge.net>.
+.SH COPYRIGHT
+Copyright \(co 2009 Free Software Foundation, Inc.
+License GPLv2+: GNU GPL version 2 or later
+<http://gnu.org/licenses/gpl.html>.
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.SH SEE ALSO
+cluster_status(1), http://pbsclusterviz.sf.net
+.PP
+This manual page was written by Paul Cochrane <paultcochrane@users.sourceforge.net>,
+for the Debian project (but may be used by others).
