@@ -1,2 +1,4 @@
+ - a reload (by pressing the 'r' key) zooms out and makes the image too
+   small
 
 Probably several more.  This is why a test suite is needed...
