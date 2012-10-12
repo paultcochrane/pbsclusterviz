@@ -3,6 +3,10 @@ For the 0.8 release:
  - implement a better format for the node file?
  - start a test suite with unit- and integration-tests
  - is it possible to run pbsclusterviz on Windows?
+ - total memory usage for a node in text balloons:
+    when a balloon is shown (with 'i') then not only the currently running
+    jobs should be shown, but also the currently requested memory as a
+    percentage of the total (available) memory should be shown
 
 For the 0.9 release:
  - add an "update" button
