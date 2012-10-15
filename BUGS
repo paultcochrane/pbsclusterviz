@@ -1,8 +1,6 @@
  - a reload (by pressing the 'r' key) zooms out and makes the image too
    small
- - UpdateBalloonString() appears first in vtk 5.8, however we need to
-   support vtk 5.4+.  This method needs to be replaced with another
-   mechanism which does the same thing but doesn't break the minimum
-   configuration requirements.
+      - This behavior is hard coded into vtk. Pressing R resets the camera to zoom factor = 1.
+        As it is impossible to catch the key press for a workaround we might need to make the boxes 30% bigger.
 
 Probably several more.  This is why a test suite is needed...
