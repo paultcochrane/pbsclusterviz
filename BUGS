@@ -2,5 +2,6 @@
    small
       - This behavior is hard coded into vtk. Pressing R resets the camera to zoom factor = 1.
         As it is impossible to catch the key press for a workaround we might need to make the boxes 30% bigger.
+      - This doesn't help at all because the camera's zoom is tenaciously adjusted to the model.
 
 Probably several more.  This is why a test suite is needed...
