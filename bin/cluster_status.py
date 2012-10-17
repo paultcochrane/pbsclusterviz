@@ -27,6 +27,10 @@ from pbsclusterviz import NodeGrid, NodeGridDisplay, ClustervizConfig, TextLog
 from vtk import vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, \
         vtkInteractorStyleTrackballCamera
 
+def PostResetCamera(obj, event):
+    active_camera = obj.GetActiveCamera()
+    active_camera.Zoom(1.3)
+
 ### The interaction callback routines ################################
 def key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log):
     key_pressed = obj.GetKeySym()
@@ -186,7 +190,9 @@ def main():
         style = vtkInteractorStyleTrackballCamera()
         iren.SetInteractorStyle(style)
         iren.AddObserver("KeyPressEvent", lambda obj, event:
-            key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log)) 
+            key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log))
+
+        renderer.AddObserver("ResetCameraEvent", PostResetCamera)
 
         # we now have balloons on the nodes telling us what jobs are running where
         balloon_widget = node_grid.init_balloons()
