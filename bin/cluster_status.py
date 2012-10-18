@@ -23,7 +23,8 @@ using the output of pbsnodes
 """
 
 import sys, getopt, logging, os
-from pbsclusterviz import NodeGrid, NodeGridDisplay, ClustervizConfig, TextLog
+from pbsclusterviz import NodeGrid, NodeGridDisplay, ClustervizConfig, \
+        TextLog, GuiButtons
 from vtk import vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, \
         vtkInteractorStyleTrackballCamera
 
@@ -197,6 +198,15 @@ def main():
 
         # When the user presses 'r' zoom is set to 1. With this we set it to 1.3 again.
         renderer.AddObserver("ResetCameraEvent", PostResetCamera)
+
+        if config_parser.has_option("main", "enable_gui_buttons"):
+            if config_parser.getboolean("main", "enable_gui_buttons"):
+                gui_buttons = GuiButtons(clusterviz_config)
+                button_renderer = gui_buttons.get_renderer()
+                # The screen is splitted to hold 2 renderes: Visualisation and GUI Buttons.
+                renderer.SetViewport(0,0,1,0.96)
+                button_renderer.SetViewport(0,0.96,1,1)
+                render_window.AddRenderer(button_renderer)
 
         # we now have balloons on the nodes telling us what jobs are running where
         balloon_widget = node_grid.init_balloons()

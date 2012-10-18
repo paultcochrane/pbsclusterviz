@@ -25,6 +25,7 @@ from pbsclusterviz.node_grid import NodeGrid
 from pbsclusterviz.node import Node
 from pbsclusterviz.clusterviz_config import ClustervizConfig
 from pbsclusterviz.text_log import TextLog
+from pbsclusterviz.gui_buttons import GuiButtons
 
 # vim: expandtab shiftwidth=4:
 
