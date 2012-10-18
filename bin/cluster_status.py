@@ -217,7 +217,8 @@ def main():
         iren = vtkRenderWindowInteractor()
         iren.SetInteractorStyle(MyInteractorStyle())
         iren.SetRenderWindow(render_window)
-
+        iren.AddObserver("KeyPressEvent", lambda obj, event:
+            key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log))
 
         # When the user presses 'r' zoom is set to 1. With this we set it to 1.3 again.
         renderer.AddObserver("ResetCameraEvent", PostResetCamera)
