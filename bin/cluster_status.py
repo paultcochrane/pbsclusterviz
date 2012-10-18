@@ -184,6 +184,9 @@ def main():
     renderer.AddActor(text_log.get_log_actor())
 
     if clusterviz_config.is_interactive():
+
+        config_parser = clusterviz_config.get_config_parser()
+
         # set up the interactive render window stuff
         iren = vtkRenderWindowInteractor()
         iren.SetRenderWindow(render_window)
@@ -192,6 +195,7 @@ def main():
         iren.AddObserver("KeyPressEvent", lambda obj, event:
             key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log))
 
+        # When the user presses 'r' zoom is set to 1. With this we set it to 1.3 again.
         renderer.AddObserver("ResetCameraEvent", PostResetCamera)
 
         # we now have balloons on the nodes telling us what jobs are running where
@@ -201,9 +205,14 @@ def main():
         # Render the scene and start interaction.
         iren.Initialize()
 
+        if config_parser.has_option("main", "enable_balloons"):
+            if config_parser.getboolean("main", "enable_balloons"):
+                balloon_widget.On()
+        else:
+            balloon_widget.On()
+
         # Adding a timer to autonmously update the display
         if clusterviz_config.is_updating():
-            config_parser = clusterviz_config.get_config_parser()
             if config_parser.has_option("main", "update_rate"):
                 iren.CreateRepeatingTimer(config_parser.getint("main", "update_rate"))
             else:
