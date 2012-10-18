@@ -41,6 +41,7 @@ class GuiButtons(object):
         self.reset_camera_button_actor = vtkActor()
         self.toggle_balloons_button_actor = vtkActor()
 
+        self.load_jobs_button_actor.AddObserver('LeftButtonPressEvent', self.DummyFunc1)
         self.load_jobs_button_actor.SetMapper(self.button_mapper)
         self.button_renderer = vtkRenderer()
         self.button_renderer.AddActor(self.load_jobs_button_actor)
@@ -52,5 +53,8 @@ class GuiButtons(object):
 
     def get_renderer(self):
         return self.button_renderer
+
+    def DummyFunc1(obj, ev):
+        print "Before Event"
 
 # vim: expandtab shiftwidth=4:
