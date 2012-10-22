@@ -29,25 +29,27 @@ from vtk import vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, \
         vtkInteractorStyleTrackballCamera
 
 class MyInteractorStyle(vtkInteractorStyleTrackballCamera):
-    def __init__(self,parent=None):
+    def __init__(self):
         self.AddObserver("LeftButtonPressEvent", self.leftButtonPressEvent)
         self.AddObserver("MouseMoveEvent", self.MouseMoveEvent)
         self.AddObserver("LeftButtonReleaseEvent", self.LeftButtonReleaseEvent)
         self.MouseMotion = 0
 
-    def leftButtonPressEvent(self, obj, ev):
+    def leftButtonPressEvent(self, obj, event):
         self.MouseMotion = 0
         self.OnLeftButtonDown()
         return
  
-    def MouseMoveEvent(self, obj, ev):
+    def MouseMoveEvent(self, obj, event):
         self.MouseMotion = 1
         self.OnMouseMove()
         return
 
-    def LeftButtonReleaseEvent(self, obj, ev):
+    def LeftButtonReleaseEvent(self, obj, event):
         if self.MouseMotion == 0:
             logging.debug("Klick detected.")
+            clickpos = self.GetInteractor().GetEventPosition()
+
         else:
             logging.debug("Drag detected.")
         self.OnLeftButtonUp()
@@ -215,10 +217,12 @@ def main():
 
         # set up the interactive render window stuff
         iren = vtkRenderWindowInteractor()
-        iren.SetInteractorStyle(MyInteractorStyle())
+        style = MyInteractorStyle()
+        iren.SetInteractorStyle(style)
         iren.SetRenderWindow(render_window)
         iren.AddObserver("KeyPressEvent", lambda obj, event:
-            key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log))
+            key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log)) 
+
 
         # When the user presses 'r' zoom is set to 1. With this we set it to 1.3 again.
         renderer.AddObserver("ResetCameraEvent", PostResetCamera)

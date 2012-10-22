@@ -6,5 +6,7 @@
       - In vtk's sources (vtkCommand.h) I found out, that there happens to be a ResetCameraEvent.
         Triggering a zoom factor adjustment after this event, at least improves the behavior.
         Still pressing 'r' multiple times results in some strange shrinking effect ... Round-off error maybe?
+      - Virtual functions are not hooked into python, so it is not possible to override OnKeyPress() 
+        and customize behavior on key presses.
 
 Probably several more.  This is why a test suite is needed...
