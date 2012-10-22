@@ -29,11 +29,12 @@ from vtk import vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, \
         vtkInteractorStyleTrackballCamera
 
 class MyInteractorStyle(vtkInteractorStyleTrackballCamera):
-    def __init__(self):
+    def __init__(self, gui):
         self.AddObserver("LeftButtonPressEvent", self.leftButtonPressEvent)
         self.AddObserver("MouseMoveEvent", self.MouseMoveEvent)
         self.AddObserver("LeftButtonReleaseEvent", self.LeftButtonReleaseEvent)
         self.MouseMotion = 0
+        self.gui = gui
 
     def leftButtonPressEvent(self, obj, event):
         self.MouseMotion = 0
@@ -49,7 +50,7 @@ class MyInteractorStyle(vtkInteractorStyleTrackballCamera):
         if self.MouseMotion == 0:
             logging.debug("Klick detected.")
             clickpos = self.GetInteractor().GetEventPosition()
-
+            self.gui.click(clickpos)
         else:
             logging.debug("Drag detected.")
         self.OnLeftButtonUp()
@@ -217,8 +218,8 @@ def main():
 
         # set up the interactive render window stuff
         iren = vtkRenderWindowInteractor()
-        style = MyInteractorStyle()
-        iren.SetInteractorStyle(style)
+        gui_buttons = GuiButtons(clusterviz_config)
+        
         iren.SetRenderWindow(render_window)
         iren.AddObserver("KeyPressEvent", lambda obj, event:
             key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log)) 
@@ -227,14 +228,19 @@ def main():
         # When the user presses 'r' zoom is set to 1. With this we set it to 1.3 again.
         renderer.AddObserver("ResetCameraEvent", PostResetCamera)
 
+        # Selection of the vtkInteractorStyle providing ui functions
+        style = vtkInteractorStyleTrackballCamera()
+
         if config_parser.has_option("main", "enable_gui_buttons"):
             if config_parser.getboolean("main", "enable_gui_buttons"):
-                gui_buttons = GuiButtons(clusterviz_config)
                 button_renderer = gui_buttons.get_renderer()
                 # The screen is splitted to hold 2 renderes: Visualisation and GUI Buttons.
                 renderer.SetViewport(0,0,1,0.98)
                 button_renderer.SetViewport(0,0.98,1,1)
                 render_window.AddRenderer(button_renderer)
+                style = MyInteractorStyle(gui_buttons)
+
+        iren.SetInteractorStyle(style)
 
         # we now have balloons on the nodes telling us what jobs are running where
         balloon_widget = node_grid.init_balloons()

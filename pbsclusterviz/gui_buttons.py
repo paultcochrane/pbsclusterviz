@@ -58,7 +58,6 @@ class GuiButtons(object):
         self.quit.GetTextProperty().SetFontSize(15)
         self.quit.GetPositionCoordinate().SetValue(446, 3)
 
-        
         self.renderer = vtkRenderer()
         self.renderer.AddActor(self.refresh)
         self.renderer.AddActor(self.reset)
@@ -69,5 +68,7 @@ class GuiButtons(object):
     def get_renderer(self):
         return self.renderer
 
+    def click(self, clickpos):
+        print clickpos
 
 # vim: expandtab shiftwidth=4:
