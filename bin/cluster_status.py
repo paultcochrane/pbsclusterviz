@@ -232,8 +232,8 @@ def main():
                 gui_buttons = GuiButtons(clusterviz_config)
                 button_renderer = gui_buttons.get_renderer()
                 # The screen is splitted to hold 2 renderes: Visualisation and GUI Buttons.
-                renderer.SetViewport(0,0,1,0.96)
-                button_renderer.SetViewport(0,0.96,1,1)
+                renderer.SetViewport(0,0,1,0.98)
+                button_renderer.SetViewport(0,0.98,1,1)
                 render_window.AddRenderer(button_renderer)
 
         # we now have balloons on the nodes telling us what jobs are running where

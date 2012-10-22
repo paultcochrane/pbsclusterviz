@@ -20,41 +20,54 @@ This class is responsible for user interface buttons that may be shown
 on top of the visualisation.
 """
 
-from vtk import vtkRectangularButtonSource, vtkPolyDataMapper, \
-                vtkActor, vtkTextActor, vtkRenderer
+from vtk import vtkRectangularButtonSource, vtkTextActor, \
+                vtkRenderer
 
 class GuiButtons(object):
     """
     Holds sources and actors for all buttons.
     """
     def __init__(self, clusterviz_config):
-        self.common_button_source = vtkRectangularButtonSource()
-        self.common_button_source.SetWidth(2)
-        self.common_button_source.SetHeight(1)
-        self.common_button_source.SetDepth(0.1)
-        self.common_button_source.SetCenter(0.0, 0.0, 1.0)
-        self.common_button_source.SetBoxRatio(1.2)
-        self.button_mapper = vtkPolyDataMapper()
-        self.button_mapper.SetInput(self.common_button_source.GetOutput())
-        self.load_jobs_button_actor = vtkActor()
-        self.refresh_button_actor = vtkActor()
-        self.reset_camera_button_actor = vtkActor()
-        self.toggle_balloons_button_actor = vtkActor()
+        txt="Refresh"
+        self.refresh=vtkTextActor()
+        self.refresh.SetInput(txt)
+        self.refresh.GetTextProperty().SetFontSize(15)
+        self.refresh.GetPositionCoordinate().SetValue(3, 4)
+        txt="Reset Camera"
+        self.reset=vtkTextActor()
+        self.reset.SetInput(txt)
+        self.reset.GetTextProperty().SetFontSize(15)
+        self.reset.GetPositionCoordinate().SetValue(80, 3)
+        self.load_job=vtkTextActor()
+        self.load_job.GetTextProperty().SetFontSize(15)
+        self.load_job.GetPositionCoordinate().SetValue(209, 3)
+        if clusterviz_config.get_display_mode() == "job":
+            txt="Load View"
+            self.load_job.SetInput(txt)
+        elif clusterviz_config.get_display_mode() == "load":
+            txt="Job View"
+            self.load_job.SetInput(txt)
+        txt="Toggle Balloons"
+        self.balloons=vtkTextActor()
+        self.balloons.SetInput(txt)
+        self.balloons.GetTextProperty().SetFontSize(15)
+        self.balloons.GetPositionCoordinate().SetValue(309, -1)
+        txt="Quit"
+        self.quit=vtkTextActor()
+        self.quit.SetInput(txt)
+        self.quit.GetTextProperty().SetFontSize(15)
+        self.quit.GetPositionCoordinate().SetValue(446, 3)
 
-        self.load_jobs_button_actor.AddObserver('LeftButtonPressEvent', self.DummyFunc1)
-        self.load_jobs_button_actor.SetMapper(self.button_mapper)
-        self.button_renderer = vtkRenderer()
-        self.button_renderer.AddActor(self.load_jobs_button_actor)
-        #self.button_renderer.AddActor(button_actor)
-        #self.button_renderer.AddActor(button_actor)
-        #self.button_renderer.AddActor(button_actor)
-        #self.button_renderer.AddActor(button_actor)
-        #render_window.AddRenderer(button_renderer)
+        
+        self.renderer = vtkRenderer()
+        self.renderer.AddActor(self.refresh)
+        self.renderer.AddActor(self.reset)
+        self.renderer.AddActor(self.load_job)
+        self.renderer.AddActor(self.balloons)
+        self.renderer.AddActor(self.quit)
 
     def get_renderer(self):
-        return self.button_renderer
+        return self.renderer
 
-    def DummyFunc1(obj, ev):
-        print "Before Event"
 
 # vim: expandtab shiftwidth=4:
