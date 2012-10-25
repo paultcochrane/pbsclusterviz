@@ -146,10 +146,10 @@ def main():
     # set up the renderer to create the images
     renderer = vtkRenderer()
     render_window = vtkRenderWindow()
-    render_window.AddRenderer(renderer)
     window_width = clusterviz_config.get_window_width()
     window_height = clusterviz_config.get_window_height()
     render_window.SetSize(window_width, window_height)
+    render_window.AddRenderer(renderer)
     renderer.SetBackground(0, 0, 0)
 
     # get the current visualization mode
@@ -218,7 +218,6 @@ def main():
 
         # set up the interactive render window stuff
         iren = vtkRenderWindowInteractor()
-        gui_buttons = GuiButtons(clusterviz_config)
         
         iren.SetRenderWindow(render_window)
         iren.AddObserver("KeyPressEvent", lambda obj, event:
@@ -231,8 +230,16 @@ def main():
         # Selection of the vtkInteractorStyle providing ui functions
         style = vtkInteractorStyleTrackballCamera()
 
+
+
+
+        # we now have balloons on the nodes telling us what jobs are running where
+        balloon_widget = node_grid.init_balloons()
+        balloon_widget.SetInteractor(iren)
+
         if config_parser.has_option("main", "enable_gui_buttons"):
             if config_parser.getboolean("main", "enable_gui_buttons"):
+                gui_buttons = GuiButtons(clusterviz_config, iren)
                 button_renderer = gui_buttons.get_renderer()
                 # The screen is splitted to hold 2 renderes: Visualisation and GUI Buttons.
                 renderer.SetViewport(0,0,1,0.98)
@@ -241,10 +248,6 @@ def main():
                 style = MyInteractorStyle(gui_buttons)
 
         iren.SetInteractorStyle(style)
-
-        # we now have balloons on the nodes telling us what jobs are running where
-        balloon_widget = node_grid.init_balloons()
-        balloon_widget.SetInteractor(iren)
 
         # Render the scene and start interaction.
         iren.Initialize()

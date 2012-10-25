@@ -36,8 +36,8 @@ class ClustervizConfig(object):
         self.config_file = None
         self.config_parser = ConfigParser.RawConfigParser()
         self.display_mode = 'job' # default: display cluster job status
-        self.window_width = 1024
-        self.window_height = 768
+        self.window_width = 1280
+        self.window_height = 1024
         self.log_file = None
         # does the user want the visualisation to update itself?
         self.updating = True
@@ -209,7 +209,7 @@ class ClustervizConfig(object):
         if self.config_parser.has_option(viewer, "window_height"):
             self.window_height = config_parser.getint(viewer, 'window_height' )
         else:
-            self.window_width = 480
+            self.window_height = 480
         return self.window_height
 
     def set_log_file(self, fname):

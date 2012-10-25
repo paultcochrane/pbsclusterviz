@@ -27,7 +27,7 @@ class GuiButtons(object):
     """
     Holds sources and actors for all buttons.
     """
-    def __init__(self, clusterviz_config):
+    def __init__(self, clusterviz_config, iren):
         txt="Refresh"
         self.refresh=vtkTextActor()
         self.refresh.SetInput(txt)
@@ -47,28 +47,38 @@ class GuiButtons(object):
         elif clusterviz_config.get_display_mode() == "load":
             txt="Job View"
             self.load_job.SetInput(txt)
-        txt="Toggle Balloons"
-        self.balloons=vtkTextActor()
-        self.balloons.SetInput(txt)
-        self.balloons.GetTextProperty().SetFontSize(15)
-        self.balloons.GetPositionCoordinate().SetValue(309, -1)
         txt="Quit"
         self.quit=vtkTextActor()
         self.quit.SetInput(txt)
         self.quit.GetTextProperty().SetFontSize(15)
-        self.quit.GetPositionCoordinate().SetValue(446, 3)
+        self.quit.GetPositionCoordinate().SetValue(309, -1)
 
         self.renderer = vtkRenderer()
         self.renderer.AddActor(self.refresh)
         self.renderer.AddActor(self.reset)
         self.renderer.AddActor(self.load_job)
-        self.renderer.AddActor(self.balloons)
         self.renderer.AddActor(self.quit)
+
+        self.clusterviz_config = clusterviz_config
+        self.iren = iren
 
     def get_renderer(self):
         return self.renderer
 
     def click(self, clickpos):
-        print clickpos
+        h = self.clusterviz_config.get_window_height()
+        if clickpos[1] > h-20:
+            if clickpos[0] < 60:
+                print "refresh"
+            elif 190 > clickpos[0] > 70:
+                print "reset"
+            elif 290 > clickpos[0] > 206:
+                print "load/view switch"
+            elif 425 > clickpos[0] > 307:
+                self.iren.GetRenderWindow().Finalize()
+                self.iren.TerminateApp()
+        else:
+            print clickpos[0]
+            print clickpos[1]
 
 # vim: expandtab shiftwidth=4:
