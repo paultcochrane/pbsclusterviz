@@ -24,41 +24,9 @@ using the output of pbsnodes
 
 import sys, getopt, logging, os
 from pbsclusterviz import NodeGrid, NodeGridDisplay, ClustervizConfig, \
-        TextLog, GuiButtons
+        TextLog
 from vtk import vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, \
         vtkInteractorStyleTrackballCamera
-
-class MyInteractorStyle(vtkInteractorStyleTrackballCamera):
-    def __init__(self, gui):
-        self.AddObserver("LeftButtonPressEvent", self.leftButtonPressEvent)
-        self.AddObserver("MouseMoveEvent", self.MouseMoveEvent)
-        self.AddObserver("LeftButtonReleaseEvent", self.LeftButtonReleaseEvent)
-        self.MouseMotion = 0
-        self.gui = gui
-
-    def leftButtonPressEvent(self, obj, event):
-        self.MouseMotion = 0
-        self.OnLeftButtonDown()
-        return
- 
-    def MouseMoveEvent(self, obj, event):
-        self.MouseMotion = 1
-        self.OnMouseMove()
-        return
-
-    def LeftButtonReleaseEvent(self, obj, event):
-        if self.MouseMotion == 0:
-            logging.debug("Klick detected.")
-            clickpos = self.GetInteractor().GetEventPosition()
-            self.gui.click(clickpos)
-        else:
-            logging.debug("Drag detected.")
-        self.OnLeftButtonUp()
-        return
-
-def PostResetCamera(obj, event):
-    active_camera = obj.GetActiveCamera()
-    active_camera.Zoom(1.3)
 
 ### The interaction callback routines ################################
 def key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log):
@@ -135,15 +103,16 @@ def main():
     clusterviz_config = ClustervizConfig()
     clusterviz_config.find_config_files()
 
-    # parse the command line options
+    # Parse the command line options
     handle_options(sys.argv[1:], clusterviz_config)
 
+    # Parse the configuration file
     clusterviz_config.read_config()
 
     # System call to update the xml
     syscall(clusterviz_config)
 
-    # set up the renderer to create the images
+    # Set up the renderer to create the images
     renderer = vtkRenderer()
     render_window = vtkRenderWindow()
     window_width = clusterviz_config.get_window_width()
@@ -176,7 +145,7 @@ def main():
     node_grid_display.set_title_actor(clusterviz_config)
     renderer.AddActor(node_grid_display.get_title_actor())
 
-    # read in the output of pbsnodes -x
+    # read in the output file of pbsnodes -x
     xml_file = clusterviz_config.get_xml_file()
     node_grid.update(xml_file, display_mode, node_grid_display)
 
@@ -208,50 +177,33 @@ def main():
     renderer.ResetCameraClippingRange()
     active_camera.Zoom(1.3)
 
-    # add text log
+    # add text log actor to the renderer
     text_log.synch()
     renderer.AddActor(text_log.get_log_actor())
 
+    # Do we need an interactive window?
     if clusterviz_config.is_interactive():
 
+        # This enables us to access entries in the config file
         config_parser = clusterviz_config.get_config_parser()
 
         # set up the interactive render window stuff
         iren = vtkRenderWindowInteractor()
-        
         iren.SetRenderWindow(render_window)
         iren.AddObserver("KeyPressEvent", lambda obj, event:
             key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log)) 
-
-
-        # When the user presses 'r' zoom is set to 1. With this we set it to 1.3 again.
-        renderer.AddObserver("ResetCameraEvent", PostResetCamera)
-
-        # Selection of the vtkInteractorStyle providing ui functions
-        style = vtkInteractorStyleTrackballCamera()
-
-
-
 
         # we now have balloons on the nodes telling us what jobs are running where
         balloon_widget = node_grid.init_balloons()
         balloon_widget.SetInteractor(iren)
 
-        if config_parser.has_option("main", "enable_gui_buttons"):
-            if config_parser.getboolean("main", "enable_gui_buttons"):
-                gui_buttons = GuiButtons(clusterviz_config, iren)
-                button_renderer = gui_buttons.get_renderer()
-                # The screen is splitted to hold 2 renderes: Visualisation and GUI Buttons.
-                renderer.SetViewport(0,0,1,0.98)
-                button_renderer.SetViewport(0,0.98,1,1)
-                render_window.AddRenderer(button_renderer)
-                style = MyInteractorStyle(gui_buttons)
-
-        iren.SetInteractorStyle(style)
+        # Selection of the vtkInteractorStyle providing ui functions
+        iren.SetInteractorStyle(vtkInteractorStyleTrackballCamera())
 
         # Render the scene and start interaction.
         iren.Initialize()
 
+        # Should balloons be shown automatically?
         if config_parser.has_option("main", "enable_balloons"):
             if config_parser.getboolean("main", "enable_balloons"):
                 balloon_widget.On()
@@ -268,15 +220,21 @@ def main():
             iren.AddObserver("TimerEvent", lambda o, e:
                 update_display(node_grid, node_grid_display, clusterviz_config, render_window, text_log))
 
+        # Off we go
         render_window.Render()
         iren.Start()
+
+    # If no interactive window is desired
     else:
         # write the displayed window to file
         node_grid_display.save_render_window(render_window, \
                 clusterviz_config, display_mode)
 
-# system call to update the xml
 def syscall(clusterviz_config):
+    """
+    If configured, this function issues a system call to update the the xml file.
+    E.g. ssh server 'pbsnodes -x' > pbsnodes.xml
+    """
     if clusterviz_config.is_syscalling():
         config_parser = clusterviz_config.get_config_parser()
         if config_parser.has_option("main", "syscall"):
