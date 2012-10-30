@@ -181,8 +181,15 @@ def main():
 
     # Do we need an interactive window?
     if clusterviz_config.is_interactive():
-        vtkRenderWindow_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log)
-        #TkInter_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log)
+        # This enables us to access entries in the config file
+        config_parser = clusterviz_config.get_config_parser()
+        if config_parser.has_option("main", "TkInter_GUI"):
+            if config_parser.getboolean("main", "TkInter_GUI"):
+                TkInter_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log)
+            else:
+                vtkRenderWindow_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log)
+        else:
+            vtkRenderWindow_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log)
 
     # If no interactive window is desired
     else:
