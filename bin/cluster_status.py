@@ -22,11 +22,12 @@ This is a program to visualize the load status of a cluster
 using the output of pbsnodes
 """
 
-import sys, getopt, logging, os
+import sys, getopt, logging, os, Tkinter
 from pbsclusterviz import NodeGrid, NodeGridDisplay, ClustervizConfig, \
         TextLog
 from vtk import vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, \
         vtkInteractorStyleTrackballCamera
+from vtk.tk.vtkTkRenderWindowInteractor import vtkTkRenderWindowInteractor
 
 ### The interaction callback routines ################################
 def key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log):
@@ -115,9 +116,6 @@ def main():
     # Set up the renderer to create the images
     renderer = vtkRenderer()
     render_window = vtkRenderWindow()
-    window_width = clusterviz_config.get_window_width()
-    window_height = clusterviz_config.get_window_height()
-    render_window.SetSize(window_width, window_height)
     render_window.AddRenderer(renderer)
     renderer.SetBackground(0, 0, 0)
 
@@ -183,52 +181,111 @@ def main():
 
     # Do we need an interactive window?
     if clusterviz_config.is_interactive():
-
-        # This enables us to access entries in the config file
-        config_parser = clusterviz_config.get_config_parser()
-
-        # set up the interactive render window stuff
-        iren = vtkRenderWindowInteractor()
-        iren.SetRenderWindow(render_window)
-        iren.AddObserver("KeyPressEvent", lambda obj, event:
-            key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log)) 
-
-        # we now have balloons on the nodes telling us what jobs are running where
-        balloon_widget = node_grid.init_balloons()
-        balloon_widget.SetInteractor(iren)
-
-        # Selection of the vtkInteractorStyle providing ui functions
-        iren.SetInteractorStyle(vtkInteractorStyleTrackballCamera())
-
-        # Render the scene and start interaction.
-        iren.Initialize()
-
-        # Should balloons be shown automatically?
-        if config_parser.has_option("main", "enable_balloons"):
-            if config_parser.getboolean("main", "enable_balloons"):
-                balloon_widget.On()
-        else:
-            balloon_widget.On()
-
-        # Adding a timer to autonmously update the display
-        if clusterviz_config.is_updating():
-            if config_parser.has_option("main", "update_rate"):
-                iren.CreateRepeatingTimer(config_parser.getint("main", "update_rate"))
-            else:
-                iren.CreateRepeatingTimer(10000)
-
-            iren.AddObserver("TimerEvent", lambda o, e:
-                update_display(node_grid, node_grid_display, clusterviz_config, render_window, text_log))
-
-        # Off we go
-        render_window.Render()
-        iren.Start()
+        vtkRenderWindow_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log)
+        #TkInter_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log)
 
     # If no interactive window is desired
     else:
         # write the displayed window to file
         node_grid_display.save_render_window(render_window, \
                 clusterviz_config, display_mode)
+
+def vtkRenderWindow_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log):
+
+    window_width = clusterviz_config.get_window_width()
+    window_height = clusterviz_config.get_window_height()
+    render_window.SetSize(window_width, window_height)
+
+    # This enables us to access entries in the config file
+    config_parser = clusterviz_config.get_config_parser()
+
+    # set up the interactive render window stuff
+    iren = vtkRenderWindowInteractor()
+    iren.SetRenderWindow(render_window)
+    iren.AddObserver("KeyPressEvent", lambda obj, event:               
+    key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log)) 
+
+    # we now have balloons on the nodes telling us what jobs are running where
+    balloon_widget = node_grid.init_balloons()
+    balloon_widget.SetInteractor(iren)
+
+    # Selection of the vtkInteractorStyle providing ui functions
+    iren.SetInteractorStyle(vtkInteractorStyleTrackballCamera())
+
+    # Render the scene and start interaction.
+    iren.Initialize()
+
+    # Should balloons be shown automatically?
+    if config_parser.has_option("main", "enable_balloons"):
+        if config_parser.getboolean("main", "enable_balloons"):
+            balloon_widget.On()
+    else:
+        balloon_widget.On()
+
+    # Adding a timer to autonmously update the display
+    if clusterviz_config.is_updating():
+        if config_parser.has_option("main", "update_rate"):
+            iren.CreateRepeatingTimer(config_parser.getint("main", "update_rate"))
+    else:
+        iren.CreateRepeatingTimer(10000)
+
+    iren.AddObserver("TimerEvent", lambda o, e:
+    update_display(node_grid, node_grid_display, clusterviz_config, render_window, text_log))
+
+    # Off we go
+    render_window.Render()
+    iren.Start()
+
+def TkInter_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log):
+
+    root=Tkinter.Tk()
+    window_width = clusterviz_config.get_window_width()
+    window_height = clusterviz_config.get_window_height()
+    render_widget = vtkTkRenderWindowInteractor(root,rw=render_window, width=window_width, height=window_height)
+
+    # This enables us to access entries in the config file
+    config_parser = clusterviz_config.get_config_parser()
+
+    # set up the interactive render window stuff
+    iren = render_widget.GetRenderWindow().GetInteractor()
+
+    # we now have balloons on the nodes telling us what jobs are running where
+    balloon_widget = node_grid.init_balloons()
+    balloon_widget.SetInteractor(iren)
+
+    # Selection of the vtkInteractorStyle providing ui functions
+    iren.SetInteractorStyle(vtkInteractorStyleTrackballCamera())
+
+    # Should balloons be shown automatically?
+    if config_parser.has_option("main", "enable_balloons"):
+        if config_parser.getboolean("main", "enable_balloons"):
+            balloon_widget.On()
+    else:
+        balloon_widget.On()
+
+    # Adding a timer to autonmously update the display
+    if clusterviz_config.is_updating():
+        if config_parser.has_option("main", "update_rate"):
+            update_rate = config_parser.getint("main", "update_rate")
+            render_widget.after(update_rate, lambda: tkinter_after(render_widget, update_rate, \
+                                node_grid, node_grid_display, clusterviz_config, render_window, text_log))
+    else:
+        update_rate = 10000
+        render_widget.after(update_rate, lambda: tkinter_after(render_widget, update_rate, \
+                                node_grid, node_grid_display, clusterviz_config, render_window, text_log))
+
+    # Off we go
+    render_window.Render()
+    render_widget.pack()
+    root.mainloop()
+
+def tkinter_after(render_widget, update_rate, node_grid, node_grid_display, clusterviz_config, render_window, text_log):
+    """
+    This function helps updating the display periodically by delayed recursion.
+    """
+    update_display(node_grid, node_grid_display, clusterviz_config, render_window, text_log)
+    render_widget.after(update_rate, lambda: tkinter_after(render_widget, update_rate, \
+                        node_grid, node_grid_display, clusterviz_config, render_window, text_log))
 
 def syscall(clusterviz_config):
     """
