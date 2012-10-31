@@ -43,6 +43,8 @@ Dependencies:
 	$ aptitude install python-vtk
    * Python XML libraries
 	$ aptitude install python-xml
+   * Python TkInter (for full interactive usage)
+        $ aptitude install python-tk
    * Sphinx (in order to build the html docs)
 	$ aptitude install python-sphinx
 
