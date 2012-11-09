@@ -18,13 +18,20 @@ dist:
 VERSION=0.7a
 RPMBUILD_DIR=$(HOME)/rpmbuild
 buildrpm: dist
+	mkdir -p $(RPMBUILD_DIR)
+	mkdir -p $(RPMBUILD_DIR)/BUILD
+	mkdir -p $(RPMBUILD_DIR)/BUILDROOT
+	mkdir -p $(RPMBUILD_DIR)/RPMS
+	mkdir -p $(RPMBUILD_DIR)/SOURCES
+	mkdir -p $(RPMBUILD_DIR)/SPECS
+	mkdir -p $(RPMBUILD_DIR)/SRPMS
 	cp rpm/pbsclusterviz.spec $(RPMBUILD_DIR)/SPECS/
 	cp dist/pbsclusterviz-$(VERSION).tar.gz $(RPMBUILD_DIR)/SOURCES/
 	rpmbuild -ba $(RPMBUILD_DIR)/SPECS/pbsclusterviz.spec
 
 DEBUILD_DIR=/tmp/pbsclusterviz_debuild
 builddeb: dist
-	mkdir $(DEBUILD_DIR)
+	mkdir -p $(DEBUILD_DIR)
 	cp dist/pbsclusterviz-$(VERSION).tar.gz $(DEBUILD_DIR)/pbsclusterviz_$(VERSION).orig.tar.gz
 	tar -C $(DEBUILD_DIR) -xvzf $(DEBUILD_DIR)/pbsclusterviz_$(VERSION).orig.tar.gz
 	cp -r debian $(DEBUILD_DIR)/pbsclusterviz-$(VERSION)/
