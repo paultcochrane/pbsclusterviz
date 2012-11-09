@@ -34,7 +34,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc README LICENSE BUGS CHANGES TODO
+%doc README BUGS CHANGES TODO
 %{_bindir}/cluster_status
 %{_bindir}/gen_nodes_file
 
