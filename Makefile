@@ -15,11 +15,14 @@ wwwsync:
 dist:
 	python setup.py sdist
 
-buildrpm:
-	python setup.py bdist_rpm
+VERSION=0.7a
+RPMBUILD_DIR=$(HOME)/rpmbuild
+buildrpm: dist
+	cp rpm/pbsclusterviz.spec $(RPMBUILD_DIR)/SPECS/
+	cp dist/pbsclusterviz-$(VERSION).tar.gz $(RPMBUILD_DIR)/SOURCES/
+	rpmbuild -ba $(RPMBUILD_DIR)/SPECS/pbsclusterviz.spec
 
 DEBUILD_DIR=/tmp/pbsclusterviz_debuild
-VERSION=0.7a
 builddeb: dist
 	mkdir $(DEBUILD_DIR)
 	cp dist/pbsclusterviz-$(VERSION).tar.gz $(DEBUILD_DIR)/pbsclusterviz_$(VERSION).orig.tar.gz
