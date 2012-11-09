@@ -38,15 +38,15 @@ and extend your PATH so:
 
 Dependencies:
    * Python Version 2.5+
-	$ aptitude install python
+        $ aptitude install python
    * The Visualisation Toolkit Version 5.2+ with Python bindings
-	$ aptitude install python-vtk
+        $ aptitude install python-vtk
    * Python XML libraries
-	$ aptitude install python-xml
+        $ aptitude install python-xml
    * Python TkInter (for full interactive usage)
         $ aptitude install python-tk
    * Sphinx (in order to build the html docs)
-	$ aptitude install python-sphinx
+        $ aptitude install python-sphinx
 
 --------------------------------------------------------------------------
 Usage
