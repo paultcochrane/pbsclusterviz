@@ -37,7 +37,7 @@ and extend your PATH so:
 
 
 Dependencies:
-   * Python Version 2.5+
+   * Python Version 2.4+
         $ aptitude install python
    * The Visualisation Toolkit Version 5.4+ with Python bindings
         $ aptitude install python-vtk
