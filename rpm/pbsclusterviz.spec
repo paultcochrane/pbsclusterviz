@@ -9,7 +9,7 @@ Url: http://pbsclusterviz.sourceforge.net
 Source0: http://sourceforge.net/projects/pbsclusterviz/files/pbsclusterviz%200.7/pbsclusterviz-0.7a.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires: python vtk-python
+BuildRequires: python >= 2.4 ,vtk-python >= 5.4
 
 # define python_sitelib
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
