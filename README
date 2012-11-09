@@ -39,14 +39,24 @@ and extend your PATH so:
 Dependencies:
    * Python Version 2.4+
         $ aptitude install python
+        or
+        $ yum install python
    * The Visualisation Toolkit Version 5.4+ with Python bindings
         $ aptitude install python-vtk
+        or
+        $ yum install vtk-python
    * Python XML libraries
         $ aptitude install python-xml
+        or
+        $ yum install libxml2-python
    * Python TkInter (for full interactive usage)
         $ aptitude install python-tk
+        or
+        $ yum install tkinter
    * Sphinx (in order to build the html docs)
         $ aptitude install python-sphinx
+        or
+        $ yum install python-sphinx
 
 --------------------------------------------------------------------------
 Usage
