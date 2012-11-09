@@ -1,7 +1,7 @@
 .PHONY: help doc api pylint dist
 
 help:
-	@echo "Possible make targets: doc, pylint, wwwsync, dist, builddeb, buildrpm"
+	@echo "Possible make targets: doc, pylint, wwwsync, dist, deb, rpm"
 
 doc:
 	cd doc; $(MAKE) html
@@ -17,7 +17,7 @@ dist:
 
 VERSION=0.7a
 RPMBUILD_DIR=$(HOME)/rpmbuild
-buildrpm: dist
+rpm: dist
 	mkdir -p $(RPMBUILD_DIR)
 	mkdir -p $(RPMBUILD_DIR)/BUILD
 	mkdir -p $(RPMBUILD_DIR)/BUILDROOT
@@ -30,7 +30,7 @@ buildrpm: dist
 	rpmbuild -ba $(RPMBUILD_DIR)/SPECS/pbsclusterviz.spec
 
 DEBUILD_DIR=/tmp/pbsclusterviz_debuild
-builddeb: dist
+deb: dist
 	mkdir -p $(DEBUILD_DIR)
 	cp dist/pbsclusterviz-$(VERSION).tar.gz $(DEBUILD_DIR)/pbsclusterviz_$(VERSION).orig.tar.gz
 	tar -C $(DEBUILD_DIR) -xvzf $(DEBUILD_DIR)/pbsclusterviz_$(VERSION).orig.tar.gz
