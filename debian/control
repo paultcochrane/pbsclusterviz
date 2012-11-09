@@ -4,11 +4,11 @@ Section: python
 Priority: optional
 Homepage: http://pbsclusterviz.sourceforge.net
 Build-Depends: debhelper (>= 8), python
-Standards-Version: 3.9.1
+Standards-Version: 3.9.3
 
 Package: python-pbsclusterviz
 Version: 0.7a
-Depends: ${shlibs:Depends}, ${misc:Depends}, python, python-vtk (>= 5.4)
+Depends: ${shlibs:Depends}, ${misc:Depends}, python, python-vtk (>= 5.4), python-xml, python-support (>= 0.90)
 Architecture: all
 Copyright: LICENSE
 Changelog: changelog
