@@ -12,7 +12,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python vtk-python
 
 # define python_sitelib
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from %distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 %description
 PBS Cluster Viz is a project to display information useful to admins and
@@ -41,7 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 # add pbsclusterviz base files
 %{python_sitelib}/pbsclusterviz/*.py
 %{python_sitelib}/pbsclusterviz/*.pyc
-%ghost %{python_sitelib}/pbscluserviz/*.pyo
+%ghost %{python_sitelib}/pbsclusterviz/*.pyo
 
 # config files
 %config(noreplace) %{_sysconfdir}/pbsclusterviz.d/clusterviz.conf
