@@ -46,7 +46,7 @@ Dependencies:
         or
         $ yum install vtk-python
    * Python XML libraries
-        $ aptitude install python-xml
+        $ aptitude install python-libxml2
         or
         $ yum install libxml2-python
    * Python TkInter (for full interactive usage)
