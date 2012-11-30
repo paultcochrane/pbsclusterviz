@@ -1,6 +1,6 @@
 Name: pbsclusterviz
 Version: 0.7a
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: PBS Cluster Visualisation
 
 Group: Applications/Engineering
@@ -11,6 +11,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: python, vtk-python, libxml2-python
 Requires: python, vtk-python, libxml2-python
+BuildArch: noarch
 
 # define python_sitelib
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
@@ -48,5 +49,14 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/pbsclusterviz.d/nodes
 
 %changelog
+* Fri Nov 30 2012 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7-1
+- made corrections to spec file after comments from Volker Fröhlich (Fedora)
+  - added COPYING and AUTHORS
+  - updated GPL text
+  - using Name and Version macros in Source0
+  - corrected license value
+  - removed version dependencies from BuildRequires
+  - added Requires packages
+
 * Fri Nov 9 2012 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7-1
 - New spec file for pbsclusterviz-0.7
