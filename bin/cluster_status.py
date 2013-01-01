@@ -24,7 +24,7 @@ using the output of pbsnodes
 
 import sys, getopt, logging, os, Tkinter
 from pbsclusterviz import NodeGrid, NodeGridDisplay, ClustervizConfig, \
-        TextLog
+        ScreenLog
 from vtk import vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, \
         vtkInteractorStyleTrackballCamera
 from vtk.tk.vtkTkRenderWindowInteractor import vtkTkRenderWindowInteractor
@@ -123,8 +123,8 @@ def main():
     display_mode = clusterviz_config.get_display_mode()
     logging.debug("Display mode = %s" % display_mode)
 
-    # Create text log
-    text_log = TextLog(clusterviz_config)
+    # Create screen log
+    text_log = ScreenLog(clusterviz_config)
 
     # read in the nodes list
     node_grid = NodeGrid(text_log)

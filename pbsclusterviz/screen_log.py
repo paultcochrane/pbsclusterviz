@@ -23,7 +23,7 @@ modules and shows them according to configuration.
 from vtk import vtkTextActor
 import time
 
-class TextLog(object):
+class ScreenLog(object):
     """
     Holds data and functions for the text log.
     """

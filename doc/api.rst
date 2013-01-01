@@ -40,10 +40,10 @@ NodeGridXMLHandler
    :members:
 
 --------------------------------------------------------------------------
-TextLog
+ScreenLog
 --------------------------------------------------------------------------
 
-.. automodule:: pbsclusterviz.text_log
+.. automodule:: pbsclusterviz.screen_log
    :members:
 
 
