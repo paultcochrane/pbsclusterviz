@@ -99,9 +99,9 @@ def main():
     logger.setLevel(logging.DEBUG)
 
     # create console handler
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.ERROR)
-    logger.addHandler(ch)
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.ERROR)
+    logger.addHandler(console_handler)
 
     # Read in the configuration
     clusterviz_config = ClustervizConfig()
@@ -378,8 +378,8 @@ def handle_options(args, clusterviz_config):
         elif option in ("-d", "--debug"):
             logger = logging.getLogger("")
             #create console handler
-            ch = logging.StreamHandler()
-            logger.addHandler(ch)
+            console_handler = logging.StreamHandler()
+            logger.addHandler(console_handler)
             logger.debug("Debugging switched on")
         elif option in ("-i", "--interactive"):
             clusterviz_config.set_interactive_mode(True)
