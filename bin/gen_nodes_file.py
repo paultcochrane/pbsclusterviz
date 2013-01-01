@@ -107,7 +107,8 @@ if node_prefix is None:
     print "You need to specify a node prefix (-p <prefix>)"
     sys.exit(2)
 
-node_grid = NodeGrid()
+screen_log = ""
+node_grid = NodeGrid(screen_log)
 handler = NodeGridXMLHandler(node_grid)
 parser = xml.sax.make_parser()
 parser.setContentHandler(handler)
