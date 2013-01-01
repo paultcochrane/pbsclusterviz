@@ -30,7 +30,8 @@ from vtk import vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, \
 from vtk.tk.vtkTkRenderWindowInteractor import vtkTkRenderWindowInteractor
 
 ### The interaction callback routines ################################
-def key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log):
+def key_input(obj, event, node_grid, node_grid_display, clusterviz_config, \
+        render_window, screen_log):
     key_pressed = obj.GetKeySym()
 
     if key_pressed == 'j':
@@ -46,14 +47,16 @@ def key_input(obj, event, node_grid, node_grid_display, clusterviz_config, rende
         logging.debug("updating...")
     else:
         return
-    update_display(node_grid, node_grid_display, clusterviz_config, render_window, text_log)
+    update_display(node_grid, node_grid_display, clusterviz_config, \
+            render_window, screen_log)
 
-def update_display(node_grid, node_grid_display, clusterviz_config, render_window, text_log):
+def update_display(node_grid, node_grid_display, clusterviz_config, \
+        render_window, screen_log):
 
     # system call to update the xml
     syscall(clusterviz_config)
 
-    text_log.add_to_log("Updating ...")
+    screen_log.add_to_log("Updating ...")
     display_mode = clusterviz_config.get_display_mode()
     xml_file = clusterviz_config.get_xml_file()
     node_grid.update(xml_file, display_mode, node_grid_display)
@@ -76,7 +79,7 @@ def update_display(node_grid, node_grid_display, clusterviz_config, render_windo
     title_actor.SetInput(title_text)
 
     # update the text log
-    text_log.synch()
+    screen_log.synch()
 
     # update window dimensions if needed
     size = render_window.GetSize()
@@ -124,11 +127,11 @@ def main():
     logging.debug("Display mode = %s" % display_mode)
 
     # Create screen log
-    text_log = ScreenLog(clusterviz_config)
+    screen_log = ScreenLog(clusterviz_config)
 
     # read in the nodes list
-    node_grid = NodeGrid(text_log)
-    node_grid.read_nodes_file(clusterviz_config.get_nodes_file(), text_log)
+    node_grid = NodeGrid(screen_log)
+    node_grid.read_nodes_file(clusterviz_config.get_nodes_file(), screen_log)
 
     # Collect the actors of the visualized loads from the nodes
     box_list = node_grid.init_boxes()
@@ -176,8 +179,8 @@ def main():
     active_camera.Zoom(1.3)
 
     # add text log actor to the renderer
-    text_log.synch()
-    renderer.AddActor(text_log.get_log_actor())
+    screen_log.synch()
+    renderer.AddActor(screen_log.get_log_actor())
 
     # Do we need an interactive window?
     if clusterviz_config.is_interactive():
@@ -185,11 +188,14 @@ def main():
         config_parser = clusterviz_config.get_config_parser()
         if config_parser.has_option("main", "TkInter_GUI"):
             if config_parser.getboolean("main", "TkInter_GUI"):
-                TkInter_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log)
+                TkInter_init(render_window, clusterviz_config, node_grid, \
+                        node_grid_display, screen_log)
             else:
-                vtkRenderWindow_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log)
+                vtkRenderWindow_init(render_window, clusterviz_config, \
+                        node_grid, node_grid_display, screen_log)
         else:
-            vtkRenderWindow_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log)
+            vtkRenderWindow_init(render_window, clusterviz_config, \
+                    node_grid, node_grid_display, screen_log)
 
     # If no interactive window is desired
     else:
@@ -197,7 +203,8 @@ def main():
         node_grid_display.save_render_window(render_window, \
                 clusterviz_config, display_mode)
 
-def vtkRenderWindow_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log):
+def vtkRenderWindow_init(render_window, clusterviz_config, node_grid, \
+        node_grid_display, screen_log):
 
     window_width = clusterviz_config.get_window_width()
     window_height = clusterviz_config.get_window_height()
@@ -210,7 +217,8 @@ def vtkRenderWindow_init(render_window, clusterviz_config, node_grid, node_grid_
     iren = vtkRenderWindowInteractor()
     iren.SetRenderWindow(render_window)
     iren.AddObserver("KeyPressEvent", lambda obj, event:               
-    key_input(obj, event, node_grid, node_grid_display, clusterviz_config, render_window, text_log)) 
+    key_input(obj, event, node_grid, node_grid_display, clusterviz_config, \
+        render_window, screen_log)) 
 
     # we now have balloons on the nodes telling us what jobs are running where
     balloon_widget = node_grid.init_balloons()
@@ -237,13 +245,15 @@ def vtkRenderWindow_init(render_window, clusterviz_config, node_grid, node_grid_
         iren.CreateRepeatingTimer(10000)
 
     iren.AddObserver("TimerEvent", lambda o, e:
-    update_display(node_grid, node_grid_display, clusterviz_config, render_window, text_log))
+    update_display(node_grid, node_grid_display, clusterviz_config, \
+        render_window, screen_log))
 
     # Off we go
     render_window.Render()
     iren.Start()
 
-def TkInter_init(render_window, clusterviz_config, node_grid, node_grid_display, text_log):
+def TkInter_init(render_window, clusterviz_config, node_grid, \
+        node_grid_display, screen_log):
 
     root=Tkinter.Tk()
     window_width = clusterviz_config.get_window_width()
@@ -275,24 +285,29 @@ def TkInter_init(render_window, clusterviz_config, node_grid, node_grid_display,
         if config_parser.has_option("main", "update_rate"):
             update_rate = config_parser.getint("main", "update_rate")
             render_widget.after(update_rate, lambda: tkinter_after(render_widget, update_rate, \
-                                node_grid, node_grid_display, clusterviz_config, render_window, text_log))
+                                node_grid, node_grid_display, \
+                                clusterviz_config, render_window, screen_log))
     else:
         update_rate = 10000
         render_widget.after(update_rate, lambda: tkinter_after(render_widget, update_rate, \
-                                node_grid, node_grid_display, clusterviz_config, render_window, text_log))
+                                node_grid, node_grid_display, \
+                                clusterviz_config, render_window, screen_log))
 
     # Off we go
     render_window.Render()
     render_widget.pack()
     root.mainloop()
 
-def tkinter_after(render_widget, update_rate, node_grid, node_grid_display, clusterviz_config, render_window, text_log):
+def tkinter_after(render_widget, update_rate, node_grid, node_grid_display, \
+        clusterviz_config, render_window, screen_log):
     """
     This function helps updating the display periodically by delayed recursion.
     """
-    update_display(node_grid, node_grid_display, clusterviz_config, render_window, text_log)
+    update_display(node_grid, node_grid_display, clusterviz_config, \
+            render_window, screen_log)
     render_widget.after(update_rate, lambda: tkinter_after(render_widget, update_rate, \
-                        node_grid, node_grid_display, clusterviz_config, render_window, text_log))
+                        node_grid, node_grid_display, clusterviz_config, \
+                        render_window, screen_log))
 
 def syscall(clusterviz_config):
     """

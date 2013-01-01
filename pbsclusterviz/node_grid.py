@@ -30,19 +30,19 @@ class NodeGrid(object):
     """
     The NodeGrid class
 
-    :param text_log: Holds messages to be logged to the screen
-    :type text_log: string
+    :param screen_log: Holds messages to be logged to the screen
+    :type screen_log: string
     """
-    def __init__(self, text_log):
+    def __init__(self, screen_log):
         # initialize the class variables:
         self.box_list = []
         self.label_list = []
         self.balloon_widget = vtkBalloonWidget()
         self.node_table = {}
-        self.text_log = text_log
+        self.screen_log = screen_log
         self.logger = logging.getLogger("")
    
-    def read_nodes_file(self, nodes_file, text_log):
+    def read_nodes_file(self, nodes_file, screen_log):
         """
         Read the nodes file and populate the node grid with Node objects
         """
@@ -65,7 +65,7 @@ class NodeGrid(object):
                 y_pos = node_info[2]
                 y_pos = y_pos.replace('\n', '')
         
-                node = Node(text_log)
+                node = Node(screen_log)
                 node.set_name(node_name)
                 node.set_grid_location(x_pos, y_pos)
                 self.node_table[node_name] = node
@@ -85,7 +85,7 @@ class NodeGrid(object):
         Creates an empty Node object with the given name and
         adds it to the node list
         """
-        node = Node(self.text_log)
+        node = Node(self.screen_log)
         node.set_name(node_name)
         self.node_table[node_name] = node
 

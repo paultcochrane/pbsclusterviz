@@ -30,7 +30,7 @@ class Node(object):
     status and position in the grid.
     This information can be updated and visualized.
     """
-    def __init__(self, text_log):
+    def __init__(self, screen_log):
         self.name = ""
         self.x_pos = 0
         self.y_pos = 0
@@ -51,7 +51,7 @@ class Node(object):
         self.box = vtkCubeSource()
         self.norm_jobs = 0.0
         self.norm_load = 0.0
-        self.text_log = text_log
+        self.screen_log = screen_log
         self.logger = logging.getLogger("")
 
     def get_name(self):
@@ -109,10 +109,10 @@ class Node(object):
         """
 
         if self.state is not None and "down" in self.state:
-            self.text_log.add_to_log(self.name + " down.")
+            self.screen_log.add_to_log(self.name + " down.")
             return self.get_grey_square()
         if self.state is not None and "offline" in self.state:
-            self.text_log.add_to_log(self.name + " offline.")
+            self.screen_log.add_to_log(self.name + " offline.")
 
         color = [ 0.0, 0.0, 0.0 ]
         lut = node_grid_display.get_lookup_table(display_mode)
@@ -132,7 +132,7 @@ class Node(object):
 
         #Complain about job/load imbalance
         if abs(self.norm_load-self.norm_jobs) >= 0.2:
-            self.text_log.add_to_log("Job/load imbalance on " + self.name)
+            self.screen_log.add_to_log("Job/load imbalance on " + self.name)
 
         #Complain about overload
         if self.num_processors is not None:
@@ -141,7 +141,7 @@ class Node(object):
                 node_load_info = "node: %s, load = %f, threshold = %f" % \
                         (self.name, self.get_load_avg(), load_threshold)
                 self.logger.debug(node_load_info)
-                self.text_log.add_to_log(self.name + " overloaded.")
+                self.screen_log.add_to_log(self.name + " overloaded.")
 
         self.box.SetZLength(self.height)
         self.box.SetCenter((float(self.x_pos), float(self.y_pos), self.height/2))
