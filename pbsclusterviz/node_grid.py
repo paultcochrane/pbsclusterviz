@@ -29,6 +29,9 @@ import tempfile
 class NodeGrid(object):
     """
     The NodeGrid class
+
+    :param text_log: Holds messages to be logged to the screen
+    :type text_log: string
     """
     def __init__(self, text_log):
         # initialize the class variables:
