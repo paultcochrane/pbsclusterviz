@@ -194,7 +194,7 @@ class NodeGridDisplay(object):
         xml = clusterviz_config.get_xml_file()
         if xml is not None and os.path.isfile(xml):
             mtime = time.localtime(os.path.getmtime(xml))
-            mtime = time.strftime("%d.%m.%Y um %H:%M:%S Uhr", mtime) 
+            mtime = time.strftime("%a, %d %b %Y %H:%M:%S (%Z)", mtime)
         else:
             mtime = "N.a."
 
