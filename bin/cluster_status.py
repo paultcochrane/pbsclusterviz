@@ -22,12 +22,11 @@ This is a program to visualize the load status of a cluster
 using the output of pbsnodes
 """
 
-import sys, getopt, logging, os, Tkinter
+import sys, getopt, logging, os
 from pbsclusterviz import NodeGrid, NodeGridDisplay, ClustervizConfig, \
         ScreenLog
 from vtk import vtkRenderer, vtkRenderWindow, vtkRenderWindowInteractor, \
         vtkInteractorStyleTrackballCamera
-from vtk.tk.vtkTkRenderWindowInteractor import vtkTkRenderWindowInteractor
 
 ### The interaction callback routines ################################
 def key_input(obj, event, node_grid, node_grid_display, clusterviz_config, \
@@ -189,6 +188,9 @@ def main():
 
     # Do we need an interactive window?
     if clusterviz_config.is_interactive():
+        import Tkinter
+        from vtk.tk.vtkTkRenderWindowInteractor import vtkTkRenderWindowInteractor
+
         # This enables us to access entries in the config file
         config_parser = clusterviz_config.get_config_parser()
         if config_parser.has_option("main", "TkInter_GUI"):
