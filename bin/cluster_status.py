@@ -213,10 +213,6 @@ def main():
 def vtkRenderWindow_init(render_window, clusterviz_config, node_grid, \
         node_grid_display, screen_log):
 
-    window_width = clusterviz_config.get_window_width()
-    window_height = clusterviz_config.get_window_height()
-    render_window.SetSize(window_width, window_height)
-
     # This enables us to access entries in the config file
     config_parser = clusterviz_config.get_config_parser()
 
