@@ -122,6 +122,11 @@ def main():
     render_window.AddRenderer(renderer)
     renderer.SetBackground(0, 0, 0)
 
+    # set the window size for interactive and non-interactive display
+    window_width = clusterviz_config.get_window_width()
+    window_height = clusterviz_config.get_window_height()
+    render_window.SetSize(window_width, window_height)
+
     # get the current visualization mode
     display_mode = clusterviz_config.get_display_mode()
     logging.debug("Display mode = %s" % display_mode)
