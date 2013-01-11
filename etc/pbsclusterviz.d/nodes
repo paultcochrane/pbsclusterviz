@@ -25,6 +25,11 @@ nwf-n002 10 1
 nwf-n003 11 1
 nwf-n004 12 1
 nwf-n005 13 1
+# 'itp' partition
+itp-n001 15 1
+itp-n002 16 1
+itp-n003 17 1
+itp-n004 18 1
 # 'smp' partition
 estragon 1 2
 centaurus 2 2 
