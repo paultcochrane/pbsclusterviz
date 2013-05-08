@@ -45,6 +45,10 @@ smp-n006 11 2
 smp-n007 12 2
 smp-n008 13 2
 smp-n009 14 2
+smp-n010 15 2
+smp-n011 16 2
+smp-n012 17 2
+smp-n013 18 2
 # 'tane' partition
 tane-n001 1 3
 tane-n002 2 3
