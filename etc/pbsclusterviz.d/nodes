@@ -14,7 +14,6 @@ paris-n011 11 0
 # 'tfd' partition (tesla and test-n001 aren't actually TFD nodes, but they fit
 # nicely here on the graph)
 test-n001 1 1
-tesla 2 1
 tfd-n001 4 1
 tfd-n002 5 1
 tfd-n003 6 1
@@ -31,10 +30,8 @@ itp-n002 16 1
 itp-n003 17 1
 itp-n004 18 1
 # 'smp' partition
-estragon 1 2
 centaurus 2 2 
 lucky 3 2
-vladimir 4 2
 helena 5 2
 smp-n001 6 2
 smp-n002 7 2
