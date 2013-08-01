@@ -1,6 +1,6 @@
 Name: pbsclusterviz
 Version: 0.7a
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: PBS Cluster Visualisation
 
 Group: Applications/Engineering
@@ -31,9 +31,6 @@ as static output is available.
 %install
 %{__python} setup.py install -O1 --skip-build --root=$RPM_BUILD_ROOT
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
 %doc README BUGS CHANGES TODO AUTHORS COPYING
 %{_bindir}/cluster_status
@@ -60,3 +57,6 @@ rm -rf $RPM_BUILD_ROOT
 
 * Fri Nov 9 2012 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7-1
 - New spec file for pbsclusterviz-0.7
+
+* Thu Aug 1 2013 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7-3
+- removed %clean as recommended by Veaceslav Mindru (Fedora)
