@@ -1,6 +1,6 @@
 Name: pbsclusterviz
 Version: 0.7a
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: PBS Cluster Visualisation
 
 Group: Applications/Engineering
