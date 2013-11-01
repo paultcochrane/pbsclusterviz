@@ -32,7 +32,7 @@ as static output is available.
 %{__python} setup.py install -O1 --skip-build --root=$RPM_BUILD_ROOT
 
 %files
-%doc README BUGS CHANGES TODO AUTHORS COPYING
+%doc README.md BUGS CHANGES TODO AUTHORS COPYING
 %{_bindir}/cluster_status
 %{_bindir}/gen_nodes_file
 

@@ -1,6 +1,6 @@
 # base stuff to include
 include AUTHORS
-include README
+include README.md
 include CHANGES
 include COPYING
 include TODO
