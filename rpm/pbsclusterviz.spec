@@ -50,6 +50,11 @@ as static output is available.
 %config(noreplace) %{_sysconfdir}/pbsclusterviz.d/nodes
 
 %changelog
+* Fri Nov 7 2013 Paul Cochrane <paul@liekut.de> 0.7-4
+- packaging python egg-info file as per Fedorag packaging guidelines
+- corrected changelog order as noted by Orion Poplawski (Fedora)
+- updated source and url info to new GitHub repository location
+
 * Thu Aug 1 2013 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7-3
 - removed %clean as recommended by Veaceslav Mindru (Fedora)
 
