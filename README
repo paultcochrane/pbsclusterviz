@@ -41,7 +41,7 @@ Dependencies:
    * The Visualisation Toolkit Version 5.4+ with Python bindings
         $ aptitude install python-vtk
         or
-        $ yum install vtk-python
+        $ yum install vtk-python (in the EPEL repository)
    * Python XML libraries
         $ aptitude install python-libxml2
         or
