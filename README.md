@@ -1,3 +1,6 @@
+PBS Cluster Viz
+===============
+
 Project page:
     https://github.com/paultcochrane/pbsclusterviz
 
