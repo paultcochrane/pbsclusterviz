@@ -6,7 +6,7 @@ Summary: PBS Cluster Visualisation
 Group: Applications/Engineering
 License: GPLv2+
 Url: https://github.com/paultcochrane/pbsclusterviz
-Source0: https://github.com/paultcochrane/%{name}/archive/%{name}-%{version}.tar.gz
+Source0: https://github.com/paultcochrane/%{name}/archive/%{name}-%{version}-%{release}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: python, vtk-python, libxml2-python
