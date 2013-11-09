@@ -9,6 +9,12 @@ Url: https://github.com/paultcochrane/pbsclusterviz
 Source0: https://github.com/paultcochrane/%{name}/archive/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+# for some reason GitHub downloads files via webbrowser with the repository
+# name prepended to the tarball name, however via wget or curl the
+# repository name isn't prepended.  Also, when the tarball is downloaded
+# via wget/curl, the ".tar.gz" gets removed from the file name.  This
+# doesn't happen via a web browser.  This is *very* strange.
+
 BuildRequires: python, vtk-python, libxml2-python
 Requires: python, vtk-python, libxml2-python
 BuildArch: noarch
