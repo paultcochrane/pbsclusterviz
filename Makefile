@@ -13,7 +13,6 @@ dist:
 	python setup.py sdist
 
 VERSION=0.7a
-RPMRELEASE=4.el6
 RPMBUILD_DIR=$(HOME)/rpmbuild
 rpm: dist
 	mkdir -p $(RPMBUILD_DIR)
@@ -24,7 +23,7 @@ rpm: dist
 	mkdir -p $(RPMBUILD_DIR)/SPECS
 	mkdir -p $(RPMBUILD_DIR)/SRPMS
 	cp rpm/pbsclusterviz.spec $(RPMBUILD_DIR)/SPECS/
-	cp dist/pbsclusterviz-$(VERSION).tar.gz $(RPMBUILD_DIR)/SOURCES/pbsclusterviz-$(VERSION)-$(RPMRELEASE).tar.gz
+	cp dist/pbsclusterviz-$(VERSION).tar.gz $(RPMBUILD_DIR)/SOURCES/
 	rpmbuild -ba $(RPMBUILD_DIR)/SPECS/pbsclusterviz.spec
 
 DEBUILD_DIR=/tmp/pbsclusterviz_debuild

@@ -6,7 +6,7 @@ Summary: PBS Cluster Visualisation
 Group: Applications/Engineering
 License: GPLv2+
 Url: https://github.com/paultcochrane/pbsclusterviz
-Source0: https://github.com/paultcochrane/%{name}/archive/%{name}-%{version}-%{release}.tar.gz
+Source0: https://github.com/paultcochrane/%{name}/archive/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: python, vtk-python, libxml2-python
@@ -54,6 +54,7 @@ as static output is available.
 - packaging python egg-info file as per Fedorag packaging guidelines
 - corrected changelog order as noted by Orion Poplawski (Fedora)
 - updated source and url info to new GitHub repository location
+- removed release information from tarball version number
 
 * Thu Aug 1 2013 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7-3
 - removed %clean as recommended by Veaceslav Mindru (Fedora)
