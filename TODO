@@ -7,6 +7,7 @@ For the 0.8 release:
     when a balloon is shown (with 'i') then not only the currently running
     jobs should be shown, but also the currently requested memory as a
     percentage of the total (available) memory should be shown
+ - support Python 2.x and Python 3.x
 
 For the 0.9 release:
  - add an "update" button
