@@ -53,7 +53,7 @@ as static output is available.
 
 # the egg-info file built from distutils needs to be put into
 # %{python_sitelib} as per the Fedora packaging guidelines
-%{python_sitelib}/pbsclusterviz-0.7a-py2.6.egg-info
+%{python_sitelib}/pbsclusterviz-*.egg-info
 
 # config files
 %config(noreplace) %{_sysconfdir}/pbsclusterviz.d/clusterviz.conf
