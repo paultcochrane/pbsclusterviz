@@ -47,6 +47,7 @@ as static output is available.
 %{_bindir}/gen_nodes_file
 
 # add pbsclusterviz base files
+%dir %{python_sitelib}/pbsclusterviz
 %{python_sitelib}/pbsclusterviz/*.py
 %{python_sitelib}/pbsclusterviz/*.pyc
 %ghost %{python_sitelib}/pbsclusterviz/*.pyo
@@ -56,6 +57,7 @@ as static output is available.
 %{python_sitelib}/pbsclusterviz-*.egg-info
 
 # config files
+%dir %{_sysconfdir}/pbsclusterviz.d
 %config(noreplace) %{_sysconfdir}/pbsclusterviz.d/clusterviz.conf
 %config(noreplace) %{_sysconfdir}/pbsclusterviz.d/nodes
 
