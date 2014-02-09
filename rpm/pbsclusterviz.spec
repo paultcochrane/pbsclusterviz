@@ -7,7 +7,6 @@ Group: Applications/Engineering
 License: GPLv2+
 Url: https://github.com/paultcochrane/pbsclusterviz
 Source0: https://github.com/paultcochrane/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # for some reason GitHub downloads files via web browser with the repository
 # name prepended to the tarball name, however via wget or curl the
