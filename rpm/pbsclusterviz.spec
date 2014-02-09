@@ -19,7 +19,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # via both web browser and wget/curl, however spectool is unable to save
 # to the correct filename.
 
-BuildRequires: python, vtk-python, libxml2-python
+BuildRequires: python2-devel, vtk-python, libxml2-python
 Requires: python, vtk-python, libxml2-python
 BuildArch: noarch
 
