@@ -1,8 +1,8 @@
 Source: pbsclusterviz
-Maintainer: Paul Cochrane <paultcochrane@users.sourceforge.net>
+Maintainer: Paul Cochrane <paul@liekut.de>
 Section: python
 Priority: optional
-Homepage: http://pbsclusterviz.sourceforge.net
+Homepage: https://github.com/paultcochrane/pbsclusterviz
 Build-Depends: debhelper (>= 8), python
 Standards-Version: 3.9.3
 

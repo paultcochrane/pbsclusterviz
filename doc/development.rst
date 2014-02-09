@@ -3,23 +3,17 @@ Development
 --------------------------------------------------------------------------
 
 Although the project is currently in beta status, it is quite usable and the
-SVN trunk is in use on a ~180-node system by the `Scientific Computing Group
-<http://www.rrzn.uni-hannover.de/clustersystem.html>`_ at the `Regional
-Computing Centre for Lower Saxony <http://www.rrzn.uni-hannover.de>`_ in
-Germany where it was initially developed.
+master branch is in use on a ~180-node system by the
+`Scientific Computing Group <http://www.rrzn.uni-hannover.de/clustersystem.html>`_
+at the
+`Regional Computing Centre for Lower Saxony <http://www.rrzn.uni-hannover.de>`_
+in Germany where it was initially developed.
 
-For the most current version of the application, just check out the SVN
-trunk:
-
-.. code-block:: bash
-
-   $ svn co https://pbsclusterviz.svn.sourceforge.net/svnroot/pbsclusterviz/trunk pbsclusterviz/trunk 
-
-or for "bleeding edge" developments check out the branches:
+For the most current version of the application, just check out the source:
 
 .. code-block:: bash
 
-   $ svn co https://pbsclusterviz.svn.sourceforge.net/svnroot/pbsclusterviz/branches pbsclusterviz/branches
+   $ git clone git@github.com:paultcochrane/pbsclusterviz.git
 
 =======
 Roadmap

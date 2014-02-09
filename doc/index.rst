@@ -25,10 +25,10 @@ Contents:
    api.rst
 
 Project page:
-    http://sourceforge.net/projects/pbsclusterviz/
+    https://github.com/paultcochrane/pbsclusterviz/
 
 Download:
-    http://sourceforge.net/projects/pbsclusterviz/files/latest/download
+    https://github.com/paultcochrane/pbsclusterviz/releases
 
 --------------------------------------------------------------------------
 For the impatient:
