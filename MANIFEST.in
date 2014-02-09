@@ -10,9 +10,7 @@ include setup.py
 
 # add the main programs
 include bin/cluster_status
-include bin/cluster_status.py
 include bin/gen_nodes_file
-include bin/gen_nodes_file.py
 
 # add the default configuration files
 include etc/pbsclusterviz.d/clusterviz.conf
