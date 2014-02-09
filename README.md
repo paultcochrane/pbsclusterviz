@@ -1,12 +1,9 @@
-PBS Cluster Viz
-===============
+# PBS Cluster Viz
 
 Project page:
     https://github.com/paultcochrane/pbsclusterviz
 
---------------------------------------------------------------------------
-For the impatient:
---------------------------------------------------------------------------
+## For the impatient:
 
     $ python setup.py install
     $ pbsnodes -x > pbsnodes.xml
@@ -15,9 +12,7 @@ For the impatient:
     $ gen_nodes_file -x pbsnodes.xml -n Cluster -p lcn -o nodes
     $ pbs_cluster_status
 
---------------------------------------------------------------------------
-Installation
---------------------------------------------------------------------------
+## Installation
 
 Installation in a central location:
 
@@ -37,6 +32,7 @@ and extend your `PATH` so:
 
 
 Dependencies:
+
 * Python Version 2.4+
 
     `$ aptitude install python` or `$ yum install python`
@@ -57,9 +53,7 @@ Dependencies:
 
     `$ aptitude install python-sphinx` or `$ yum install python-sphinx`
 
---------------------------------------------------------------------------
-Usage
---------------------------------------------------------------------------
+## Usage
 
 Firstly, a nodes file needs to be generated.  This specifies how the nodes
 for the entire cluster system will be displayed.  The cluster nodes are
@@ -72,9 +66,7 @@ experiment somewhat.
 When the nodes file is initially generated, a basic structure will be
 created which can be later fine tuned by hand.
 
-***********************
-Generating a nodes file
-***********************
+### Generating a nodes file
 
     $ pbsnodes -x > pbsnodes.xml
     $ gen_nodes_file -x pbsnodes.xml \
@@ -109,9 +101,7 @@ to add the new cluster nodes to your load and job status visualisation.
 Now that the nodes file has been generated, you're now ready to begin
 visualising the load and job status of your cluster system.
 
-**********************************
-Visualising the system load status
-**********************************
+### Visualising the system load status
 
 To generate an interactive three-dimensional view of the current load of all
 nodes in your cluster system, you merely need to run the 'pbs_cluster_status'
@@ -146,9 +136,7 @@ When the program is called, the cluster status image appears briefly on the
 screen and then disappears.  This image is then saved to the file
 'cluster_load_status.png' by default.
 
-*********************************
-Visualising the system job status
-*********************************
+### Visualising the system job status
 
 In order to view the job status of your cluster system you merely need to
 use the `pbs_cluster_status` command with the `-m/--display_mode` option, e.g.:
@@ -170,16 +158,12 @@ As before, in order to generate an output image one needs to use the
 By default this will generate an image with filename
 'cluster_job_status.png'.
 
-********************
-Updating the display
-********************
+### Updating the display
 
 The display output can be updated by pressing the u key when in interactive
 mode.
 
-***********************************
-Remote pbsnodes XML file generation
-***********************************
+### Remote pbsnodes XML file generation
 
 Instead of just using a local 'pbsnodes.xml' file one can also get this file
 from a remote host.  This is a practical solution when the computer where
@@ -203,9 +187,7 @@ access to the remote server.  This article gives a good overview:
 
 http://www.howtoforge.com/ssh-best-practices
 
-****************************************************
-Generating movies of your cluster status information
-****************************************************
+### Generating movies of your cluster status information
 
 The cluster load and job status images are saved to disk with the respective
 filenames `cluster_load_status.png` and `cluster_job_status.png`.  An extra file
@@ -218,9 +200,7 @@ as cron jobs.  For instance, one could save images every ten minutes, then
 after a day or even a week, one can generate an mpeg movie file from the
 collected images.
 
---------------------------------------------------------------------------
-Example
---------------------------------------------------------------------------
+## Example
 
 In the `examples/` directory of the distribution you will find some
 pre-generated pbsnodes xml files and an example configuration file.
@@ -231,9 +211,7 @@ examples/ directory and run the following command:
 
     $ pbs_cluster_status -x pbsnodes_rrzn.xml -n nodes.rrzn -c rrznviz.conf -i
 
---------------------------------------------------------------------------
-Documentation
---------------------------------------------------------------------------
+## Documentation
 
 The documentation is distributed with 'pbsclusterviz' in the `doc/`
 directory.  Make sure that you have installed the 'sphinx' package so that
