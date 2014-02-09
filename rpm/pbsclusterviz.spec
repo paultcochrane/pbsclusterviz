@@ -68,7 +68,7 @@ as static output is available.
 - removed release information from tarball version number
 
 * Thu Aug 1 2013 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7a-3
-- removed %clean as recommended by Veaceslav Mindru (Fedora)
+- removed %%clean as recommended by Veaceslav Mindru (Fedora)
 
 * Fri Nov 30 2012 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7a-1
 - made corrections to spec file after comments from Volker Fröhlich (Fedora)
