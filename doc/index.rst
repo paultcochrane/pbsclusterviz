@@ -40,7 +40,7 @@ For the impatient:
     $ pbsnodes -x > pbsnodes.xml
     # assuming your cluster nodes all start with 'lcn'
     $ gen_nodes_file -x pbsnodes.xml -n Cluster -p lcn -o nodes
-    $ cluster_status
+    $ pbs_cluster_status
 
 --------------------------------------------------------------------------
 Example output

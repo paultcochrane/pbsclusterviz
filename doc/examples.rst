@@ -11,5 +11,5 @@ examples/ directory and run the following command:
 
 .. code-block:: bash
 
-   $ cluster_status -x pbsnodes_rrzn.xml -n nodes.rrzn -c rrznviz.conf -i
+   $ pbs_cluster_status -x pbsnodes_rrzn.xml -n nodes.rrzn -c rrznviz.conf -i
 

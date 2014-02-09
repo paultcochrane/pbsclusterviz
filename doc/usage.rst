@@ -61,12 +61,12 @@ Visualising the system load status
 **********************************
 
 To generate an interactive three-dimensional view of the current load of all
-nodes in your cluster system, you merely need to run the ``cluster_status``
+nodes in your cluster system, you merely need to run the ``pbs_cluster_status``
 command:
 
 .. code-block:: bash
 
-   $ cluster_status
+   $ pbs_cluster_status
 
 To view current job-level utilisation of all nodes just press the "j" button
 when viewing the cluster.
@@ -75,7 +75,7 @@ If you wish, you can specify a previously generated pbsnodes xml file:
 
 .. code-block:: bash
 
-   $ cluster_status -x pbsnodes.xml
+   $ pbs_cluster_status -x pbsnodes.xml
 
 The title of the output image is controlled by the configuration file
 (default: ``clusterviz.conf``).  In the section ``[load viewer]`` you merely
@@ -109,11 +109,11 @@ Visualising the system job status
 *********************************
 
 In order to view the job status of your cluster system you merely need to
-use the ``cluster_status`` command with the ``-m/--display_mode`` option, e.g.:
+use the ``pbs_cluster_status`` command with the ``-m/--display_mode`` option, e.g.:
 
 .. code-block:: bash
 
-   $ cluster_status -m job
+   $ pbs_cluster_status -m job
 
 To change the default title of the generated image, you need to set the
 value of the ``title`` key in the ``job viewer]`` section of the configuration
@@ -129,7 +129,7 @@ As before, in order to generate an output image one needs to use the
 
 .. code-block:: bash
 
-   $ cluster_status -m job -N
+   $ pbs_cluster_status -m job -N
 
 By default this will generate an image with filename
 ``cluster_job_status.png``.
@@ -151,8 +151,8 @@ extra file image file with the current timestamp is also saved for each type
 of status image.  These files can then be used to create movies of the
 evolution of the cluster status over time and can give insight into patterns
 not otherwise obvious from viewing the static images.  The best way to
-produce such movies is to run ``'cluster_status -m load`` and
-``cluster_status -m job`` as cron jobs.  For instance, one could save images
+produce such movies is to run ``'pbs_cluster_status -m load`` and
+``pbs_cluster_status -m job`` as cron jobs.  For instance, one could save images
 every ten minutes, then after a day or even a week, one can generate an mpeg
 movie file from the collected images.
 

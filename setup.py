@@ -15,7 +15,7 @@ a=setup(name="pbsclusterviz",
       platforms="OS Independent",
       packages=['pbsclusterviz'],
       scripts=[
-                'bin/cluster_status',
+                'bin/pbs_cluster_status',
                 'bin/gen_nodes_file',
                 ],
       data_files=[('/etc/pbsclusterviz.d',

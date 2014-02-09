@@ -13,7 +13,7 @@ For the impatient:
     # assuming your cluster nodes all start with 'lcn'
     # and your cluster name is "Cluster"
     $ gen_nodes_file -x pbsnodes.xml -n Cluster -p lcn -o nodes
-    $ cluster_status
+    $ pbs_cluster_status
 
 --------------------------------------------------------------------------
 Installation
@@ -114,17 +114,17 @@ Visualising the system load status
 **********************************
 
 To generate an interactive three-dimensional view of the current load of all
-nodes in your cluster system, you merely need to run the 'cluster_status'
+nodes in your cluster system, you merely need to run the 'pbs_cluster_status'
 command:
 
-    $ cluster_status
+    $ pbs_cluster_status
 
 To view current job-level utilisation of all nodes just press the "j" button
 when viewing the cluster.
 
 If you wish, you can specify a previously generated pbsnodes xml file:
 
-    $ cluster_status -x pbsnodes.xml
+    $ pbs_cluster_status -x pbsnodes.xml
 
 The title of the output image is controlled by the configuration file
 (default: clusterviz.conf).  In the section `[load viewer]` you merely need to
@@ -151,9 +151,9 @@ Visualising the system job status
 *********************************
 
 In order to view the job status of your cluster system you merely need to
-use the `cluster_status` command with the `-m/--display_mode` option, e.g.:
+use the `pbs_cluster_status` command with the `-m/--display_mode` option, e.g.:
 
-    $ cluster_status -m job
+    $ pbs_cluster_status -m job
 
 To change the default title of the generated image, you need to set the
 value of the 'title' key in the `[job viewer]` section of the configuration
@@ -165,7 +165,7 @@ file (clusterviz.conf):
 As before, in order to generate an output image one needs to use the
 `-N/--non_interactive` option:
 
-    $ cluster_status -m job -N
+    $ pbs_cluster_status -m job -N
 
 By default this will generate an image with filename
 'cluster_job_status.png'.
@@ -185,7 +185,7 @@ Instead of just using a local 'pbsnodes.xml' file one can also get this file
 from a remote host.  This is a practical solution when the computer where
 the cluster status is being visualised is not part of PBS-based cluster
 system and so is not able to extract the pbsnodes information itself.  With
-the `-s` option to `cluster_status` it is now possible to generate the
+the `-s` option to `pbs_cluster_status` it is now possible to generate the
 'pbsnodes.xml' file on a remote host and have it read at the local host.
 Normally this would occur via 'ssh', and after having added a line similar
 to the following to the `[main]` section of the configuration file
@@ -193,9 +193,9 @@ to the following to the `[main]` section of the configuration file
     [main]
     syscall = ssh login-node 'pbsnodes -x' > pbsnodes.xml
 
-one then merely needs to start `cluster_status` like so:
+one then merely needs to start `pbs_cluster_status` like so:
 
-    $ cluster_status -s
+    $ pbs_cluster_status -s
 
 For this to run smoothly (and without you needing to enter your password
 each time the display is updated) you should enable password-less `ssh`
@@ -213,7 +213,7 @@ image file with the current timestamp is also saved for each type of status
 image.  These files can then be used to create movies of the evolution of
 the cluster status over time and can give insight into patterns not
 otherwise obvious from viewing the static images.  The best way to produce
-such movies is to run `cluster_status -m load` and `cluster_status -m job`
+such movies is to run `pbs_cluster_status -m load` and `pbs_cluster_status -m job`
 as cron jobs.  For instance, one could save images every ten minutes, then
 after a day or even a week, one can generate an mpeg movie file from the
 collected images.
@@ -229,7 +229,7 @@ The first example works for the RRZN cluster system
 (http://www.rrzn.uni-hannover.de/computeserver.html).  Change into the
 examples/ directory and run the following command:
 
-    $ cluster_status -x pbsnodes_rrzn.xml -n nodes.rrzn -c rrznviz.conf -i
+    $ pbs_cluster_status -x pbsnodes_rrzn.xml -n nodes.rrzn -c rrznviz.conf -i
 
 --------------------------------------------------------------------------
 Documentation

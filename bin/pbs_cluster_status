@@ -330,7 +330,7 @@ def usage():
     Prints the usage information
     """
     print """Usage:
-    cluster_status [options]
+    pbs_cluster_status [options]
     
     options:
     [-h/--help]                  Print usage information and exit
@@ -351,7 +351,7 @@ def version():
     """
     Prints version information
     """
-    print """cluster_status version 0.7a"""
+    print """pbs_cluster_status version 0.7a"""
 
 def handle_options(args, clusterviz_config):
     logger = logging.getLogger("")

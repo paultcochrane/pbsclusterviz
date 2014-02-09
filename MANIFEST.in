@@ -9,7 +9,7 @@ include MANIFEST
 include setup.py
 
 # add the main programs
-include bin/cluster_status
+include bin/pbs_cluster_status
 include bin/gen_nodes_file
 
 # add the default configuration files

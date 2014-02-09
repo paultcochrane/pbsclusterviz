@@ -39,7 +39,7 @@ as static output is available.
 
 %files
 %doc README.md BUGS CHANGES TODO AUTHORS COPYING
-%{_bindir}/cluster_status
+%{_bindir}/pbs_cluster_status
 %{_bindir}/gen_nodes_file
 
 # add pbsclusterviz base files

@@ -17,7 +17,7 @@
 .\" for manpage-specific macros, see man(7)
 .SH NAME
 gen_nodes_file - Generate a nodes file for input to
-.B cluster_status
+.B pbs_cluster_status
 .SH SYNOPSIS
 .B gen_nodes_file
 .RI [ options ]
@@ -25,7 +25,7 @@ gen_nodes_file - Generate a nodes file for input to
 .SH DESCRIPTION
 .B gen_nodes_file
 generates an initial "nodes" file for use with
-.B cluster_status.
+.B pbs_cluster_status.
 .PP
 HPC cluster systems are often split into several sub-clusters each
 controlled by the same batch system.  Usually there are so many nodes, that
@@ -40,7 +40,7 @@ use a table width of 16).
 .B gen_nodes_file
 uses this information to generate a 'nodes' file in the required format
 for visualisation with the
-.B cluster_status
+.B pbs_cluster_status
 program of the
 .B pbsclusterviz
 project.
@@ -88,7 +88,7 @@ License GPLv2+: GNU GPL version 2 or later
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 .SH SEE ALSO
-cluster_status(1), http://pbsclusterviz.sf.net
+pbs_cluster_status(1), http://pbsclusterviz.sf.net
 .PP
 This manual page was written by Paul Cochrane <paultcochrane@users.sourceforge.net>,
 for the Debian project (but may be used by others).
