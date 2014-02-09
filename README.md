@@ -107,14 +107,14 @@ To generate an interactive three-dimensional view of the current load of all
 nodes in your cluster system, you merely need to run the 'pbs_cluster_status'
 command:
 
-    $ pbs_cluster_status
+    $ pbs_cluster_status -m load
 
 To view current job-level utilisation of all nodes just press the "j" button
 when viewing the cluster.
 
 If you wish, you can specify a previously generated pbsnodes xml file:
 
-    $ pbs_cluster_status -x pbsnodes.xml
+    $ pbs_cluster_status -m load -x pbsnodes.xml
 
 The title of the output image is controlled by the configuration file
 (default: clusterviz.conf).  In the section `[load viewer]` you merely need to
@@ -125,12 +125,12 @@ set the value of the 'title' key to the title you wish to use.  For example:
 
 To specify an alternate configuration file, you can use the `-c` option:
 
-    $ cluster_load_status -c mycluster.conf
+    $ pbs_cluster_status -m load -c mycluster.conf
 
 If you wish to use the program non-interactively and thereby generate an
 image of the cluster status at that point in time, just use the `-N` option.
 
-    $ cluster_load_status -N
+    $ pbs_cluster_status -m load -N
 
 When the program is called, the cluster status image appears briefly on the
 screen and then disappears.  This image is then saved to the file
