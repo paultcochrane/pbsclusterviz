@@ -22,9 +22,6 @@ BuildRequires: python2-devel, vtk-python, libxml2-python
 Requires: python, vtk-python, libxml2-python
 BuildArch: noarch
 
-# define python_sitelib
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-
 %description
 PBS Cluster Viz is a project to display information useful to admins and
 users about a computing cluster managed by a PBS-compatible resource
