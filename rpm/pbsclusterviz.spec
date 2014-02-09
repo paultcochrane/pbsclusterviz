@@ -62,16 +62,16 @@ as static output is available.
 %config(noreplace) %{_sysconfdir}/pbsclusterviz.d/nodes
 
 %changelog
-* Thu Nov 7 2013 Paul Cochrane <paul@liekut.de> 0.7-4
+* Thu Nov 7 2013 Paul Cochrane <paul@liekut.de> 0.7a-4
 - packaging python egg-info file as per Fedorag packaging guidelines
 - corrected changelog order as noted by Orion Poplawski (Fedora)
 - updated source and url info to new GitHub repository location
 - removed release information from tarball version number
 
-* Thu Aug 1 2013 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7-3
+* Thu Aug 1 2013 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7a-3
 - removed %clean as recommended by Veaceslav Mindru (Fedora)
 
-* Fri Nov 30 2012 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7-1
+* Fri Nov 30 2012 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7a-1
 - made corrections to spec file after comments from Volker Fröhlich (Fedora)
   - added COPYING and AUTHORS
   - updated GPL text
@@ -80,5 +80,5 @@ as static output is available.
   - removed version dependencies from BuildRequires
   - added Requires packages
 
-* Fri Nov 9 2012 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7-1
-- New spec file for pbsclusterviz-0.7
+* Fri Nov 9 2012 Paul Cochrane <paultcochrane@users.sourceforge.net> 0.7a-1
+- New spec file for pbsclusterviz-0.7a
