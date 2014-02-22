@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=PBS Custer Viz
+GenericName=PBS Cluster Visualisation
+Comment=PBS Cluster Visualisation
+Exec=pbsclusterviz
+Icon=pbsclusterviz
+Terminal=false
+Type=Application
+Categories=Graphics;

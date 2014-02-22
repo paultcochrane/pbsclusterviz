@@ -1,7 +1,6 @@
 *.pyc
 *~
 *.swp
-*.png
 MANIFEST
 dist
 pbsnodes.xml

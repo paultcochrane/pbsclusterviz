@@ -30,3 +30,8 @@ include doc/conf.py
 include doc/Makefile
 include doc/job_status_july_2011.png
 include doc/load_status_july_2011.png
+
+# add the desktop-related files
+include desktop/pbsclusterviz.png
+include desktop/pbsclusterviz-512.png
+include desktop/pbsclusterviz.desktop
