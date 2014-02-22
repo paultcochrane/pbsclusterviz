@@ -7,6 +7,7 @@ Group: Applications/Engineering
 License: GPLv2+
 Url: https://github.com/paultcochrane/pbsclusterviz
 Source0: https://github.com/paultcochrane/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source3: %{name}.desktop
 
 # for some reason GitHub downloads files via web browser with the repository
 # name prepended to the tarball name, however via wget or curl the
@@ -18,7 +19,7 @@ Source0: https://github.com/paultcochrane/%{name}/releases/download/v%{version}/
 # via both web browser and wget/curl, however spectool is unable to save
 # to the correct filename.
 
-BuildRequires: python2-devel, vtk-python, libxml2-python
+BuildRequires: python2-devel, vtk-python, libxml2-python, desktop-file-utils
 Requires: python, vtk-python, libxml2-python
 BuildArch: noarch
 
@@ -36,6 +37,7 @@ as static output is available.
 
 %install
 %{__python} setup.py install -O1 --skip-build --root=$RPM_BUILD_ROOT
+desktop-file-install --dir=${RPM_BUILD_ROOT}/desktop %{SOURCE3}
 
 %files
 %doc README.md BUGS CHANGES TODO AUTHORS COPYING
