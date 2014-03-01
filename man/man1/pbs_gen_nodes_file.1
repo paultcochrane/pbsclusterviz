@@ -16,14 +16,14 @@
 .\" .sp <n>    insert n+1 empty lines
 .\" for manpage-specific macros, see man(7)
 .SH NAME
-gen_nodes_file - Generate a nodes file for input to
+pbs_gen_nodes_file - Generate a nodes file for input to
 .B pbs_cluster_status
 .SH SYNOPSIS
-.B gen_nodes_file
+.B pbs_gen_nodes_file
 .RI [ options ]
 .br
 .SH DESCRIPTION
-.B gen_nodes_file
+.B pbs_gen_nodes_file
 generates an initial "nodes" file for use with
 .B pbs_cluster_status.
 .PP
@@ -31,13 +31,13 @@ HPC cluster systems are often split into several sub-clusters each
 controlled by the same batch system.  Usually there are so many nodes, that
 each node in a given sub-cluster has a specific prefix
 (e.g. 'mynode-n001', 'mynode-n002', ... etc.).
-.B gen_nodes_file
+.B pbs_gen_nodes_file
 assumes this structure and expects as input an XML file generated from the
 output of the 'pbsnodes -x' command.  One then specifies a section name for
 each of the sub-clusters, a node prefix for the nodes in the given sub-cluster
 and a table width (e.g. to split a 96-node cluster into 6 rows of 16 one would
 use a table width of 16).
-.B gen_nodes_file
+.B pbs_gen_nodes_file
 uses this information to generate a 'nodes' file in the required format
 for visualisation with the
 .B pbs_cluster_status
@@ -78,7 +78,7 @@ The program is documented fully by the
 .B pbsclusterviz
 manual, which should be available at https://github.com/paultcochrane/pbsclusterviz.
 .SH AUTHOR
-.B gen_nodes_file
+.B pbs_gen_nodes_file
 was written by Paul Cochrane <paul@liekut.de>.
 .SH COPYRIGHT
 Copyright \(co 2009 Free Software Foundation, Inc.

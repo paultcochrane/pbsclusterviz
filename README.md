@@ -9,7 +9,7 @@ Project page:
     $ pbsnodes -x > pbsnodes.xml
     # assuming your cluster nodes all start with 'lcn'
     # and your cluster name is "Cluster"
-    $ gen_nodes_file -x pbsnodes.xml -n Cluster -p lcn -o nodes
+    $ pbs_gen_nodes_file -x pbsnodes.xml -n Cluster -p lcn -o nodes
     $ pbs_cluster_status
 
 ## Installation
@@ -69,32 +69,32 @@ created which can be later fine tuned by hand.
 ### Generating a nodes file
 
     $ pbsnodes -x > pbsnodes.xml
-    $ gen_nodes_file -x pbsnodes.xml \
+    $ pbs_gen_nodes_file -x pbsnodes.xml \
                -n <node_section_name> -p <node_prefix> -o nodes
 
 Many cluster installations are collections of one or more smaller clusters
 of computers, each with their own naming strategy.  For instance, a cluster
 called "LinuxCluster" could have nodes labeled `lcn01`, `lcn02`, `lcn03`... etc.
-Therefore, one needs to specify a node prefix so that `gen_nodes_file` can
+Therefore, one needs to specify a node prefix so that `pbs_gen_nodes_file` can
 pick the relevant nodes out of the pbsnodes xml file.  The node section name
 is a comment in the generated nodes file.
 
 To account for more than one cluster in an entire cluster system one appends
-to an existing nodes file with the `-a` option to `gen_nodes_file`.
+to an existing nodes file with the `-a` option to `pbs_gen_nodes_file`.
 
 For example, with three clusters "TinyCluster", "LinuxCluster" and
 "BigOldBull", where the nodes are labelled `tcn<xx>`, `lcn<xx>` and `bobn<xx>`
-respectively, one would run `gen_nodes_file` like so:
+respectively, one would run `pbs_gen_nodes_file` like so:
 
-    $ gen_nodes_file -x pbsnodes.xml -n TinyCluster -p tcn -o nodes
-    $ gen_nodes_file -x pbsnodes.xml -n LinuxCluster -p lcn -o nodes -a
-    $ gen_nodes_file -x pbsnodes.xml -n BigOldBull -p bobn -o nodes -a
+    $ pbs_gen_nodes_file -x pbsnodes.xml -n TinyCluster -p tcn -o nodes
+    $ pbs_gen_nodes_file -x pbsnodes.xml -n LinuxCluster -p lcn -o nodes -a
+    $ pbs_gen_nodes_file -x pbsnodes.xml -n BigOldBull -p bobn -o nodes -a
 
 The output is a plain text file called 'nodes' which you can then alter to
 your heart's content.  If you add a new cluster to your configuration, you
 merely need to use the line
 
-    $ gen_nodes_file -x pbsnodes.xml -n NewCluster -p newn -o nodes -a
+    $ pbs_gen_nodes_file -x pbsnodes.xml -n NewCluster -p newn -o nodes -a
 
 to add the new cluster nodes to your load and job status visualisation.
 

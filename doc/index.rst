@@ -39,7 +39,7 @@ For the impatient:
     $ python setup.py install
     $ pbsnodes -x > pbsnodes.xml
     # assuming your cluster nodes all start with 'lcn'
-    $ gen_nodes_file -x pbsnodes.xml -n Cluster -p lcn -o nodes
+    $ pbs_gen_nodes_file -x pbsnodes.xml -n Cluster -p lcn -o nodes
     $ pbs_cluster_status
 
 --------------------------------------------------------------------------

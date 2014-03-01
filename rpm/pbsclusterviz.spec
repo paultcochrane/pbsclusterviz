@@ -46,7 +46,7 @@ install usr/share/icons/hicolor/256x256/apps/pbsclusterviz.png \
 %files
 %doc README.md BUGS CHANGES TODO AUTHORS COPYING
 %{_bindir}/pbs_cluster_status
-%{_bindir}/gen_nodes_file
+%{_bindir}/pbs_gen_nodes_file
 
 # add pbsclusterviz base files
 %dir %{python_sitelib}/pbsclusterviz
