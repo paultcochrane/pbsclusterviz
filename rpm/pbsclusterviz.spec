@@ -1,7 +1,7 @@
 Name: pbsclusterviz
 Version: 0.7a
 Release: 4%{?dist}
-Summary: PBS Cluster Visualisation
+Summary: PBS Cluster Visualization
 
 Group: Applications/Engineering
 License: GPLv2+
