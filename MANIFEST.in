@@ -32,6 +32,5 @@ include doc/job_status_july_2011.png
 include doc/load_status_july_2011.png
 
 # add the desktop-related files
-include usr/share/applications/pbsclusterviz.png
-include usr/share/applications/pbsclusterviz-512.png
+include usr/share/icons/hicolor/256x256/apps/pbsclusterviz.png
 include usr/share/applications/pbsclusterviz.desktop
