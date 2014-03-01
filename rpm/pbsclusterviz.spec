@@ -7,7 +7,6 @@ Group: Applications/Engineering
 License: GPLv2+
 Url: https://github.com/paultcochrane/pbsclusterviz
 Source0: https://github.com/paultcochrane/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Source3: %{name}.desktop
 
 # for some reason GitHub downloads files via web browser with the repository
 # name prepended to the tarball name, however via wget or curl the
@@ -37,12 +36,14 @@ as static output is available.
 
 %install
 %{__python} setup.py install -O1 --skip-build --root=$RPM_BUILD_ROOT
-desktop-file-install --dir=${RPM_BUILD_ROOT}/desktop %{SOURCE3}
+desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
+	usr/share/applications/pbsclusterviz.desktop
 
 %files
 %doc README.md BUGS CHANGES TODO AUTHORS COPYING
 %{_bindir}/pbs_cluster_status
 %{_bindir}/gen_nodes_file
+%{_datadir}/applications/pbsclusterviz.desktop
 
 # add pbsclusterviz base files
 %dir %{python_sitelib}/pbsclusterviz
