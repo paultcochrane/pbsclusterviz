@@ -38,7 +38,6 @@ as static output is available.
 %{__python} setup.py install -O1 --skip-build --root=$RPM_BUILD_ROOT
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
 	usr/share/applications/pbsclusterviz.desktop
-desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/pbsclusterviz.desktop
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/icons/hicolor/256x256/apps/
 install usr/share/icons/hicolor/256x256/apps/pbsclusterviz.png \
 	${RPM_BUILD_ROOT}%{_datadir}/icons/hicolor/256x256/apps/
