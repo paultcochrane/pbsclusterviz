@@ -54,9 +54,8 @@ install usr/share/icons/hicolor/256x256/apps/pbsclusterviz.png \
 %ghost %{python_sitelib}/pbsclusterviz/*.pyo
 
 # desktop files
-%dir %{_datadir}/icons/hicolor/256x256/apps
 %{_datadir}/applications/pbsclusterviz.desktop
-%{_datadir}/icons/hicolor/256x256/apps/pbsclusterviz.png
+%{_datadir}/icons/hicolor/256x256/apps/
 
 # the egg-info file built from distutils needs to be put into
 # %{python_sitelib} as per the Fedora packaging guidelines
