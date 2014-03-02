@@ -1,6 +1,6 @@
 Name: pbsclusterviz
 Version: 0.7a
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: PBS Cluster Visualization
 
 Group: Applications/Engineering
@@ -69,6 +69,12 @@ install usr/share/icons/hicolor/256x256/apps/pbsclusterviz.png \
 %config(noreplace) %{_sysconfdir}/pbsclusterviz.d/nodes
 
 %changelog
+* Sat Mar 1 2014 Paul Cochrane <paul@liekut.de> 0.7a-5
+- prepending 'pbs_' to program names to make them more generic
+- adding a '.desktop' file and an icon since the program is a GUI
+- correcting Free Software Foundation address in source files
+- packaging specifically for EPEL6; dropping support for EPEL5
+
 * Thu Nov 7 2013 Paul Cochrane <paul@liekut.de> 0.7a-4
 - packaging python egg-info file as per Fedorag packaging guidelines
 - corrected changelog order as noted by Orion Poplawski (Fedora)
