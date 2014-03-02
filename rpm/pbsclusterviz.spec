@@ -66,6 +66,18 @@ install usr/share/icons/hicolor/256x256/apps/pbsclusterviz.png \
 %config(noreplace) %{_sysconfdir}/pbsclusterviz.d/clusterviz.conf
 %config(noreplace) %{_sysconfdir}/pbsclusterviz.d/nodes
 
+%post
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+
+%postun
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+
 %changelog
 * Sat Mar 1 2014 Paul Cochrane <paul@liekut.de> 0.7a-5
 - packaging specifically for EPEL6; dropping support for EPEL5
