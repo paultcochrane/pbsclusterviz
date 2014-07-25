@@ -128,7 +128,7 @@ class Node(object):
             lut.GetColor(self.norm_jobs, color)
             self.height = 0.6 * self.norm_jobs
         else:
-            self.logger.error("Unknown display mode: ", display_mode)
+            self.logger.error("Unknown display mode: %s" % display_mode)
 
         #Complain about job/load imbalance
         if abs(self.norm_load-self.norm_jobs) >= 0.2:
